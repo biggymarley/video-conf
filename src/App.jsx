@@ -1,37 +1,30 @@
-import {
-  selectIsConnectedToRoom,
-  useHMSActions,
-  useHMSStore,
-} from "@100mslive/react-sdk";
+import { useState } from "react";
 import "./App.css";
-import JoinForm from "./Components/JoinForm";
-import { useEffect } from "react";
-import Conference from "./Components/Conference";
-import Footer from "./Components/Footer";
+import Login from "./Components/Login";
+import useAuthTokenHook from "./hooks/useAuthTokenHook";
+import { LoadingContext } from "./Context/LoadingContext";
+import { UserContext } from "./Context/UserContext";
+import { Loader } from "./Components/Loader";
+import { Toaster } from "sonner";
+import MainRouter from "./Components/MainRouter";
 
 function App() {
-  const isConnected = useHMSStore(selectIsConnectedToRoom);
-  const hmsActions = useHMSActions();
-
-  useEffect(() => {
-    window.onunload = () => {
-      if (isConnected) {
-        hmsActions.leave();
-      }
-    };
-  }, [hmsActions, isConnected]);
-
+  const [appLoading, setAppLoading] = useState(false);
+  const { accessToken, saveToken, clearToken, userData } = useAuthTokenHook();
   return (
-    <div className="App">
-      {isConnected ? (
-        <>
-          <Conference />
-          <Footer />
-        </>
-      ) : (
-        <JoinForm />
-      )}
-    </div>
+    <LoadingContext.Provider value={{ appLoading, setAppLoading }}>
+      <UserContext.Provider value={{ accessToken, saveToken, clearToken , userData}}>
+          {appLoading ? (
+            <div className="z-50 fixed">
+              <Loader />
+            </div>
+          ) : null}
+        <div className="App bg-bg">
+          <MainRouter />
+        </div>
+        <Toaster richColors={true} position="top-center" />
+      </UserContext.Provider>
+    </LoadingContext.Provider>
   );
 }
 
