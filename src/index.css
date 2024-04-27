@@ -87,15 +87,15 @@ form h2,
 .conference-section {
   padding: 20px 30px;
   padding-bottom: 90px;
-  max-width: 960px;
+  /* max-width: 960px; */
   margin: 0 auto;
 }
 
 .conference-section h2 {
-  text-align: center;
+  text-align: start;
   font-size: 32px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #546e7a;
+  /* border-bottom: 1px solid #546e7a; */
 }
 
 .peers-container {
@@ -106,16 +106,14 @@ form h2,
 }
 
 .peer-video {
-  height: 250px;
-  width: 250px;
-  border-radius: 20%;
   object-fit: cover;
   margin-bottom: 10px;
+  border-radius: 12px;
 }
 
-.local.peer-video {
+/* .local.peer-video {
   transform: scaleX(-1);
-}
+} */
 
 .peer-name {
   font-size: 14px;
@@ -149,7 +147,7 @@ form h2,
   height: 64px;
   border-radius: 50%;
   text-align: center;
-  background-color: #607d8b;
+  background-color: #777777;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   color: white;
   cursor: pointer;
