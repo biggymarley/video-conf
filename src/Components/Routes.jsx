@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 // const Register = lazy(() => import("./Components/Register"));
 // const LoggedUser = lazy(() => import("./LoggedUser"));
 
-export function PublicRoutes() {
+export const PublicRoutes = () => {
   return [
     { path: "/login", element:<div>hello</div> },
     // { path: "/register", element: <Register /> },

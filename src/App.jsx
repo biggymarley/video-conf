@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Toaster } from "sonner";
 import "./App.css";
 import { Loader } from "./Components/Loader";
-import MainRouter from "./Components/MainRouter";
+import MainRouter from "./Components/MainRouter.jsx";
 import { LoadingContext } from "./Context/LoadingContext";
 import { UserContext } from "./Context/UserContext";
 import useAuthTokenHook from "./hooks/useAuthTokenHook";
