@@ -38,7 +38,7 @@ const Nav = ({ isOpen, setIsOpen }) => {
   const [selectedEmojie, setisselectedEmojie] = useState(null);
   const [message, setimessage] = useState("");
   const isTabletOrMobile = useMediaQuery({ maxWidth: 2500 });
-  console.log(isTabletOrMobile)
+  console.log(isTabletOrMobile);
   const navVariants = isTabletOrMobile ? bigscreen : smallscreen;
   const Send = (e) => {
     if (e.key === "Enter") {
@@ -110,6 +110,7 @@ const Nav = ({ isOpen, setIsOpen }) => {
             >
               <div className="flex w-full gap-2 items-center">
                 <span
+                  style={{ color: userData.color }}
                   className={`font-semibold text-sm ${userData.color}`}
                 >
                   {msg.senderName} :
