@@ -4,7 +4,7 @@ import {
   createBrowserRouter
 } from "react-router-dom";
 import { Loader } from "./Loader";
-import useCheckAuth from "../hooks/useCheckAuth";
+import {useCheckAuth} from "../hooks/useCheckAuth";
 import { PrivateRoutes, PublicRoutes } from "./Routes";
 
 export default function MainRouter() {
