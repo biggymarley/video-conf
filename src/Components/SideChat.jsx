@@ -44,6 +44,7 @@ const Nav = ({ isOpen, setIsOpen }) => {
     if (e.key === "Enter") {
       hmsActions.sendBroadcastMessage(message);
       setimessage("");
+      selectedEmojie(null);
     }
   };
   const handleChange = (e) => {
