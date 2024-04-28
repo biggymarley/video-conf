@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Toaster } from "sonner";
 import "./App.css";
-import { Loader } from "./Components/Loader";
+// import { Loader } from "./Components/Loader";
 // import MainRouter from "./Components/MainRouter";
 import { LoadingContext } from "./Context/LoadingContext";
 import { UserContext } from "./Context/UserContext";
