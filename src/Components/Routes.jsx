@@ -9,7 +9,7 @@ import { Outlet } from "react-router-dom";
 
 export const PublicRoutes = () => {
   return [
-    { path: "/login", element:<div>hello</div> },
+    // { path: "/login", element:<div>hello</div> },
     // { path: "/register", element: <Register /> },
     // { path: "*", element: <Navigate to="/login" replace /> },
   ];
@@ -17,13 +17,13 @@ export const PublicRoutes = () => {
 
 export const PrivateRoutes = () => {
   return [
-    {
-      element: <Layout />,
-      children: [
+    // {
+      // element: <Layout />,
+      // children: [
         // { path: "/", element: <LoggedUser /> },
         // { path: "*", element: <Navigate to="/" replace /> },
-      ],
-    },
+      // ],
+    // },
   ];
 };
 
