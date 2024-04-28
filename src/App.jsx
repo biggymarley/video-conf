@@ -1,12 +1,11 @@
 import { useState } from "react";
+import { Toaster } from "sonner";
 import "./App.css";
-import Login from "./Components/Login";
-import useAuthTokenHook from "./hooks/useAuthTokenHook";
+import { Loader } from "./Components/Loader";
+import MainRouter from "./Components/MainRouter";
 import { LoadingContext } from "./Context/LoadingContext";
 import { UserContext } from "./Context/UserContext";
-import { Loader } from "./Components/Loader";
-import { Toaster } from "sonner";
-import MainRouter from "./Components/MainRouter";
+import useAuthTokenHook from "./hooks/useAuthTokenHook";
 
 function App() {
   const [appLoading, setAppLoading] = useState(false);
