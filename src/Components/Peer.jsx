@@ -34,7 +34,7 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
   }, []);
 
   return (
-    <div className="flex flex-col w-[400px] relative" >
+    <div className="flex flex-col w-[400px] relative">
       <div className="w-full">
         <div className="w-full h-[75%] sm:h-[250px] rounded-md overflow-hidden flex border">
           {userConrols.video ? (
@@ -58,7 +58,7 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
             </div>
           )}
 
-         {rightClicked ? <Menu /> : null} 
+          {rightClicked ? <Menu peer={peer} userData={userData} /> : null}
         </div>
         <div className="text-center font-semibold">{peer.name}</div>
       </div>
@@ -66,18 +66,36 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
   );
 };
 
-const Menu = () => {
+const Menu = ({ peer, userData }) => {
   return (
     <div className="rounded-md bg-bg flex flex-col  w-[70%] absolute h-full rounded right-[40%] bottom-[-40%]">
       <p className="transition hover:bg-secondaryBg p-2 text-bold text-gray-400 border-b-[1px] border-gray-500 m-0">
         Profile
       </p>
+      {peer.name === userData.userName ? null : (
+        <p className="transition hover:bg-secondaryBg p-2 text-bold text-gray-400 border-b-[1px] border-gray-500">
+          Message
+        </p>
+      )}
+
       <p className="transition hover:bg-secondaryBg p-2 text-bold text-gray-400 border-b-[1px] border-gray-500">
-        Message
+        <a
+          href="https://github.com/biggymarley"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          My Github
+        </a>
       </p>
-      <p className="transition hover:bg-secondaryBg p-2 text-bold text-gray-400 border-b-[1px] border-gray-500">
-        My Github
-      </p>
+      <a
+        href="https://www.youtube.com/watch?v=VEy6wdTAfBc"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <p className="transition hover:bg-secondaryBg p-2 text-bold text-gray-400 border-b-[1px] border-gray-500">
+          Tlbiggy
+        </p>
+      </a>
     </div>
   );
 };

@@ -44,7 +44,7 @@ const Nav = ({ isOpen, setIsOpen }) => {
     if (e.key === "Enter") {
       hmsActions.sendBroadcastMessage(message);
       setimessage("");
-      selectedEmojie(null);
+      setisselectedEmojie(null);
     }
   };
   const handleChange = (e) => {
@@ -102,9 +102,10 @@ const Nav = ({ isOpen, setIsOpen }) => {
         </div>
       </div>
       <div className="flex flex-col mt-[90px] gap-1 overflow-auto min-h-screen h-full pb-[160px] absolute w-full">
+        <p className="font-bold text-center pb-8">Welcom to   {rooms?.data?.[selectedRoom]?.name}'s Chat, Type Somthing!</p>
         {allMessages.map((msg, index) => (
           <div key={msg.id} className={`flex gap-1  px-2`}>
-            <p
+            <div
               className="font-light text-sm "
               style={{ lineBreak: "anywhere" }}
             >
@@ -113,14 +114,14 @@ const Nav = ({ isOpen, setIsOpen }) => {
                   style={{ color: userData.color }}
                   className={`font-semibold text-sm ${userData.color}`}
                 >
-                  {msg.senderName} :
+                  {msg.senderName === "You" ? userData.userName : msg.senderName} :
                 </span>
                 <span className="font-light text-xs text-gray-400">
                   {moment(msg.time).fromNow()}
                 </span>
               </div>
               {msg.message}
-            </p>
+            </div>
           </div>
         ))}
       </div>
