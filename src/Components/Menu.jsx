@@ -33,11 +33,20 @@ export default function Menu({ isOpen, setIsOpen }) {
   const [isOpenEmojie, setisOpenEmojie] = useState(false);
   const [selectedEmojie, setisselectedEmojie] = useState(null);
   const [message, setimessage] = useState("");
+  const [allMessagesArray, setallMessagesArray] = useState([]);
   const [color, setColor] = useState("red");
-  // const { messages } = useMessages();
+  const { messages, setMessagesdB } = useMessages();
   const Send = (e) => {
     if (e.key === "Enter") {
       hmsActions.sendBroadcastMessage(message);
+      setMessagesdB(
+        { ...allMessages?.[allMessages?.length - 1], message: message } ?? {
+          senderName: "You",
+          message: message,
+          time: moment.now(),
+          id: moment.now().toExponential(),
+        }
+      );
       setimessage("");
       setisselectedEmojie(null);
     }
@@ -52,6 +61,16 @@ export default function Menu({ isOpen, setIsOpen }) {
     )?.[0]?.color;
     setColor(color);
   }, [usersData, userData]);
+
+  // useEffect(() => {
+  //   if (allMessages?.[allMessages?.length - 1] && ) {
+
+  //     setallMessagesArray([
+  //       ...allMessagesArray,
+  //       allMessages[allMessages.length - 1],
+  //     ]);
+  //   }
+  // }, [allMessages]);
 
   useEffect(() => {
     if (selectedEmojie) setimessage(message + selectedEmojie.emoji);
@@ -122,8 +141,8 @@ export default function Menu({ isOpen, setIsOpen }) {
                   Somthing!
                 </p>
               </div>
-              {allMessages.map((msg, index) => (
-                <div key={msg.id} className={`flex gap-4  px-2`}>
+              {messages?.map((msg, index) => (
+                <div key={index} className={`flex gap-4  px-2`}>
                   <div
                     className="font-light text-sm "
                     style={{ lineBreak: "anywhere" }}

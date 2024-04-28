@@ -1,7 +1,20 @@
-import { collection, getDocs } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { db } from "../firebase/firebaseConfig";
-
+import moment from "moment";
+function replaceUndefinedWithEmptyString(obj) {
+  let newObj = {}; // Create a new empty object
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      if (typeof obj[key] === "undefined") {
+        newObj[key] = ""; // Assign empty string to the new object
+      } else {
+        newObj[key] = obj[key]; // Copy existing value to the new object
+      }
+    }
+  }
+  return newObj;
+}
 export default function useMessages() {
   const [messages, setMessages] = useState(null);
 
@@ -12,7 +25,37 @@ export default function useMessages() {
       messagesRes.forEach((docs) => {
         messagesArray = [...messagesArray, docs.data()];
       });
-      console.log(messagesRes);
+      setMessages([...messagesArray]);
+      console.log("resssssssssss", messagesArray);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const setMessagesdB = async (message) => {
+    try {
+      console.log(message);
+      const cleanmessage = replaceUndefinedWithEmptyString(message);
+      const messagesRef = doc(
+        db,
+        "messages",
+        cleanmessage?.id ?? moment.now().toExponential()
+      );
+      await setDoc(messagesRef, {
+        ...cleanmessage,
+        senderName: "You",
+        time: moment.now(),
+        id: moment.now().toExponential(),
+      });
+      setMessages([
+        ...messages,
+        {
+          ...cleanmessage,
+          senderName: "You",
+          time: moment.now(),
+          id: moment.now().toExponential(),
+        },
+      ]);
     } catch (error) {
       console.error(error);
     }
@@ -21,4 +64,5 @@ export default function useMessages() {
   useEffect(() => {
     getMessages();
   }, []);
+  return { setMessagesdB, messages };
 }
