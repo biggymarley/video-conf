@@ -15,7 +15,7 @@ function replaceUndefinedWithEmptyString(obj) {
   }
   return newObj;
 }
-export default function useMessages() {
+export default function useMessages(userName) {
   const [messages, setMessages] = useState(null);
 
   const getMessages = async () => {
@@ -43,7 +43,7 @@ export default function useMessages() {
       );
       await setDoc(messagesRef, {
         ...cleanmessage,
-        senderName: "You",
+        senderName: userName,
         time: moment.now(),
         id: moment.now().toExponential(),
       });
@@ -51,7 +51,7 @@ export default function useMessages() {
         ...messages,
         {
           ...cleanmessage,
-          senderName: "You",
+          senderName: userName,
           time: moment.now(),
           id: moment.now().toExponential(),
         },

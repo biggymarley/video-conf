@@ -35,13 +35,17 @@ export default function Menu({ isOpen, setIsOpen }) {
   const [message, setimessage] = useState("");
   const [allMessagesArray, setallMessagesArray] = useState([]);
   const [color, setColor] = useState("red");
-  const { messages, setMessagesdB } = useMessages();
+  const { messages, setMessagesdB } = useMessages(userData.userName);
   const Send = (e) => {
     if (e.key === "Enter") {
       hmsActions.sendBroadcastMessage(message);
       setMessagesdB(
-        { ...allMessages?.[allMessages?.length - 1], message: message } ?? {
-          senderName: "You",
+        {
+          ...allMessages?.[allMessages?.length - 1],
+          message: message,
+          senderName: userData.userName,
+        } ?? {
+          senderName: userData.userName,
           message: message,
           time: moment.now(),
           id: moment.now().toExponential(),
