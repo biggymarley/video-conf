@@ -8,7 +8,14 @@ import {
 } from "firebase/auth";
 import { auth, db } from "./firebaseConfig";
 import { toast } from "sonner";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+} from "firebase/firestore";
 
 const actionConfig = {
   handleCodeInApp: true,
@@ -23,14 +30,20 @@ export const loginUser = async (email, password, saveToken, setAppLoading) => {
     //and returning the resault to the app*
     const docRef = doc(db, "users", res.user.uid);
     const user = await getDoc(docRef);
+    const users = await getDocs(collection(db, "users"));
+    let usersArray = [];
+    users.forEach((docs) => {
+      // doc.data() is never undefined for query doc snapshots
+      usersArray = [...usersArray, docs.data()];
+    });
     setAppLoading(false);
     toast.success("Welcome to Discord Clone.");
-    saveToken(res.user.accessToken, user.data());
+    saveToken(res.user.accessToken, user.data(), usersArray);
 
     // return user?.data() ?? null;
   } catch (error) {
     setAppLoading(false);
-    console.error(error);
+    console.error("errrrrrrrrrr", error);
     toast.error(
       error?.code?.replace("auth/", "").replaceAll("-", " ") ||
         "error please retry"

@@ -97,10 +97,15 @@ form h2,
 .peer-video {
   object-fit: cover;
   /* margin-bottom: 10px; */
-  
-  width: 100%;
+  /* height: 100%;
+  width: 100%; */
 }
+/* @media only screen and (max-width: 600px) {
+  .peer-video {
+    width: 50%;
 
+  }
+} */
 /* .local.peer-video {
   transform: scaleX(-1);
 } */
@@ -169,3 +174,13 @@ form h2,
   background-color: darkgrey;
   outline: 1px solid slategrey;
 }
+
+.MuiBackdrop-root{
+  filter: blur(2rem) !important;
+  background: red;
+}
+.MuiDrawer-paper{
+  background-color: rgb(49 51 56) !important;
+  color: white !important;
+
+}	

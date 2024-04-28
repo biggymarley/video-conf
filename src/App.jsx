@@ -9,10 +9,10 @@ import useAuthTokenHook from "./hooks/useAuthTokenHook";
 
 function App() {
   const [appLoading, setAppLoading] = useState(false);
-  const { accessToken, saveToken, clearToken, userData } = useAuthTokenHook();
+  const { accessToken, saveToken, clearToken, userData, usersData } = useAuthTokenHook();
   return (
     <LoadingContext.Provider value={{ appLoading, setAppLoading }}>
-      <UserContext.Provider value={{ accessToken, saveToken, clearToken , userData}}>
+      <UserContext.Provider value={{ accessToken, saveToken, clearToken , userData, usersData}}>
           {appLoading ? (
             <div className="z-50 fixed">
               <Loader />

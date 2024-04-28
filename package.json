@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@100mslive/react-sdk": "^0.8.16",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.15",
     "dayjs": "^1.11.10",
     "emoji-picker-react": "^4.9.2",
     "firebase": "^10.11.1",

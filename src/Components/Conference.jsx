@@ -13,10 +13,10 @@ const Conference = () => {
 
   return (
     <div
-      className="flex  min-h-screen h-full w-full relative "
+      className="flex  h-screen  w-full relative "
       onClick={() => setightClicked(false)}
     >
-      <div className="h-full min-h-screen p-4 bg-secondaryBg sm:flex hidden">
+      <div className="h-full min-h-screen p-0 md:p-4 bg-secondaryBg md:flex hidden">
         <div className="rounded-full bg-slate-600 flex w-[50px] h-[50px] justify-center items-center ">
           <img
             src={logo}
@@ -25,8 +25,8 @@ const Conference = () => {
           />
         </div>
       </div>
-      <div className="min-h-screen w-full h-full bg-black p-4 sm:p-8 flex-grow">
-        <div className="flex flex-wrap gap-4 px-4 py-8 md:p-16 justify-center">
+      <div className="w-full h-screen min-h-screen bg-black p-0 md:p-8 flex-grow">
+        <div className="flex  flex-wrap sm:gap-4 px-0 py-20 md:p-6 pb-28 justify-center  overflow-auto">
           {peers.map((peer) => (
             <Peer
               key={peer.id}

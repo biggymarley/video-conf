@@ -5,7 +5,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../Context/UserContext";
 
 const Peer = ({ peer, rightClicked, setightClicked }) => {
-  const { userData } = useContext(UserContext);
+  const [color, setColor] = useState("red");
+  const { userData, usersData } = useContext(UserContext);
   const ref = useRef(null);
   const { isLocalAudioEnabled, isLocalVideoEnabled } = useAVToggle();
   const [userConrols, setuserControls] = useState({
@@ -15,6 +16,13 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
   const { videoRef } = useVideo({
     trackId: peer.videoTrack,
   });
+  useEffect(() => {
+    const color = usersData?.filter((user) => user.userName === peer.name)?.[0]
+      ?.color;
+    console.log(color);
+    setColor(color);
+  }, [usersData]);
+
   useEffect(() => {
     if (ref.current.addEventListener) {
       ref.current.addEventListener(
@@ -34,33 +42,39 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
   }, []);
 
   return (
-    <div className="flex flex-col w-[400px] relative">
-      <div className="w-full">
-        <div className="w-full h-[75%] sm:h-[250px] rounded-md overflow-hidden flex border">
+    <div className="flex flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
+      <div className="w-full h-[200px]">
+        <div className="w-full h-[200px]  md:rounded-md overflow-hidden flex border">
           {userConrols.video ? (
-            <div className="flex w-full h-full relative" ref={ref}>
+            <div
+              className={`flex w-full h-full relative bg-[${color}]`}
+              style={{ background: color }}
+              ref={ref}
+            >
               <video
                 ref={videoRef}
-                className={"peer-video"}
+                className={"peer-video w-full h-full"}
                 autoPlay
                 muted
                 playsInline
               ></video>
               {!isLocalAudioEnabled && peer.name === userData.userName ? (
-                <span className="absolute z-10 text-gray-300 bottom-5 right-2 bg-secondaryBg p-2 rounded-full">
+                <span className="absolute z-10 text-gray-400 bottom-5 right-2 bg-secondaryBg p-2 rounded-full">
                   <BsMicMuteFill size={22} />
                 </span>
               ) : null}
             </div>
           ) : (
-            <div className="w-full h-full border flex justify-center items-center rounded-md border-slate-500 mb-[10px] bg-gray-500">
+            <div className="w-full h-full border flex justify-center items-center rounded-md border-slate-800 mb-[10px] bg-gray-500">
               <Avatar className="w-32 h-32" />
             </div>
           )}
 
           {rightClicked ? <Menu peer={peer} userData={userData} /> : null}
         </div>
-        <div className="text-center font-semibold">{peer.name}</div>
+        <div className="text-center text-sm font-light absolute bottom-4 left-4 bg-bg/50 p-1 px-2 rounded-md">
+          {peer.name}
+        </div>
       </div>
     </div>
   );
