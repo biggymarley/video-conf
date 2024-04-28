@@ -8,13 +8,13 @@ import  useCheckAuth from "../hooks/useCheckAuth";
 import { PrivateRoutes, PublicRoutes } from "./Routes";
 
 export default function MainRouter() {
-  const router = createBrowserRouter(
-    useCheckAuth() ? [...PrivateRoutes()] : [...PublicRoutes()]
-  );
+  // const router = createBrowserRouter(
+  //   useCheckAuth() ? [...PrivateRoutes()] : [...PublicRoutes()]
+  // );
 
   return (
     <React.Suspense fallback={<Loader />}>
-      <RouterProvider router={router} />
+      {/* <RouterProvider router={router} /> */}
     </React.Suspense>
   );
 }
