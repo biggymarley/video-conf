@@ -1,6 +1,5 @@
 import { useAVToggle, useVideo } from "@100mslive/react-sdk";
-import logo from "../assets/discord.png";
-import Avatar, { genConfig } from "react-nice-avatar";
+import Avatar  from "react-nice-avatar";
 
 const Peer = ({ peer }) => {
   const { videoRef } = useVideo({
