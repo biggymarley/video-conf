@@ -64,7 +64,7 @@ const Nav = ({ isOpen, setIsOpen }) => {
       <div className="absolute top-4 shadow-sm shadow-gray-600 w-full flex ">
         <p className="ml-[12px] font-bold text-xl flex items-center gap-1 flex-grow p-2">
           <IoChatbubbleSharp size={25} color="#838383" />
-          {rooms?.data?.[selectedRoom]?.name}
+          {rooms?.data?.[selectedRoom]?.template}
         </p>
         <motion.button
           className="text-white p-2 rounded-full"
@@ -85,7 +85,7 @@ const Nav = ({ isOpen, setIsOpen }) => {
           onKeyDown={Send}
           onChange={handleChange}
           value={message}
-          placeholder={`Message ${rooms?.data?.[selectedRoom]?.name}`}
+          placeholder={`Message ${rooms?.data?.[selectedRoom]?.template}`}
           className=" h-[40px] block w-full rounded-md border-0 py-1.5 text-white shadow-sm bg-gray-600 sm:text-sm sm:leading-6"
         />
         <button
@@ -102,7 +102,7 @@ const Nav = ({ isOpen, setIsOpen }) => {
         </div>
       </div>
       <div className="flex flex-col mt-[90px] gap-1 overflow-auto min-h-screen h-full pb-[160px] absolute w-full">
-        <p className="font-bold text-center pb-8">Welcom to   {rooms?.data?.[selectedRoom]?.name}'s Chat, Type Somthing!</p>
+        <p className="font-bold text-center pb-8">Welcom to   {rooms?.data?.[selectedRoom]?.template}'s Chat, Type Somthing!</p>
         {allMessages.map((msg, index) => (
           <div key={msg.id} className={`flex gap-1  px-2`}>
             <div

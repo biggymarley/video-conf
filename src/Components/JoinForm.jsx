@@ -10,7 +10,7 @@ const JoinForm = () => {
   const { rooms, getRoomCodes, setselectedRoom } = useContext(RoomsContext);
   const { userData, clearToken } = useContext(UserContext);
   const { setAppLoading } = useContext(LoadingContext);
-
+console.log(rooms)
   const goLive = async (id, index) => {
     try {
       setAppLoading(true);
@@ -57,7 +57,7 @@ const JoinForm = () => {
               onClick={() => goLive(room.id, index)}
               className=" w-full sm:w-[140px] h-[140px] bg-secondaryBg rounded p-4 transition transform scale-100 hover:scale-[1.02] shadow-lg shadow-gray-800	cursor-pointer"
             >
-              <p>{room.name}</p>
+              <p className="font-bold">{room.template}</p>
               <div className="flex gap-1">
                 status:{" "}
                 {room.enabled === true ? (

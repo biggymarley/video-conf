@@ -50,7 +50,7 @@ const RoomInfos = () => {
   return (
     <div className="absolute top-3 flex w-full transition " id="child">
       <p className="sm:ml-[100px] ml-[20px] font-bold text-xl flex items-center gap-1 flex-grow">
-        {rooms?.data?.[selectedRoom]?.name}
+        {rooms?.data?.[selectedRoom]?.template}
         <BiSolidVolumeFull />
       </p>
 
