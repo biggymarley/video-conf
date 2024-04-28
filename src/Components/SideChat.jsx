@@ -110,7 +110,7 @@ const Nav = ({ isOpen, setIsOpen }) => {
             >
               <div className="flex w-full gap-2 items-center">
                 <span
-                  className={`font-semibold text-sm text-[${userData.color}]`}
+                  className={`font-semibold text-sm ${userData.color}`}
                 >
                   {msg.senderName} :
                 </span>
