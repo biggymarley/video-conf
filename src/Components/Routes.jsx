@@ -10,8 +10,8 @@ const LoggedUser = lazy(() => import("./LoggedUser"));
 export function PublicRoutes() {
   return [
     { path: "/login", element: <Login /> },
-    { path: "/register", element: <Register /> },
-    { path: "*", element: <Navigate to="/login" replace /> },
+    // { path: "/register", element: <Register /> },
+    // { path: "*", element: <Navigate to="/login" replace /> },
   ];
 }
 
@@ -20,8 +20,8 @@ export const PrivateRoutes = () => {
     {
       element: <Layout />,
       children: [
-        { path: "/", element: <LoggedUser /> },
-        { path: "*", element: <Navigate to="/" replace /> },
+        // { path: "/", element: <LoggedUser /> },
+        // { path: "*", element: <Navigate to="/" replace /> },
       ],
     },
   ];
