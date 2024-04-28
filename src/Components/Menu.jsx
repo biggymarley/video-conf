@@ -12,7 +12,8 @@ import { BsEmojiDizzyFill } from "react-icons/bs";
 import { FiX } from "react-icons/fi";
 import { IoChatbubbleSharp } from "react-icons/io5";
 import { RoomsContext, UserContext } from "../Context/UserContext";
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import useMessages from "../hooks/useMessages";
 
 export default function Menu({ isOpen, setIsOpen }) {
   const toggleDrawer = (open) => (event) => {
@@ -33,7 +34,7 @@ export default function Menu({ isOpen, setIsOpen }) {
   const [selectedEmojie, setisselectedEmojie] = useState(null);
   const [message, setimessage] = useState("");
   const [color, setColor] = useState("red");
-
+  // const { messages } = useMessages();
   const Send = (e) => {
     if (e.key === "Enter") {
       hmsActions.sendBroadcastMessage(message);
@@ -46,8 +47,9 @@ export default function Menu({ isOpen, setIsOpen }) {
   };
 
   useEffect(() => {
-    const color = usersData?.filter((user) => user.userName === userData.userName)?.[0]
-      ?.color;
+    const color = usersData?.filter(
+      (user) => user.userName === userData.userName
+    )?.[0]?.color;
     setColor(color);
   }, [usersData, userData]);
 
@@ -62,7 +64,7 @@ export default function Menu({ isOpen, setIsOpen }) {
           anchor={"right"}
           open={isOpen}
           onClose={toggleDrawer(false)}
-          classes={{ root: { backgroundColor: "red" }, paper: {backgroundColor:"red"} }}
+          className="overflow*hidden"
         >
           {/* <motion.nav
             className="absolute md:relative top-0 bottom-0  bg-bg z-50 w-full overflow-hidden"
@@ -71,7 +73,7 @@ export default function Menu({ isOpen, setIsOpen }) {
             initial="closed"
           > */}
           <div className="flex w-screen sm:w-[400px] bg-bg overflow-hidden">
-            <div className="absolute top-0 shadow-sm shadow-gray-600 w-full flex bg-bg z-10">
+            <div className="absolute top-0 shadow-sm shadow-gray-600 w-full flex bg-bg z-10 overflow-hidden">
               <p className=" font-bold text-xl flex items-center gap-1 flex-grow p-4 ">
                 <IoChatbubbleSharp size={25} color="#838383" />
                 {rooms?.data?.[selectedRoom]?.template}
@@ -97,24 +99,28 @@ export default function Menu({ isOpen, setIsOpen }) {
                 className=" h-[40px] block w-full rounded-md border-0 py-1.5 text-white shadow-sm bg-gray-600 sm:text-sm sm:leading-6"
               />
               <button
-                className="absolute right-6 top-0 bottom-0"
+                className="absolute right-6 top-0 bottom-0 z-10"
                 onClick={() => setisOpenEmojie(!isOpenEmojie)}
               >
                 <BsEmojiDizzyFill size={25} />
               </button>
-              <div className="absolute w-full bottom-[70px] -right-4">
+              <div className="absolute w-full bottom-[70px] left-0 pl-6">
                 <EmojiPicker
                   open={isOpenEmojie}
                   onEmojiClick={(emoji) => setisselectedEmojie(emoji)}
+                  width={"90%"}
                 />
               </div>
             </div>
-            <div className="flex flex-col  gap-4 overflow-auto  h-screen pb-[72px] absolute w-full pt-[56px]">
+            <div
+              onClick={() => setisOpenEmojie(false)}
+              className="flex flex-col  gap-4 overflow-auto  h-screen pb-[72px] absolute w-full pt-[56px]"
+            >
               <div className="">
-              <p className="font-bold text-center pb-8 pt-4 px-1">
-                Welcom to {rooms?.data?.[selectedRoom]?.template}'s Chat, Type
-                Somthing!
-              </p>
+                <p className="font-light text-center pb-8 pt-4 px-1 text-gray-400">
+                  Welcom to {rooms?.data?.[selectedRoom]?.template}'s Chat, Type
+                  Somthing!
+                </p>
               </div>
               {allMessages.map((msg, index) => (
                 <div key={msg.id} className={`flex gap-4  px-2`}>
