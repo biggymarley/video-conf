@@ -1,17 +1,17 @@
-// import { Navigate } from "react-router-dom";
+// import {  } from "react-router-dom";
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 // import Login from "./Login";
 // const Login = lazy(() => import("./Login"));
 // const Register = lazy(() => import("./Register"));
 // const Register = lazy(() => import("./Components/Register"));
-const LoggedUser = React.lazy(() => import("./LoggedUser"));
+const LoggedUser = React.lazy(() => import("./LoggedUser.jsx"));
 
 export const PublicRoutes = () => {
   return [
     { path: "/login", element:<div>hello</div> },
     // { path: "/register", element: <Register /> },
-    // { path: "*", element: <Navigate to="/login" replace /> },
+    { path: "*", element: <Navigate to="/login" replace /> },
   ];
 }
 
@@ -20,8 +20,8 @@ export const PrivateRoutes = () => {
     {
       element: <Layout />,
       children: [
-        { path: "/", element: <LoggedUser /> },
-        // { path: "*", element: <Navigate to="/" replace /> },
+        { path: "/", element: <div>hello</div> },
+        { path: "*", element: <Navigate to="/" replace /> },
       ],
     },
   ];
