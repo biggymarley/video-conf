@@ -30,7 +30,7 @@ export const loginUser = async (email, password, saveToken, setAppLoading) => {
     // return user?.data() ?? null;
   } catch (error) {
     setAppLoading(false);
-    console.log(error);
+    console.error(error);
     toast.error(
       error?.code?.replace("auth/", "").replaceAll("-", " ") ||
         "error please retry"
@@ -47,7 +47,6 @@ export const createUser = async (email, password, userName, setAppLoading, saveT
       password
     );
 
-    console.log(userCredential);
     await sendEmailVerification(userCredential.user, actionConfig);
     // using firebase firestore to store data with new fields "name, role"
     // and linking it with firebase Authentication database with user uid
@@ -82,7 +81,6 @@ export const googleLogin = async (saveToken, setAppLoading) => {
     setAppLoading(false);
     const user = result.user;
     saveToken(user.accessToken);
-    console.log(user);
   } catch (error) {
     setAppLoading(false);
     console.error(error);
@@ -94,7 +92,7 @@ export const resetPassword = async (email) => {
     await sendPasswordResetEmail(auth, email, actionConfig);
     toast.success("Password reset email sent. Check your inbox.");
   } catch (error) {
-    console.log(error);
+    console.error(error);
     toast.success(error?.message ?? "Server error please try again!");
   }
 };

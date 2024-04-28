@@ -4,6 +4,7 @@ const managementToken =
 
 const useRoomsHook = () => {
   const [rooms, setRooms] = useState({});
+  const [selectedRoom, setselectedRoom] = useState(null);
   const [roomCodes, setRoomCodes] = useState({});
 
   const listRooms = async () => {
@@ -20,7 +21,7 @@ const useRoomsHook = () => {
       console.error("Error fetching rooms:", error);
       // Handle error here
       // You can throw the error again to handle it in the component level
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -40,7 +41,7 @@ const useRoomsHook = () => {
       console.error("Error fetching rooms:", error);
       // Handle error here
       // You can throw the error again to handle it in the component level
-      console.log(error);
+      console.error(error);
       return null;
     }
   };
@@ -49,7 +50,7 @@ const useRoomsHook = () => {
     listRooms();
   }, []);
 
-  return { rooms, roomCodes, getRoomCodes };
+  return { selectedRoom, rooms, roomCodes, getRoomCodes, setselectedRoom };
 };
 
 export default useRoomsHook;

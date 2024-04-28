@@ -1,18 +1,21 @@
 import { useAVToggle, useHMSActions } from "@100mslive/react-sdk";
+import { useContext } from "react";
 import { BsMicMuteFill } from "react-icons/bs";
 import { BsFillMicFill } from "react-icons/bs";
 import { FaVideo } from "react-icons/fa6";
 import { FaVideoSlash } from "react-icons/fa6";
 import { ImPhoneHangUp } from "react-icons/im";
+import { RoomsContext } from "../Context/UserContext";
 
 const Footer = () => {
   const hmsActions = useHMSActions();
-
+  const { setselectedRoom } = useContext(RoomsContext);
   const { isLocalAudioEnabled, toggleAudio, isLocalVideoEnabled, toggleVideo } =
     useAVToggle();
-    const Hangout = () => {
-      hmsActions.leave()
-    }
+  const Hangout = () => {
+    hmsActions.leave();
+    setselectedRoom(null);
+  };
   return (
     <div className="control-bar">
       <button
@@ -45,15 +48,3 @@ const Footer = () => {
   );
 };
 export default Footer;
-// font-size: 12px;
-// text-transform: uppercase;
-// letter-spacing: 1px;
-// border: 2px solid #37474f;
-// width: 64px;
-// height: 64px;
-// border-radius: 50%;
-// text-align: center;
-// background-color: #777777;
-// box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-// color: white;
-// cursor: pointer;

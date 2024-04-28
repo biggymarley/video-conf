@@ -19,7 +19,7 @@ function App() {
               <Loader />
             </div>
           ) : null}
-        <div className="App bg-bg">
+        <div className="flex min-h-screen bg-bg">
           <MainRouter />
         </div>
         <Toaster richColors={true} position="top-center" />

@@ -3,15 +3,17 @@ import {
   useHMSActions,
   useHMSStore,
 } from "@100mslive/react-sdk";
-import { useEffect } from "react";
-import Conference from "./Conference";
-import Footer from "./Footer";
-import JoinForm from "./JoinForm";
+import { useEffect, useState } from "react";
+import { ChatContext, RoomsContext } from "../Context/UserContext";
 import useRoomsHook from "../hooks/useRoomsHook";
-import { RoomsContext } from "../Context/UserContext";
+import Conference from "./Conference";
+import JoinForm from "./JoinForm";
+import LiquidSideNav from "./SideChat";
 
 function LoggedUser() {
-  const { rooms, getRoomCodes, roomCodes } = useRoomsHook();
+  const [isOpen, setIsOpen] = useState(false);
+  const { rooms, getRoomCodes, roomCodes, selectedRoom, setselectedRoom } =
+    useRoomsHook();
   const isConnected = useHMSStore(selectIsConnectedToRoom);
   const hmsActions = useHMSActions();
 
@@ -24,17 +26,19 @@ function LoggedUser() {
   }, [hmsActions, isConnected]);
 
   return (
-    <RoomsContext.Provider value={{ rooms, getRoomCodes, roomCodes }}>
-      <div className="App bg-bg">
-        {isConnected ? (
-          <>
-            <Conference />
-            <Footer />
-          </>
-        ) : (
-          <JoinForm />
-        )}
-      </div>
+    <RoomsContext.Provider value={{ rooms, getRoomCodes, roomCodes, selectedRoom , setselectedRoom}}>
+      <ChatContext.Provider value={{ isOpen, setIsOpen }}>
+        <div className="flex bg-bg w-full h-full overflow-hidden" id='parent'> 
+          {isConnected ? (
+            <>
+              <Conference />
+              <LiquidSideNav />
+            </>
+          ) : (
+            <JoinForm />
+          )}
+        </div>
+      </ChatContext.Provider>
     </RoomsContext.Provider>
   );
 }

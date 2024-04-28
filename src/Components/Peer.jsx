@@ -8,9 +8,9 @@ const Peer = ({ peer }) => {
   });
   const { isLocalAudioEnabled, isLocalVideoEnabled } = useAVToggle();
   return (
-    <div className="flex flex-col">
-      <div className="w-[400px]">
-        <div className="h-[250px] rounded-md overflow-hidden flex">
+    <div className="flex flex-col w-[400px]">
+      <div className="w-full">
+        <div className="w-full h-[75%] sm:h-[250px] rounded-md overflow-hidden flex">
           {isLocalVideoEnabled ? (
             <video
               ref={videoRef}
@@ -20,7 +20,7 @@ const Peer = ({ peer }) => {
               playsInline
             ></video>
           ) : (
-            <div className="w-full h-[full] border flex justify-center items-center rounded-md border-slate-500 mb-[10px] bg-gray-500">
+            <div className="w-full h-full border flex justify-center items-center rounded-md border-slate-500 mb-[10px] bg-gray-500">
               <Avatar className="w-32 h-32"  />
             </div>
           )}
