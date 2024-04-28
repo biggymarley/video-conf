@@ -72,11 +72,8 @@ export const createUser = async (
   try {
     setAppLoading(true);
     const getRandomColor = () => {
-      const filteredColors = colors.filter(
-        (color) => color.value === "#3b82f6"
-      );
-      const randomIndex = Math.floor(Math.random() * filteredColors.length);
-      const selectedColor = filteredColors[randomIndex];
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      const selectedColor = colors[randomIndex];
       return `text-${selectedColor.name.toLowerCase()}-500`;
     };
     const userCredential = await createUserWithEmailAndPassword(
