@@ -10,14 +10,13 @@ import { IoChatbubbleSharp } from "react-icons/io5";
 const Conference = () => {
   const peers = useHMSStore(selectPeers);
   const [rightClicked, setightClicked] = useState(false);
-
   return (
     <div
-      className="flex  h-screen  w-full relative "
+      className="flex min-h-screen  w-full relative pb-12"
       onClick={() => setightClicked(false)}
     >
-      <div className="h-full min-h-screen p-0 md:p-4 bg-secondaryBg md:flex hidden">
-        <div className="rounded-full bg-slate-600 flex w-[50px] h-[50px] justify-center items-center ">
+      <div className="h-full min-h-screen p-0 md:p-4 bg-secondaryBg md:flex hidden sticky ">
+        <div className="rounded-full bg-slate-600 flex w-[50px] h-[50px] justify-center items-center">
           <img
             src={logo}
             alt="logo"
@@ -25,8 +24,8 @@ const Conference = () => {
           />
         </div>
       </div>
-      <div className="w-full h-screen min-h-screen bg-black p-0 md:p-8 flex-grow">
-        <div className="flex  flex-wrap sm:gap-4 px-0 py-20 md:p-6 pb-28 justify-center  overflow-auto">
+      <div className="w-full h-full min-h-screen bg-black p-0 md:p-8 flex-grow w-screen">
+        <div className="flex  flex-wrap sm:gap-4 px-0 py-20 md:p-6 pb-20 justify-center  overflow-auto">
           {peers.map((peer) => (
             <Peer
               key={peer.id}

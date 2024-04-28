@@ -62,17 +62,17 @@ export default function useMessages(userName) {
     }
   };
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-        getMessages()
-    }, 2000); // 2000 milliseconds = 2 seconds
-    
-    // Clean up function to clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
-}, []);
-
 //   useEffect(() => {
-//     getMessages();
-//   }, []);
+//     const intervalId = setInterval(() => {
+//         getMessages()
+//     }, 2000); // 2000 milliseconds = 2 seconds
+    
+//     // Clean up function to clear the interval when the component unmounts
+//     return () => clearInterval(intervalId);
+// }, []);
+
+  useEffect(() => {
+    getMessages();
+  }, []);
   return { setMessagesdB, messages };
 }

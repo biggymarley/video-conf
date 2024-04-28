@@ -12,7 +12,6 @@ import { BsEmojiDizzyFill } from "react-icons/bs";
 import { FiX } from "react-icons/fi";
 import { IoChatbubbleSharp } from "react-icons/io5";
 import { RoomsContext, UserContext } from "../Context/UserContext";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import useMessages from "../hooks/useMessages";
 
 export default function Menu({ isOpen, setIsOpen }) {
@@ -33,7 +32,6 @@ export default function Menu({ isOpen, setIsOpen }) {
   const [isOpenEmojie, setisOpenEmojie] = useState(false);
   const [selectedEmojie, setisselectedEmojie] = useState(null);
   const [message, setimessage] = useState("");
-  const [allMessagesArray, setallMessagesArray] = useState([]);
   const [color, setColor] = useState("red");
   const { messages, setMessagesdB } = useMessages(userData.userName);
   const Send = (e) => {
@@ -60,6 +58,16 @@ export default function Menu({ isOpen, setIsOpen }) {
   };
 
 
+  const getuserColor = (sender) => {
+    let color = "";
+    if(sender === "You")
+     color = usersData?.filter((user) => user.userName === userData.userName)?.[0]
+    ?.color;
+    else
+     color = usersData?.filter((user) => user.userName === userData.userName)?.[0]
+    ?.color;
+    return color
+  }
   // useEffect(() => {
   //   if (allMessages?.[allMessages?.length - 1] && ) {
 
@@ -69,6 +77,14 @@ export default function Menu({ isOpen, setIsOpen }) {
   //     ]);
   //   }
   // }, [allMessages]);
+  useEffect(() => {
+    const color = usersData?.filter(
+      (user) => user.userName === userData.userName
+    )?.[0]?.color;
+    setColor(color);
+    console.log(color);
+    console.log(usersData, userData);
+  }, [usersData, userData]);
 
   useEffect(() => {
     if (selectedEmojie) setimessage(message + selectedEmojie.emoji);
@@ -147,8 +163,7 @@ export default function Menu({ isOpen, setIsOpen }) {
                   >
                     <div className="flex w-full gap-2 items-center">
                       <span
-                        style={{ color: userData.color }}
-                        className={`font-semibold text-sm ${color}`}
+                        className={`font-semibold text-sm text-[${getuserColor(msg.senderName)}]`}
                       >
                         {msg.senderName === "You"
                           ? userData.userName

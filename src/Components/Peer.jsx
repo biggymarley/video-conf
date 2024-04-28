@@ -19,7 +19,6 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
   useEffect(() => {
     const color = usersData?.filter((user) => user.userName === peer.name)?.[0]
       ?.color;
-    console.log(color);
     setColor(color);
   }, [usersData]);
 
