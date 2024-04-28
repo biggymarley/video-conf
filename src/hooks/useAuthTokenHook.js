@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-function randomColor() {
-  return '#' + ('00000' + (Math.random() * 16777216 << 0).toString(16)).substr(-6);
-}
+
 const useAuthTokenHook = () => {
   const [accessToken, setaccessToken] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -21,9 +19,9 @@ const useAuthTokenHook = () => {
   const saveToken = (accessToken, userData) => {
     // Save token to localStorage
     localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("userData", JSON.stringify({...userData, color:randomColor()}));
+    localStorage.setItem("userData", JSON.stringify(userData));
     setaccessToken(accessToken);
-    setUserData({...userData, color:randomColor()});
+    setUserData(userData);
   };
 
   const clearToken = () => {
