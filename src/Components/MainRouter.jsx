@@ -14,7 +14,7 @@ export default function MainRouter() {
 
   return (
     <React.Suspense fallback={<Loader />}>
-      {/* <RouterProvider router={router} /> */}
+      <RouterProvider router={[]} />
     </React.Suspense>
   );
 }
