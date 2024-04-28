@@ -2,15 +2,20 @@ import { selectPeers, useHMSStore } from "@100mslive/react-sdk";
 import Peer from "./Peer";
 import logo from "../assets/discord.png";
 import Footer from "./Footer";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ChatContext, RoomsContext } from "../Context/UserContext";
 import { BiSolidVolumeFull } from "react-icons/bi";
 import { IoChatbubbleSharp } from "react-icons/io5";
 
 const Conference = () => {
   const peers = useHMSStore(selectPeers);
+  const [rightClicked, setightClicked] = useState(false);
+
   return (
-    <div className="flex  min-h-screen h-full w-full relative ">
+    <div
+      className="flex  min-h-screen h-full w-full relative "
+      onClick={() => setightClicked(false)}
+    >
       <div className="h-full min-h-screen p-4 bg-secondaryBg sm:flex hidden">
         <div className="rounded-full bg-slate-600 flex w-[50px] h-[50px] justify-center items-center ">
           <img
@@ -23,7 +28,12 @@ const Conference = () => {
       <div className="min-h-screen w-full h-full bg-black p-4 sm:p-8 flex-grow">
         <div className="flex flex-wrap gap-4 px-4 py-8 md:p-16 justify-center">
           {peers.map((peer) => (
-            <Peer key={peer.id} peer={peer}></Peer>
+            <Peer
+              key={peer.id}
+              peer={peer}
+              rightClicked={rightClicked}
+              setightClicked={setightClicked}
+            ></Peer>
           ))}
         </div>
       </div>
