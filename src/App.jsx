@@ -19,7 +19,7 @@ function App() {
             </div>
           ) : null}
         <div className="flex min-h-screen bg-bg">
-          {/* <MainRouter /> */}
+          <MainRouter />
         </div>
         <Toaster richColors={true} position="top-center" />
       </UserContext.Provider>
