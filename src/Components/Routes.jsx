@@ -1,8 +1,8 @@
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import { lazy } from "react";
 import { Outlet } from "react-router-dom";
-
-const Login = lazy(() => import("./Login"));
+import Login from "./Login";
+// const Login = lazy(() => import("./Login"));
 const Register = lazy(() => import("./Register"));
 // const Register = lazy(() => import("./Components/Register"));
 const LoggedUser = lazy(() => import("./LoggedUser"));
