@@ -1,11 +1,11 @@
 // import { Navigate } from "react-router-dom";
-import { lazy } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 // import Login from "./Login";
 // const Login = lazy(() => import("./Login"));
 // const Register = lazy(() => import("./Register"));
 // const Register = lazy(() => import("./Components/Register"));
-// const LoggedUser = lazy(() => import("./LoggedUser"));
+const LoggedUser = React.lazy(() => import("./LoggedUser"));
 
 export const PublicRoutes = () => {
   return [
