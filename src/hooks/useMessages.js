@@ -25,8 +25,9 @@ export default function useMessages(userName) {
       messagesRes.forEach((docs) => {
         messagesArray = [...messagesArray, docs.data()];
       });
-      setMessages([...messagesArray]);
-      console.log("resssssssssss", messagesArray);
+      let sortedmessagesArray = messagesArray.sort((a, b) => a.time - b.time)
+      console.log(sortedmessagesArray)
+      setMessages([...sortedmessagesArray]);
     } catch (error) {
       console.error(error);
     }
@@ -62,7 +63,16 @@ export default function useMessages(userName) {
   };
 
   useEffect(() => {
-    getMessages();
-  }, []);
+    const intervalId = setInterval(() => {
+        getMessages()
+    }, 2000); // 2000 milliseconds = 2 seconds
+    
+    // Clean up function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+}, []);
+
+//   useEffect(() => {
+//     getMessages();
+//   }, []);
   return { setMessagesdB, messages };
 }

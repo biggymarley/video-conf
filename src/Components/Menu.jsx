@@ -59,12 +59,6 @@ export default function Menu({ isOpen, setIsOpen }) {
     setimessage(e.target.value);
   };
 
-  useEffect(() => {
-    const color = usersData?.filter(
-      (user) => user.userName === userData.userName
-    )?.[0]?.color;
-    setColor(color);
-  }, [usersData, userData]);
 
   // useEffect(() => {
   //   if (allMessages?.[allMessages?.length - 1] && ) {
