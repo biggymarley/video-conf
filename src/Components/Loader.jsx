@@ -1,6 +1,5 @@
 import logo from "../assets/discord.png";
 import { motion } from "framer-motion";
-
 export const Loader = () => {
   return (
     <div className="z-50">
