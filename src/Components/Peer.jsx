@@ -16,9 +16,6 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
     audio: true,
     video: true,
   });
-  const { videoRef } = useVideo({
-    trackId: peer.videoTrack,
-  });
 
   useEffect(() => {
     const color = usersData?.filter((user) => user.userName === peer.name)?.[0]
@@ -44,6 +41,7 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
     }
   }, []);
 
+
   return (
     <>
       <StreamVideo
@@ -61,13 +59,6 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
                 style={{ backgroundColor: color }}
                 ref={ref}
               >
-                {/* <video
-                ref={videoRef}
-                className={"peer-video w-full h-full"}
-                autoPlay
-                muted
-                playsInline
-              ></video> */}
                 <Video peer={peer} />
                 {!isLocalAudioEnabled && peer.name === userData.userName ? (
                   <span className="absolute z-10 text-gray-400 bottom-5 right-2 bg-secondaryBg p-2 rounded-full">

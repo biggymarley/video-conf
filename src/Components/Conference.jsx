@@ -3,13 +3,16 @@ import Peer from "./Peer";
 import logo from "../assets/discord.png";
 import Footer from "./Footer";
 import { useContext, useState } from "react";
-import { ChatContext, RoomsContext } from "../Context/UserContext";
+import { ChatContext, RoomsContext, UserContext } from "../Context/UserContext";
 import { BiSolidVolumeFull } from "react-icons/bi";
 import { IoChatbubbleSharp } from "react-icons/io5";
+import LiquidSideNav from "./SideChat";
 
 const Conference = () => {
   const peers = useHMSStore(selectPeers);
   const [rightClicked, setightClicked] = useState(false);
+  const [peerIndex, setpeerIndex] = useState(null);
+  const { userData } = useContext(UserContext);
   return (
     <div
       className="flex min-h-screen  w-full relative pb-12 md:pb-0"
@@ -26,16 +29,21 @@ const Conference = () => {
       </div>
       <div className="w-full h-full min-h-screen bg-black p-0 md:p-8 flex-grow overflow-auto">
         <div className="flex  flex-wrap sm:gap-4 px-0 py-20 md:p-6 pb-20 justify-center">
-          {peers.map((peer) => (
-            <Peer
-              key={peer.id}
-              peer={peer}
-              rightClicked={rightClicked}
-              setightClicked={setightClicked}
-            ></Peer>
+          {peers.map((peer, index) => (
+            <>
+              <Peer
+                key={peer.id}
+                peer={peer}
+                rightClicked={rightClicked}
+                setightClicked={setightClicked}
+                setpeerIndex={setpeerIndex}
+                index={index}
+              />
+            </>
           ))}
         </div>
       </div>
+          <LiquidSideNav peers={peers} peerIndex={peerIndex}/>
       <Footer />
       <RoomInfos />
     </div>

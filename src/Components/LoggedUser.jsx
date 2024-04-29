@@ -46,7 +46,6 @@ function LoggedUser() {
           {isConnected ? (
             <>
               <Conference />
-              <LiquidSideNav />
             </>
           ) : (
             <JoinForm />

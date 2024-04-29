@@ -1,5 +1,6 @@
 import Drawer from "@mui/material/Drawer";
-import {selectBroadcastMessages,
+import {
+  selectBroadcastMessages,
   selectHMSMessages,
   useHMSActions,
   useHMSStore,
@@ -41,8 +42,10 @@ export default function Menu({ isOpen, setIsOpen }) {
           ...allMessages?.[allMessages?.length - 1],
           message: message,
           senderName: userData.userName,
+          color: userData?.color ?? "red",
         } ?? {
           senderName: userData.userName,
+          color: userData?.color ?? "red",
           message: message,
           time: moment.now(),
           id: moment.now().toExponential(),
@@ -57,17 +60,6 @@ export default function Menu({ isOpen, setIsOpen }) {
   };
 
 
-  const getuserColor = (sender) => {
-    let color = "";
-    if(sender === "You")
-     color = usersData?.filter((user) => user.userName === userData.userName)?.[0]
-    ?.color;
-    else
-     color = usersData?.filter((user) => user.userName === userData.userName)?.[0]
-    ?.color;
-    console.log(color)
-    return color
-  }
   // useEffect(() => {
   //   if (allMessages?.[allMessages?.length - 1] && ) {
 
@@ -163,7 +155,7 @@ export default function Menu({ isOpen, setIsOpen }) {
                   >
                     <div className="flex w-full gap-2 items-center">
                       <span
-                      style={{color:getuserColor(msg.senderName) }}
+                        style={{ color: msg.color }}
                         className={`font-semibold text-sm]`}
                       >
                         {msg.senderName === "You"
