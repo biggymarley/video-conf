@@ -1,6 +1,7 @@
 import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -10,12 +11,13 @@ const firebaseConfig = {
   storageBucket: "videocalls-23b90.appspot.com",
   messagingSenderId: "208088137170",
   appId: "1:208088137170:web:909bcce7f42f65fe361c0b",
-  measurementId: "G-G5MTC4T3RY"
+  measurementId: "G-G5MTC4T3RY",
+  databaseURL: "https://videocalls.firebaseio.com",
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
-// const storage = getStorage(app);
-export { auth, db };
+const database = getDatabase(app);
+export { auth, db, database };

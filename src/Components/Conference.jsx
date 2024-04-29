@@ -12,7 +12,7 @@ const Conference = () => {
   const [rightClicked, setightClicked] = useState(false);
   return (
     <div
-      className="flex min-h-screen  w-full relative pb-12"
+      className="flex min-h-screen  w-full relative pb-12 md:pb-0"
       onClick={() => setightClicked(false)}
     >
       <div className="h-full min-h-screen p-0 md:p-4 bg-secondaryBg md:flex hidden sticky ">
@@ -48,7 +48,7 @@ const RoomInfos = () => {
 
   return (
     <div className="absolute top-3 flex w-full transition " id="child">
-      <p className="sm:ml-[100px] ml-[20px] font-bold text-xl flex items-center gap-1 flex-grow">
+      <p className="md:ml-[100px] ml-[20px] font-bold text-xl flex items-center gap-1 flex-grow">
         {rooms?.data?.[selectedRoom]?.template}
         <BiSolidVolumeFull />
       </p>

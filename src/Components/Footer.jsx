@@ -1,5 +1,5 @@
 import { useAVToggle, useHMSActions } from "@100mslive/react-sdk";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BsMicMuteFill } from "react-icons/bs";
 import { BsFillMicFill } from "react-icons/bs";
 import { FaVideo, FaX } from "react-icons/fa6";
@@ -19,6 +19,10 @@ const Footer = () => {
     hmsActions.leave();
     setselectedRoom(null);
   };
+  useEffect(() => {
+     toggleAudio();
+    toggleVideo();
+  }, []);
 
   return (
     <div className="flex fixed bottom-0 w-full p-4 justify-center z-10 gap-2 bg-secondaryBg">

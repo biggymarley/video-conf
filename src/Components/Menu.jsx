@@ -1,5 +1,5 @@
 import Drawer from "@mui/material/Drawer";
-import {
+import {selectBroadcastMessages,
   selectHMSMessages,
   useHMSActions,
   useHMSStore,
@@ -24,8 +24,7 @@ export default function Menu({ isOpen, setIsOpen }) {
     }
     setIsOpen(open);
   };
-
-  const allMessages = useHMSStore(selectHMSMessages);
+  const allMessages = useHMSStore(selectBroadcastMessages);
   const hmsActions = useHMSActions();
   const { userData, usersData } = useContext(UserContext);
   const { selectedRoom, rooms } = useContext(RoomsContext);
