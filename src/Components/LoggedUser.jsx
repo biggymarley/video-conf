@@ -17,7 +17,7 @@ function LoggedUser() {
     useRoomsHook();
   const isConnected = useHMSStore(selectIsConnectedToRoom);
   const hmsActions = useHMSActions();
-  const { screenshareVideoTrack, shareScreen, offShareScreen } = useStream();
+  const { screenshareVideoTrack, shareScreen, offShareScreen, presenters } = useStream();
 
   useEffect(() => {
     window.onunload = () => {
@@ -37,7 +37,8 @@ function LoggedUser() {
         setselectedRoom,
         shareScreen,
         screenshareVideoTrack,
-        offShareScreen
+        offShareScreen,
+        presenters
       }}
     >
       <ChatContext.Provider value={{ isOpen, setIsOpen }}>

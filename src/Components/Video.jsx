@@ -12,7 +12,7 @@ export default function Video({ peer }) {
       onClick={open && (() => setOpen(false))}
       className={
         open
-          ? "w-screen min-h-screen h-full fixed top-0 left-0 z-50 bg-bg/50 backdrop-blur-xl overflow-auto cursor-pointer"
+          ? "flex items-center justify-center w-screen min-h-screen h-full fixed top-0 left-0 z-50 bg-bg/50 backdrop-blur-xl overflow-auto cursor-pointer"
           : "w-full h-full cursor-pointer"
       }
     >

@@ -1,14 +1,14 @@
 import {
-    selectPeersScreenSharing,
-    selectScreenShareByPeerID,
-    useHMSActions,
-    useHMSStore,
+  selectPeersScreenSharing,
+  selectScreenShareByPeerID,
+  useHMSActions,
+  useHMSStore,
 } from "@100mslive/react-sdk";
+import { useEffect } from "react";
 
 export default function useStream() {
   const presenters = useHMSStore(selectPeersScreenSharing);
   const hmsActions = useHMSActions(selectPeersScreenSharing);
- 
 
   // const presenters = hmsStore.getState(selectPeersScreenSharing);
   const shareScreen = async () => {
@@ -26,11 +26,12 @@ export default function useStream() {
       console.log(error);
     }
   };
- 
- 
+
   const screenshareVideoTrack = useHMSStore(
     selectScreenShareByPeerID(presenters[0]?.id ?? "")
   );
 
-  return {  shareScreen, screenshareVideoTrack, offShareScreen };
+
+
+  return { shareScreen, screenshareVideoTrack, offShareScreen, presenters };
 }

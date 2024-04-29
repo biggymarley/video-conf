@@ -9,7 +9,7 @@ import Video from "./Video";
 const Peer = ({ peer, rightClicked, setightClicked }) => {
   const [color, setColor] = useState("red");
   const { userData, usersData } = useContext(UserContext);
-  const { screenshareVideoTrack } = useContext(RoomsContext);
+  const { screenshareVideoTrack, presenters } = useContext(RoomsContext);
   const ref = useRef(null);
   const { isLocalAudioEnabled, isLocalVideoEnabled } = useAVToggle();
   const [userConrols, setuserControls] = useState({
@@ -45,43 +45,50 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
   }, []);
 
   return (
-    <div className="flex flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
-      <div className="w-full h-[200px] flex flex-col gap-6">
-        <div className="w-full h-[200px]  md:rounded-md overflow-visible flex border flex-col">
-          {userConrols.video ? (
-            <div
-              className={`flex w-full h-full relative bg-[${color}]`}
-              style={{ backgroundColor: color }}
-              ref={ref}
-            >
-              {/* <video
+    <>
+      <StreamVideo
+        screenshareVideoTrack={screenshareVideoTrack}
+        presenter={presenters}
+        peer={peer}
+      />
+
+      <div className="flex flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
+        <div className="w-full h-full flex flex-col gap-2">
+          <div className="w-full h-[200px]  md:rounded-md overflow-visible flex border flex-col">
+            {userConrols.video ? (
+              <div
+                className={`flex w-full h-full relative bg-[${color}]`}
+                style={{ backgroundColor: color }}
+                ref={ref}
+              >
+                {/* <video
                 ref={videoRef}
                 className={"peer-video w-full h-full"}
                 autoPlay
                 muted
                 playsInline
               ></video> */}
-              <Video peer={peer} />
-              {!isLocalAudioEnabled && peer.name === userData.userName ? (
-                <span className="absolute z-10 text-gray-400 bottom-5 right-2 bg-secondaryBg p-2 rounded-full">
-                  <BsMicMuteFill size={22} />
-                </span>
-              ) : null}
-            </div>
-          ) : (
-            <div className="w-full h-full border flex justify-center items-center rounded-md border-slate-800 mb-[10px] bg-gray-500">
-              <Avatar className="w-32 h-32" />
-            </div>
-          )}
+                <Video peer={peer} />
+                {!isLocalAudioEnabled && peer.name === userData.userName ? (
+                  <span className="absolute z-10 text-gray-400 bottom-5 right-2 bg-secondaryBg p-2 rounded-full">
+                    <BsMicMuteFill size={22} />
+                  </span>
+                ) : null}
+              </div>
+            ) : (
+              <div className="w-full h-full border flex justify-center items-center rounded-md border-slate-800 mb-[10px] bg-gray-500">
+                <Avatar className="w-32 h-32" />
+              </div>
+            )}
 
-          {/* {rightClicked ? <Menu peer={peer} userData={userData} /> : null} */}
-        </div>
-        <StreamVideo screenshareVideoTrack={screenshareVideoTrack} />
-        <div className="text-center text-sm font-light absolute bottom-4 left-4 bg-bg/50 p-1 px-2 rounded-md">
-          {peer.name}
+            {/* {rightClicked ? <Menu peer={peer} userData={userData} /> : null} */}
+          </div>
+          <div className="text-center text-sm font-light absolute bottom-4 left-4 bg-bg/50 p-1 px-2 rounded-md">
+            {peer.name}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
