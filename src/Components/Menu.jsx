@@ -65,6 +65,7 @@ export default function Menu({ isOpen, setIsOpen }) {
     else
      color = usersData?.filter((user) => user.userName === userData.userName)?.[0]
     ?.color;
+    console.log(color)
     return color
   }
   // useEffect(() => {
@@ -162,7 +163,8 @@ export default function Menu({ isOpen, setIsOpen }) {
                   >
                     <div className="flex w-full gap-2 items-center">
                       <span
-                        className={`font-semibold text-sm text-[${getuserColor(msg.senderName)}]`}
+                      style={{color:getuserColor(msg.senderName) }}
+                        className={`font-semibold text-sm]`}
                       >
                         {msg.senderName === "You"
                           ? userData.userName

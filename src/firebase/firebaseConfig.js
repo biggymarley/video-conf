@@ -15,7 +15,20 @@ const firebaseConfig = {
   databaseURL: "https://videocalls.firebaseio.com",
 };
 
-const app = initializeApp(firebaseConfig);
+const firebaseConfigBackup = {
+  apiKey: "AIzaSyB6XTRKC1BX3Psy9bXHYoSPnOCLq054hcE",
+  authDomain: "videcallbackup.firebaseapp.com",
+  projectId: "videcallbackup",
+  storageBucket: "videcallbackup.appspot.com",
+  messagingSenderId: "556962119917",
+  appId: "1:556962119917:web:560c5739efe2d89ab48ce4",
+  measurementId: "G-121F01SYMT",
+  databaseURL: "https://videcallbackup-default-rtdb.firebaseio.com/",
+
+};
+
+
+const app = initializeApp(firebaseConfigBackup);
 const auth = getAuth(app);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);

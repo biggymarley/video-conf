@@ -7,16 +7,38 @@ import { ImPhoneHangUp } from "react-icons/im";
 import { MdScreenShare } from "react-icons/md";
 import YouTube from "react-youtube";
 import { RoomsContext } from "../Context/UserContext";
+import { MdStopScreenShare } from "react-icons/md";
+import { MdHeadset } from "react-icons/md";
+import { MdHeadsetOff } from "react-icons/md";
 
 const Footer = () => {
   const hmsActions = useHMSActions();
-  const { setselectedRoom, shareScreen } = useContext(RoomsContext);
+  const {
+    setselectedRoom,
+    shareScreen,
+    offShareScreen,
+    screenshareVideoTrack,
+  } = useContext(RoomsContext);
   const [open, setopen] = useState(false);
+  const [muted, setmute] = useState(false);
   const { isLocalAudioEnabled, toggleAudio, isLocalVideoEnabled, toggleVideo } =
     useAVToggle();
   const Hangout = () => {
     hmsActions.leave();
     setselectedRoom(null);
+  };
+  const mute = () => {
+    [].slice.call(document.querySelectorAll("audio")).forEach(function (audio) {
+      audio.muted = true;
+    });
+    setmute(true);
+  };
+
+  const unmute = () => {
+    [].slice.call(document.querySelectorAll("audio")).forEach(function (audio) {
+      audio.muted = false;
+    });
+    setmute(false);
   };
   // useEffect(() => {
   //    toggleAudio();
@@ -26,7 +48,7 @@ const Footer = () => {
   return (
     <div className="flex fixed bottom-0 w-full p-4 justify-center z-10 gap-2 bg-secondaryBg">
       <button
-        className="btn-control flex justify-center items-center"
+        className={`btn-control flex justify-center items-center ${isLocalAudioEnabled && ("bg-red-500")}`}
         onClick={toggleAudio}
       >
         {isLocalAudioEnabled ? (
@@ -35,6 +57,22 @@ const Footer = () => {
           <BsMicMuteFill size="25px" />
         )}
       </button>
+      {!muted ? (
+        <button
+          className="flex justify-center items-center bg-gray-500 w-[64px] h-[64px] rounded-full "
+          onClick={mute}
+        >
+          <MdHeadset size="30px" />
+        </button>
+      ) : (
+        <button
+          className="flex justify-center items-center bg-red-500 w-[64px] h-[64px] rounded-full "
+          onClick={unmute}
+        >
+          <MdHeadsetOff  size="30px" />
+        </button>
+      )}
+
       <button
         className="btn-control flex justify-center items-center"
         onClick={toggleVideo}
@@ -45,18 +83,28 @@ const Footer = () => {
           <FaVideoSlash size="25px" />
         )}
       </button>
-      <button
-        className="flex justify-center items-center bg-gray-500 w-[64px] h-[64px] rounded-full "
-        onClick={shareScreen}
-      >
-        <MdScreenShare size="30px"  />
-      </button>
-      <button
+      {screenshareVideoTrack ? (
+        <button
+          className="flex justify-center items-center bg-red-500 w-[64px] h-[64px] rounded-full "
+          onClick={offShareScreen}
+        >
+          <MdStopScreenShare size="30px" />
+        </button>
+      ) : (
+        <button
+          className="flex justify-center items-center bg-gray-500 w-[64px] h-[64px] rounded-full "
+          onClick={shareScreen}
+        >
+          <MdScreenShare size="30px" />
+        </button>
+      )}
+
+      {/* <button
         className="flex justify-center items-center bg-gray-500 w-[64px] h-[64px] rounded-full "
         onClick={() => setopen(true)}
       >
         <FaYoutube size="30px" color={"red"} />
-      </button>
+      </button> */}
       <button
         className="flex justify-center items-center bg-red-500 w-[64px] h-[64px] rounded-full "
         onClick={Hangout}

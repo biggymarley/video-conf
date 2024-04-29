@@ -51,7 +51,7 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
           {userConrols.video ? (
             <div
               className={`flex w-full h-full relative bg-[${color}]`}
-              style={{ background: color }}
+              style={{ backgroundColor: color }}
               ref={ref}
             >
               {/* <video
