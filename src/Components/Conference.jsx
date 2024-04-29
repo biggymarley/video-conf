@@ -11,7 +11,6 @@ import LiquidSideNav from "./SideChat";
 const Conference = () => {
   const peers = useHMSStore(selectPeers);
   const [rightClicked, setightClicked] = useState(false);
-  const [peerIndex, setpeerIndex] = useState(null);
   const { userData } = useContext(UserContext);
   return (
     <div
@@ -36,14 +35,13 @@ const Conference = () => {
                 peer={peer}
                 rightClicked={rightClicked}
                 setightClicked={setightClicked}
-                setpeerIndex={setpeerIndex}
                 index={index}
               />
             </>
           ))}
         </div>
       </div>
-          <LiquidSideNav peers={peers} peerIndex={peerIndex}/>
+          <LiquidSideNav peers={peers}/>
       <Footer />
       <RoomInfos />
     </div>

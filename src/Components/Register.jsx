@@ -5,6 +5,7 @@ import { LoadingContext } from "../Context/LoadingContext";
 import { UserContext } from "../Context/UserContext";
 import { googleLogin } from "../firebase/userManagment";
 import { useRegisterHook } from "../hooks/useRegisterHook";
+import { IoLogoFirebase } from "react-icons/io5";
 
 export default function Register() {
   const { saveToken } = useContext(UserContext);
@@ -19,7 +20,7 @@ export default function Register() {
     googleLogin(saveToken, setAppLoading);
   };
   return (
-    <div className="h-screen w-full bg-bg  relative ">
+    <div className="h-screen w-full bg-bg  relative mx-2">
       <div className="fixed top-0 left-0 w-full h-full">
         <LoginBg />
       </div>
@@ -146,9 +147,8 @@ export default function Register() {
               >
                 REGISTER
               </button>
-              <span className="text-xs font light text-gray-400">
-                By registering, you agree to Biggy's Terms of Service and
-                Privacy Policy{" "}
+              <span className="flex  gap-2 mt-2 text-xs font light text-gray-400">
+                using Firebase and FireStore to create your account{" "}<IoLogoFirebase color="#FFA000"/>
               </span>
               <div className=" flex items-center mt-2 gap-1">
                 <Link

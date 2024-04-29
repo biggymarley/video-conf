@@ -48,7 +48,7 @@ const Footer = () => {
   return (
     <div className="flex fixed bottom-0 w-full p-4 justify-center z-10 gap-2 bg-secondaryBg">
       <button
-        className={`btn-control flex justify-center items-center ${isLocalAudioEnabled && ("bg-red-500")}`}
+        className={`flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full ${!isLocalAudioEnabled && ("bg-red-500")}`}
         onClick={toggleAudio}
       >
         {isLocalAudioEnabled ? (
@@ -59,57 +59,57 @@ const Footer = () => {
       </button>
       {!muted ? (
         <button
-          className="flex justify-center items-center bg-gray-500 w-[64px] h-[64px] rounded-full "
+          className="flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
           onClick={mute}
         >
-          <MdHeadset size="30px" />
+          <MdHeadset size="60%" />
         </button>
       ) : (
         <button
-          className="flex justify-center items-center bg-red-500 w-[64px] h-[64px] rounded-full "
+          className="flex justify-center items-center bg-red-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
           onClick={unmute}
         >
-          <MdHeadsetOff  size="30px" />
+          <MdHeadsetOff  size="60%" />
         </button>
       )}
 
       <button
-        className="btn-control flex justify-center items-center"
+        className={`flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full ${!isLocalVideoEnabled && ("bg-red-500")}`}
         onClick={toggleVideo}
       >
         {isLocalVideoEnabled ? (
-          <FaVideo size="25px" />
+          <FaVideo size="60%" />
         ) : (
-          <FaVideoSlash size="25px" />
+          <FaVideoSlash size="60%" />
         )}
       </button>
       {screenshareVideoTrack ? (
         <button
-          className="flex justify-center items-center bg-red-500 w-[64px] h-[64px] rounded-full "
+          className="flex justify-center items-center bg-red-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
           onClick={offShareScreen}
         >
-          <MdStopScreenShare size="30px" />
+          <MdStopScreenShare size="60%" />
         </button>
       ) : (
         <button
-          className="flex justify-center items-center bg-gray-500 w-[64px] h-[64px] rounded-full "
+          className="flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
           onClick={shareScreen}
         >
-          <MdScreenShare size="30px" />
+          <MdScreenShare size="60%" />
         </button>
       )}
 
       {/* <button
-        className="flex justify-center items-center bg-gray-500 w-[64px] h-[64px] rounded-full "
+        className="flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
         onClick={() => setopen(true)}
       >
         <FaYoutube size="30px" color={"red"} />
       </button> */}
       <button
-        className="flex justify-center items-center bg-red-500 w-[64px] h-[64px] rounded-full "
+        className="flex justify-center items-center bg-red-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
         onClick={Hangout}
       >
-        <ImPhoneHangUp size="25px" />
+        <ImPhoneHangUp size="60%" />
       </button>
       {open ? <Ads setopen={setopen} /> : null}
     </div>
