@@ -1,17 +1,16 @@
 import { useAVToggle, useHMSActions } from "@100mslive/react-sdk";
 import { useContext, useEffect, useState } from "react";
-import { BsMicMuteFill } from "react-icons/bs";
-import { BsFillMicFill } from "react-icons/bs";
-import { FaVideo, FaX } from "react-icons/fa6";
-import { FaVideoSlash } from "react-icons/fa6";
-import { ImPhoneHangUp } from "react-icons/im";
-import { RoomsContext } from "../Context/UserContext";
-import YouTube from "react-youtube";
+import { BsFillMicFill, BsMicMuteFill } from "react-icons/bs";
 import { FaYoutube } from "react-icons/fa";
+import { FaVideo, FaVideoSlash, FaX } from "react-icons/fa6";
+import { ImPhoneHangUp } from "react-icons/im";
+import { MdScreenShare } from "react-icons/md";
+import YouTube from "react-youtube";
+import { RoomsContext } from "../Context/UserContext";
 
 const Footer = () => {
   const hmsActions = useHMSActions();
-  const { setselectedRoom } = useContext(RoomsContext);
+  const { setselectedRoom, shareScreen } = useContext(RoomsContext);
   const [open, setopen] = useState(false);
   const { isLocalAudioEnabled, toggleAudio, isLocalVideoEnabled, toggleVideo } =
     useAVToggle();
@@ -19,10 +18,10 @@ const Footer = () => {
     hmsActions.leave();
     setselectedRoom(null);
   };
-  useEffect(() => {
-     toggleAudio();
-    toggleVideo();
-  }, []);
+  // useEffect(() => {
+  //    toggleAudio();
+  //   toggleVideo();
+  // }, []);
 
   return (
     <div className="flex fixed bottom-0 w-full p-4 justify-center z-10 gap-2 bg-secondaryBg">
@@ -45,6 +44,12 @@ const Footer = () => {
         ) : (
           <FaVideoSlash size="25px" />
         )}
+      </button>
+      <button
+        className="flex justify-center items-center bg-gray-500 w-[64px] h-[64px] rounded-full "
+        onClick={shareScreen}
+      >
+        <MdScreenShare size="30px"  />
       </button>
       <button
         className="flex justify-center items-center bg-gray-500 w-[64px] h-[64px] rounded-full "

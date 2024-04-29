@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
 import { database, db } from "../firebase/firebaseConfig";
 import moment from "moment";
 import { onValue, ref } from "firebase/database";
+import {
+  useHMSStore,
+  selectPeersScreenSharing,
+  useHMSActions,
+  selectScreenShareByPeerID,
+} from "@100mslive/react-sdk";
 function replaceUndefinedWithEmptyString(obj) {
   let newObj = {}; // Create a new empty object
   for (let key in obj) {
@@ -18,6 +24,7 @@ function replaceUndefinedWithEmptyString(obj) {
 }
 export default function useMessages(userName) {
   const [messages, setMessages] = useState(null);
+
   useEffect(() => {
     const query = ref(database, "messages");
     return onValue(query, (snapshot) => {
@@ -25,7 +32,7 @@ export default function useMessages(userName) {
 
       if (snapshot.exists()) {
         Object.values(data).map((message) => {
-          setMessages((messages) => [...messages, project]);
+          setMessages((messages) => [...messages, message]);
         });
       }
     });
@@ -82,8 +89,5 @@ export default function useMessages(userName) {
   //     return () => clearInterval(intervalId);
   // }, []);
 
-  // useEffect(() => {
-  //   getMessages();
-  // }, []);
-  return { messages, setMessagesdB };
+  return { messages, setMessagesdB, };
 }

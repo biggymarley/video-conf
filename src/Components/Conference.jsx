@@ -24,8 +24,8 @@ const Conference = () => {
           />
         </div>
       </div>
-      <div className="w-full h-full min-h-screen bg-black p-0 md:p-8 flex-grow w-screen">
-        <div className="flex  flex-wrap sm:gap-4 px-0 py-20 md:p-6 pb-20 justify-center  overflow-auto">
+      <div className="w-full h-full min-h-screen bg-black p-0 md:p-8 flex-grow overflow-auto">
+        <div className="flex  flex-wrap sm:gap-4 px-0 py-20 md:p-6 pb-20 justify-center">
           {peers.map((peer) => (
             <Peer
               key={peer.id}

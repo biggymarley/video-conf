@@ -9,6 +9,7 @@ import useRoomsHook from "../hooks/useRoomsHook";
 import Conference from "./Conference";
 import JoinForm from "./JoinForm";
 import LiquidSideNav from "./SideChat";
+import useStream from "../hooks/useStream";
 
 function LoggedUser() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,7 @@ function LoggedUser() {
     useRoomsHook();
   const isConnected = useHMSStore(selectIsConnectedToRoom);
   const hmsActions = useHMSActions();
+  const { screenshareVideoTrack, shareScreen } = useStream();
 
   useEffect(() => {
     window.onunload = () => {
@@ -26,9 +28,19 @@ function LoggedUser() {
   }, [hmsActions, isConnected]);
 
   return (
-    <RoomsContext.Provider value={{ rooms, getRoomCodes, roomCodes, selectedRoom , setselectedRoom}}>
+    <RoomsContext.Provider
+      value={{
+        rooms,
+        getRoomCodes,
+        roomCodes,
+        selectedRoom,
+        setselectedRoom,
+        shareScreen,
+        screenshareVideoTrack,
+      }}
+    >
       <ChatContext.Provider value={{ isOpen, setIsOpen }}>
-        <div className="flex bg-bg w-full h-full overflow-hidden" id='parent'> 
+        <div className="flex bg-bg w-full h-full overflow-hidden" id="parent">
           {isConnected ? (
             <>
               <Conference />

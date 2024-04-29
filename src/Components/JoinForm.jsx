@@ -10,7 +10,6 @@ const JoinForm = () => {
   const { rooms, getRoomCodes, setselectedRoom } = useContext(RoomsContext);
   const { userData, clearToken } = useContext(UserContext);
   const { setAppLoading } = useContext(LoadingContext);
-console.log(rooms)
   const goLive = async (id, index) => {
     try {
       setAppLoading(true);
