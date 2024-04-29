@@ -9,7 +9,7 @@ export default function Video({ peer }) {
 
   return (
     <div
-      onClick={open && (() => setOpen(false))}
+      onClick={open ?  (() => setOpen(false)) : undefined}
       className={
         open
           ? "flex items-center justify-center w-screen min-h-screen h-full fixed top-0 left-0 z-50 bg-bg/50 backdrop-blur-xl overflow-auto cursor-pointer"
@@ -21,7 +21,7 @@ export default function Video({ peer }) {
         ref={videoRef}
         className={
           open
-            ? "peer-video w-full h-auto md:h-auto p-2 md:p-14 cursor-pointer"
+            ? "peer-video w-auto md:h-screen h-auto   p-2 md:p-14 cursor-pointer"
             : "peer-video w-full h-full md:h-full cursor-pointer"
         }
         autoPlay
