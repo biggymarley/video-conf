@@ -9,7 +9,7 @@ import { useProfileHook } from "../hooks/useProfileHook";
 import { SketchPicker } from "react-color";
 
 export default function Profile() {
-  const { getUser, userData, saveTokenUser, usersData, setUserData } =
+  const { getUser, userData, saveTokenUser, usersData, setUserData, setUsersData } =
     useContext(UserContext);
   const { setAppLoading } = useContext(LoadingContext);
   const [selectedImageLogo, setSelectedImageLogo] = useState(undefined);
@@ -19,6 +19,7 @@ export default function Profile() {
     saveTokenUser,
     usersData,
     setUserData,
+    setUsersData,
     getUser
   );
   useEffect(() => {

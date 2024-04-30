@@ -7,6 +7,8 @@ export const useProfileHook = (
   setAppLoading,
   saveTokenUser,
   usersData,
+  setUserData,
+  setUsersData,
   getUser
 ) => {
   const formik = useFormik({
@@ -29,7 +31,8 @@ export const useProfileHook = (
         values.logo.file,
         setAppLoading,
         saveTokenUser,
-        getUser
+        setUserData,
+        setUsersData,
       );
     },
   });

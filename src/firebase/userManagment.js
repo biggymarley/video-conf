@@ -41,8 +41,12 @@ export const loginUser = async (email, password, saveToken, setAppLoading) => {
       usersArray = [...usersArray, docs.data()];
     });
     setAppLoading(false);
-    toast.success("Welcome to Discord Clone.");
     saveToken(res.user.accessToken, user.data(), usersArray);
+    if (!user.data().bannerUrl || !user.data().logoUrl)
+      toast.warning(
+        "Please proceed to the profile screen to complete your profile."
+      );
+    else toast.success("Welcome to Discord Clone.");
 
     // return user?.data() ?? null;
   } catch (error) {
@@ -158,14 +162,16 @@ const removeEmptyFields = (obj) => {
   }, {});
 };
 
-const getUser = async () => {
+const getUser = async (setUserData) => {
   try {
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
-        localStorage.setItem("userData", JSON.stringify(docSnap.data()));
+        const userfa = docSnap.data();
+        setUserData({ ...userfa });
+        localStorage.setItem("userData", JSON.stringify(userfa));
       } else {
         console.log("noUser");
       }
@@ -175,7 +181,7 @@ const getUser = async () => {
   }
 };
 
-const getUsers = async () => {
+const getUsers = async (setUsersData) => {
   try {
     const users = await getDocs(collection(db, "users"));
     console.log(users);
@@ -183,6 +189,7 @@ const getUsers = async () => {
     users.forEach((docs) => {
       usersArray = [...usersArray, docs.data()];
     });
+    setUsersData([...usersArray]);
     localStorage.setItem("usersData", JSON.stringify(usersArray));
   } catch (error) {
     console.log(error);
@@ -194,7 +201,10 @@ export const updateProfile = async (
   userdata,
   userImagebanner,
   userImagelogo,
-  setAppLoading
+  setAppLoading,
+  saveTokenUser,
+  setUserData,
+  setUsersData
 ) => {
   try {
     setAppLoading(true);
@@ -231,8 +241,8 @@ export const updateProfile = async (
           userDatacleaned
         );
       }
-      getUser();
-      getUsers();
+      await getUser(setUserData);
+      await getUsers(setUsersData);
       setAppLoading(false);
     } else {
       getUser();

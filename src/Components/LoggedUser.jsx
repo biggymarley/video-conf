@@ -6,12 +6,10 @@ import {
 import { useEffect, useState } from "react";
 import { ChatContext, RoomsContext } from "../Context/UserContext";
 import useRoomsHook from "../hooks/useRoomsHook";
-import Conference from "./Conference";
-import JoinForm from "./JoinForm";
-import LiquidSideNav from "./SideChat";
 import useStream from "../hooks/useStream";
-import { StartsBg } from "./StartsBg";
+import Conference from "./Conference";
 import JoinRooms from "./JoinRooms";
+import { StartsBg } from "./StartsBg";
 
 function LoggedUser() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +19,6 @@ function LoggedUser() {
   const hmsActions = useHMSActions();
   const { screenshareVideoTrack, shareScreen, offShareScreen, presenters } =
     useStream();
-
   useEffect(() => {
     window.onunload = () => {
       if (isConnected) {
