@@ -6,8 +6,9 @@ import { RoomsContext, UserContext } from "../Context/UserContext";
 import StreamVideo from "./StreamVideo";
 import Video from "./Video";
 import Footer from "./Footer";
+import RightClickMenu from "./RightClickMenu";
 
-const Peer = ({ peer, rightClicked, setightClicked }) => {
+const Peer = ({ peer, setightClicked, open }) => {
   const { userData, usersData } = useContext(UserContext);
   const { screenshareVideoTrack, presenters } = useContext(RoomsContext);
   const ref = useRef(null);
@@ -23,14 +24,15 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
         "contextmenu",
         function (e) {
           e.preventDefault();
-          setightClicked(true);
+          console.log("ssssssssssss",peer)
+          setightClicked(peer.name);
         },
         false
       );
     } else {
       ref.current.attachEvent("oncontextmenu", function () {
         alert("You've tried to open context menu");
-        setightClicked(true);
+        setightClicked(peer.name);
       });
     }
   }, []);
@@ -47,6 +49,8 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
         </>
       ))}
 
+
+
       <Footer peer={peer} userData={userData} />
       <div className="flex flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
         <div className="w-full h-full flex flex-col gap-2">
@@ -55,11 +59,17 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
               <div
                 className={`flex w-full h-full relative `}
                 style={{
-                  backgroundColor: userData.color,
+                  backgroundColor: usersData?.filter(
+                    (user) => user.userName === peer.name
+                  )?.[0]?.color,
                 }}
                 ref={ref}
               >
-                <Video peer={peer} />
+                <Video
+                  peer={peer}
+                  setightClicked={setightClicked}
+                  open={open}
+                />
                 {!isLocalAudioEnabled && peer.name === userData.userName ? (
                   <span className="absolute z-10 text-gray-400 bottom-5 right-2 bg-secondaryBg p-2 rounded-full">
                     <BsMicMuteFill size={22} />
@@ -83,37 +93,4 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
   );
 };
 
-const Menu = ({ peer, userData }) => {
-  return (
-    <div className="rounded-md bg-bg flex flex-col  w-[70%] absolute h-full rounded right-[40%] bottom-[-40%]">
-      <p className="transition hover:bg-secondaryBg p-2 text-bold text-gray-400 border-b-[1px] border-gray-500 m-0">
-        Profile
-      </p>
-      {peer.name === userData.userName ? null : (
-        <p className="transition hover:bg-secondaryBg p-2 text-bold text-gray-400 border-b-[1px] border-gray-500">
-          Message
-        </p>
-      )}
-
-      <p className="transition hover:bg-secondaryBg p-2 text-bold text-gray-400 border-b-[1px] border-gray-500">
-        <a
-          href="https://github.com/biggymarley"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          My Github
-        </a>
-      </p>
-      <a
-        href="https://www.youtube.com/watch?v=VEy6wdTAfBc"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <p className="transition hover:bg-secondaryBg p-2 text-bold text-gray-400 border-b-[1px] border-gray-500">
-          Tlbiggy
-        </p>
-      </a>
-    </div>
-  );
-};
 export default Peer;

@@ -8,15 +8,15 @@ import { BiSolidVolumeFull } from "react-icons/bi";
 import { IoChatbubbleSharp } from "react-icons/io5";
 import LiquidSideNav from "./SideChat";
 import JoinForm from "./JoinForm";
+import RightClickMenu from "./RightClickMenu";
 
 const Conference = () => {
   const peers = useHMSStore(selectPeers);
-  const [rightClicked, setightClicked] = useState(false);
+  const [rightClicked, setightClicked] = useState(null);
   const { userData } = useContext(UserContext);
   return (
     <div
       className="flex min-h-screen  w-full relative pb-12 md:pb-0"
-      onClick={() => setightClicked(false)}
     >
       <div className="z-[99] h-full w-[90px] min-h-screen  bg-secondaryBg flex-col md:flex hidden sticky justify-start items-center">
         <div className="border-b-[1px] pb-2 w-full flex justify-center border-white/20">
@@ -30,15 +30,15 @@ const Conference = () => {
         </div>
         <JoinForm />
       </div>
-      <div className="w-full h-full min-h-screen bg-black p-0 py-8 flex-grow overflow-auto">
-        <div className="flex  flex-wrap sm:gap-4 px-0 py-20  pb-20 justify-center">
+      <div className="w-full h-full min-h-screen bg-black p-0 py-8 flex-grow overflow-auto" >
+        <div className="flex  flex-wrap sm:gap-4 px-0 py-20  pb-20 justify-center relative" >
           {peers.map((peer, index) => (
             <>
               <Peer
                 key={peer.id}
                 peer={peer}
-                rightClicked={rightClicked}
                 setightClicked={setightClicked}
+                open={rightClicked}
                 index={index}
               />
             </>

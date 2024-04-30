@@ -1,7 +1,7 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { db } from "../firebase/firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 
 const useAuthTokenHook = () => {
   const [accessToken, setaccessToken] = useState(null);
@@ -24,19 +24,11 @@ const useAuthTokenHook = () => {
     }
   }, []);
 
-  const saveTokenUser = (userData) => {
+  const saveTokenUser = (userData, usersData) => {
     // Save token to localStorage
     console.log(userData);
     localStorage.setItem("userData", JSON.stringify(userData));
-    localStorage.setItem(
-      "usersData",
-      JSON.stringify(
-        usersData.map((user) => {
-          if (user.uid === userData.uid) return userData;
-          else return user;
-        })
-      )
-    );
+    localStorage.setItem("usersData", JSON.stringify(usersData));
     setUserData(userData);
     setUsersData(usersData);
   };
@@ -67,17 +59,34 @@ const useAuthTokenHook = () => {
         if (user) {
           const docRef = doc(db, "users", user.uid);
           const docSnap = await getDoc(docRef);
-          saveTokenUser(docSnap.data());
+          localStorage.setItem("userData", JSON.stringify(docSnap.data()));
+          // saveTokenUser(docSnap.data());
         } else {
           console.log("noUser");
         }
       });
     } catch (error) {
       console.log(error);
+      return null;
+    }
+  };
+  const getUsers = async () => {
+    try {
+      const users = await getDocs(collection(db, "users"));
+      console.log(users)
+      let usersArray = [];
+      users.forEach((docs) => {
+        usersArray = [...usersArray, docs.data()];
+      });
+      localStorage.setItem("usersData", JSON.stringify(usersArray));
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   };
   useEffect(() => {
     getUser();
+    getUsers();
   }, []);
 
   return {

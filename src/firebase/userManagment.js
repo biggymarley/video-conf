@@ -158,14 +158,14 @@ const removeEmptyFields = (obj) => {
   }, {});
 };
 
-const getUser = async (saveTokenUser) => {
+const getUser = async () => {
   try {
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
-        saveTokenUser(docSnap.data());
+        localStorage.setItem("userData", JSON.stringify(docSnap.data()));
       } else {
         console.log("noUser");
       }
@@ -175,12 +175,26 @@ const getUser = async (saveTokenUser) => {
   }
 };
 
+const getUsers = async () => {
+  try {
+    const users = await getDocs(collection(db, "users"));
+    console.log(users);
+    let usersArray = [];
+    users.forEach((docs) => {
+      usersArray = [...usersArray, docs.data()];
+    });
+    localStorage.setItem("usersData", JSON.stringify(usersArray));
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export const updateProfile = async (
   userdata,
   userImagebanner,
   userImagelogo,
-  setAppLoading,
-  saveTokenUser
+  setAppLoading
 ) => {
   try {
     setAppLoading(true);
@@ -217,10 +231,12 @@ export const updateProfile = async (
           userDatacleaned
         );
       }
-      getUser(saveTokenUser);
+      getUser();
+      getUsers();
       setAppLoading(false);
     } else {
-      getUser(saveTokenUser);
+      getUser();
+      getUsers();
       setAppLoading(false);
     }
   } catch (error) {

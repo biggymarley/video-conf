@@ -261,3 +261,7 @@ form h2,
 .penparent:hover > .penchild {
   opacity: 1;
 }
+
+img{
+  object-fit: cover;
+}

@@ -23,6 +23,7 @@ export const useProfileHook = (
           // values.password,
           color: values.color,
           userName: values.userName,
+          bio: values.bio,
         },
         values.banner.file,
         values.logo.file,

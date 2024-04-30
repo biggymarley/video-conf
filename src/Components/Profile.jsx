@@ -68,7 +68,7 @@ export default function Profile() {
             </h2>
           </div>
 
-          <div className="flex w-full gap-8 flex-col md:flex-row h-full md:items-start items-center  md:justify-center justify-start">
+          <div className="flex w-full gap-8 flex-col md:flex-row h-full  items-center  md:justify-center justify-start">
             <form action="#" method="POST" className="m-0 w-full">
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 w-full flex-grow">
                 <div className="sm:col-span-2">
@@ -109,6 +109,28 @@ export default function Profile() {
                       autoComplete="email"
                       disabled
                       className="block w-full outline-none bg-gray-700 h-[50px] rounded border-0 px-3.5 py-2 text-gray-300 shadow-sm  sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+                <div className="sm:col-span-2">
+                  <label
+                    htmlFor="bio"
+                    className="block text-sm font-sans font-semibold leading-6 text-gray-300"
+                  >
+                    About me
+                  </label>
+                  <div className="mt-2.5">
+                    <textarea
+                      type="bio"
+                      name="bio"
+                      id="bio"
+                      rows="5"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.bio}
+                      autoComplete="bio"
+                      
+                      className="block h-full w-full outline-none bg-gray-700  rounded border-0 px-3.5 py-2 text-gray-300 shadow-sm  sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>
@@ -172,19 +194,23 @@ const ProfileBox = ({ userData, formik }) => {
         >
           <button className="penparent z-10 w-full h-full flex justify-center items-center transition-all hover:bg-bg/15 absolute top-0 left-0">
             <div className="penchild">
-              <FaPen size={30} />
               <SketchPicker
                 color={formik.values.color}
                 onChangeComplete={handleChangeComplete}
               />
             </div>
           </button>
-          <p className="font-sans font-bold text-xl text-gray-300">
-            {" "}
+          <p className="font-sans font-bold text-xl text-gray-300 text-end">
             {userData?.userName}
           </p>
-          <p className="font-sans font-light text-md text-gray-400 border-b-red-50/20 pb-2 border-b-[.5px]">
+          <p className="font-sans font-light text-md text-gray-400  pb-2 text-end">
             {userData?.userName}
+          </p>
+          <p className="font-sans font-bold text-sm text-gray-300">
+            ABOUT ME :
+          </p>
+          <p className="font-sans font-light text-md text-gray-400 border-b-red-50/20 pb-2 border-b-[.5px]">
+            {userData?.bio}
           </p>
           <div className="flex gap-2 mt-2 items-center">
             <p className="text-gray-300 font-sans text-sm">Rooms: </p>
