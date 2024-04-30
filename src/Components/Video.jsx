@@ -3,13 +3,13 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../Context/UserContext";
 import RightClickMenu from "./RightClickMenu";
 
-export default function Video({ peer, setightClicked, open}) {
+export default function Video({ peer, setightClicked, open }) {
   const [opens, setOpen] = useState(false);
   const { usersData } = useContext(UserContext);
   const { videoRef } = useVideo({
     trackId: peer.videoTrack,
   });
-
+  console.log("ddddqqqq", open, peer.name, open === peer.name);
   return (
     <div
       onClick={opens ? () => setOpen(false) : undefined}
@@ -20,7 +20,11 @@ export default function Video({ peer, setightClicked, open}) {
       }
     >
       {open === peer.name ? (
-        <RightClickMenu open={open !== null} setOpen={setightClicked}  peerid={open}/>
+        <RightClickMenu
+          open={open !== null}
+          setOpen={setightClicked}
+          peerid={open}
+        />
       ) : null}
 
       <video
