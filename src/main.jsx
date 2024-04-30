@@ -5,9 +5,9 @@ import "./index.css";
 import { HMSRoomProvider } from "@100mslive/react-sdk";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <>
+  <React.StrictMode>
     <HMSRoomProvider>
       <App />
     </HMSRoomProvider>
-  </>
+  </React.StrictMode>
 );

@@ -24,7 +24,7 @@ const Peer = ({ peer, setightClicked, open }) => {
         "contextmenu",
         function (e) {
           e.preventDefault();
-          console.log("ssssssssssss",peer)
+          console.log("here")
           setightClicked(peer.name);
         },
         false
@@ -35,7 +35,7 @@ const Peer = ({ peer, setightClicked, open }) => {
         // setightClicked(peer.name);
       });
     }
-  }, []);
+  }, [peer]);
   return (
     <>
       {presenters.map((presenter, index) => (

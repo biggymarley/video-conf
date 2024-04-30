@@ -10,9 +10,9 @@ import { set } from "firebase/database";
 const RightClickMenu = ({ open, setOpen, peerid }) => {
   const [profileOpen, setProfileOpen] = useState(false);
   const { usersData } = useContext(UserContext);
-  useEffect(() => {
-    if (profileOpen === false) setOpen(false);
-  }, [profileOpen]);
+  // useEffect(() => {
+  //   if (profileOpen === false) setOpen(false);
+  // }, [profileOpen]);
 
   return (
     <div
@@ -69,7 +69,7 @@ const Option = ({ text, Icon, setOpen, open }) => {
   return (
     <motion.li
       variants={itemVariants}
-      onClick={open ? () => setOpen(false) : undefined}
+      // onClick={open ? () => setOpen(false) : undefined}
       className="flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-indigo-100 text-gray-300 hover:text-primary transition-colors cursor-pointer"
     >
       <motion.span variants={actionIconVariants}>
