@@ -45,8 +45,8 @@ function LoggedUser() {
       }}
     >
       <ChatContext.Provider value={{ isOpen, setIsOpen }}>
-          <div className="flex bg-bg w-full h-full overflow-hidden" id="parent">
-        <StartsBg>
+        <div className="flex bg-bg w-full h-full overflow-hidden" id="parent">
+          <StartsBg>
             {isConnected ? (
               <>
                 <Conference />
@@ -54,8 +54,8 @@ function LoggedUser() {
             ) : (
               <JoinRooms />
             )}
-        </StartsBg>
-          </div>
+          </StartsBg>
+        </div>
       </ChatContext.Provider>
     </RoomsContext.Provider>
   );

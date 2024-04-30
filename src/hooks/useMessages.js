@@ -68,6 +68,7 @@ export default function useMessages(userName) {
       const messagesRef = ref(database, 'messages')
       const newDataref = push(messagesRef)
       set(newDataref, cleanmessage);
+      console.log(cleanmessage)
       // const messagesRef = doc(
       //   db,
       //   "messages",

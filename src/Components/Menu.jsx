@@ -14,8 +14,10 @@ import { FiX } from "react-icons/fi";
 import { IoChatbubbleSharp } from "react-icons/io5";
 import { RoomsContext, UserContext } from "../Context/UserContext";
 import useMessages from "../hooks/useMessages";
-
-export default function Menu({ isOpen, setIsOpen }) {
+import GifPicker from "gif-picker-react";
+import { MdOutlineGifBox } from "react-icons/md";
+import { HamburgerButton } from "./Conference";
+export default function Menu({ isOpen, setIsOpen, setActive , active}) {
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -30,8 +32,10 @@ export default function Menu({ isOpen, setIsOpen }) {
   const { userData, usersData } = useContext(UserContext);
   const { selectedRoom, rooms } = useContext(RoomsContext);
   const [isOpenEmojie, setisOpenEmojie] = useState(false);
+  const [isOpenGif, setisOpenGif] = useState(false);
   const [selectedEmojie, setisselectedEmojie] = useState(null);
-  const [message, setimessage] = useState("");
+  const [selectedGif, setiselectedGif] = useState(null);
+  const [message, setimessage] = useState({});
   const [color, setColor] = useState("red");
   const { messages, setMessagesdB } = useMessages(userData.userName);
   const Send = (e) => {
@@ -40,25 +44,29 @@ export default function Menu({ isOpen, setIsOpen }) {
       setMessagesdB(
         {
           ...allMessages?.[allMessages?.length - 1],
-          message: message,
+          content: message.content,
+          messageType: message.messageType,
           senderName: userData.userName,
           color: userData?.color ?? "red",
         } ?? {
           senderName: userData.userName,
           color: userData?.color ?? "red",
-          message: message,
+          content: message.content,
+          messageType: message.messageType,
           time: moment.now(),
           id: moment.now().toExponential(),
         }
       );
-      setimessage("");
+      setimessage(null);
       setisselectedEmojie(null);
+      setiselectedGif(null);
+      setisOpenEmojie(false);
+      setisOpenGif(false);
     }
   };
   const handleChange = (e) => {
-    setimessage(e.target.value);
+    setimessage({ content: e.target.value, messageType: "TEXT" });
   };
-
 
   // useEffect(() => {
   //   if (allMessages?.[allMessages?.length - 1] && ) {
@@ -79,8 +87,16 @@ export default function Menu({ isOpen, setIsOpen }) {
   }, [usersData, userData]);
 
   useEffect(() => {
-    if (selectedEmojie) setimessage(message + selectedEmojie.emoji);
-  }, [selectedEmojie, allMessages]);
+    if (selectedEmojie)
+      setimessage({
+        content: (message?.content ?? "") + selectedEmojie.emoji,
+        type: "TEXT",
+      });
+  }, [selectedEmojie]);
+
+  useEffect(() => {
+    if (selectedGif) setimessage({ content: selectedGif, messageType: "GIF" });
+  }, [selectedGif, allMessages]);
 
   return (
     <div>
@@ -91,12 +107,6 @@ export default function Menu({ isOpen, setIsOpen }) {
           onClose={toggleDrawer(false)}
           className="overflow*hidden"
         >
-          {/* <motion.nav
-            className="absolute md:relative top-0 bottom-0  bg-bg z-50 w-full overflow-hidden"
-            animate={isOpen ? "open" : "closed"}
-            variants={navVariants}
-            initial="closed"
-          > */}
           <div className="flex w-screen sm:w-[400px] bg-bg overflow-hidden">
             <div className="absolute top-0 shadow-sm shadow-gray-600 w-full flex bg-bg z-10 overflow-hidden">
               <p className=" font-sans font-bold text-xl flex items-center gap-1 flex-grow p-4 ">
@@ -110,6 +120,7 @@ export default function Menu({ isOpen, setIsOpen }) {
               >
                 <FiX size={25} />
               </motion.button>
+
             </div>
             <div className="p-4 absolute bottom-0 w-full flex z-10 bg-bg">
               <input
@@ -119,9 +130,9 @@ export default function Menu({ isOpen, setIsOpen }) {
                 autoComplete="off"
                 onKeyDown={Send}
                 onChange={handleChange}
-                value={message}
+                value={message?.content ?? ""}
                 placeholder={`Message ${rooms?.data?.[selectedRoom]?.template}`}
-                className=" h-[40px] block w-full rounded-md border-0 py-1.5 text-white shadow-sm bg-gray-600 sm:text-sm sm:leading-6"
+                className=" h-[40px] pl-10 block w-full rounded-md border-0 py-1.5 text-white shadow-sm bg-gray-600 sm:text-sm sm:leading-6"
               />
               <button
                 className="absolute right-6 top-0 bottom-0 z-10"
@@ -129,6 +140,21 @@ export default function Menu({ isOpen, setIsOpen }) {
               >
                 <BsEmojiDizzyFill size={25} />
               </button>
+              <button
+                className="absolute left-6 top-0 bottom-0 z-10"
+                onClick={() => setisOpenGif(!isOpenGif)}
+              >
+                <MdOutlineGifBox size={25} />
+              </button>
+              {isOpenGif ? (
+                <div className="absolute w-full bottom-[70px] left-0 pl-6">
+                  <GifPicker
+                    onGifClick={(img) => setiselectedGif(img.url)}
+                    tenorApiKey={"AIzaSyCTMkTbQ9Igbx6QIlE-nSqSJaRUUCEULDQ"}
+                  />
+                </div>
+              ) : null}
+
               <div className="absolute w-full bottom-[70px] left-0 pl-6">
                 <EmojiPicker
                   open={isOpenEmojie}
@@ -167,21 +193,11 @@ export default function Menu({ isOpen, setIsOpen }) {
                         {moment(msg.time).fromNow()}
                       </span>
                     </div>
-                    {msg.message}
+                    <MessageHandler message={msg} />
                   </div>
                 </div>
               ))}
             </div>
-            {/* <motion.div
-        variants={linkWrapperVariants}
-        className="flex flex-col gap-4 absolute bottom-8 left-8"
-      >
-        <NavLink text="Home" />
-        <NavLink text="Work" />
-        <NavLink text="Careers" />
-        <NavLink text="Contact" />
-      </motion.div> */}
-            {/* </motion.nav> */}
           </div>
         </Drawer>
       </>
@@ -189,40 +205,16 @@ export default function Menu({ isOpen, setIsOpen }) {
   );
 }
 
-const bigscreen = {
-  open: {
-    // x: "0%",
-    // borderTopLeftRadius: "0vw",
-    // borderBottomLeftRadius: "0vw",
-    opacity: 1,
-    display: "block",
-    width: "100%",
-  },
-  closed: {
-    // x: "100%",
-    // borderTopLeftRadius: "50vw",
-    // borderBottomLeftRadius: "50vw",
-    display: "hidden",
-    opacity: 0,
-    width: "0%",
-  },
-};
-
-const smallscreen = {
-  open: {
-    // x: "0%",
-    // borderTopLeftRadius: "0vw",
-    // borderBottomLeftRadius: "0vw",
-    opacity: 1,
-    display: "block",
-    width: "600px",
-  },
-  closed: {
-    // x: "100%",
-    // borderTopLeftRadius: "50vw",
-    // borderBottomLeftRadius: "50vw",
-    display: "hidden",
-    opacity: 0,
-    width: "0%",
-  },
+const MessageHandler = ({ message }) => {
+  console.log("themsg", message);
+  switch (message?.messageType) {
+    case "GIF":
+      return (
+        <div>
+          <img src={message.content} alt="userGif" />
+        </div>
+      );
+    default:
+      return <div>{message.content}</div>;
+  }
 };

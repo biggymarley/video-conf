@@ -54,10 +54,10 @@ const Peer = ({ peer, setightClicked, open }) => {
       <Footer peer={peer} userData={userData} />
       <div className="flex flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
         <div className="w-full h-full flex flex-col gap-2">
-          <div className="w-full h-[200px]  md:rounded-md overflow-visible flex border flex-col">
+          <div className="w-full h-[200px]  rounded-xl overflow-visible flex  flex-col">
             {userConrols.video ? (
               <div
-                className={`flex w-full h-full relative `}
+                className={`flex w-full h-full relative rounded-xl`}
                 style={{
                   backgroundColor: usersData?.filter(
                     (user) => user.userName === peer.name
@@ -77,7 +77,7 @@ const Peer = ({ peer, setightClicked, open }) => {
                 ) : null}
               </div>
             ) : (
-              <div className="w-full h-full border flex justify-center items-center rounded-md border-slate-800 mb-[10px] bg-gray-500">
+              <div className="w-full h-full border flex justify-center items-center rounded-xl border-slate-800 mb-[10px] bg-gray-500">
                 <Avatar className="w-32 h-32" />
               </div>
             )}

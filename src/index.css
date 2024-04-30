@@ -167,9 +167,6 @@ form h2,
 
 .peer-video {
   object-fit: cover;
-  /* margin-bottom: 10px; */
-  /* height: 100%;
-  width: 100%; */
 }
 /* @media only screen and (max-width: 600px) {
   .peer-video {
