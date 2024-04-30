@@ -1,12 +1,14 @@
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
   sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { auth, db } from "./firebaseConfig";
+import { auth, db, storage } from "./firebaseConfig";
 import { toast } from "sonner";
 import {
   collection,
@@ -16,6 +18,8 @@ import {
   query,
   setDoc,
 } from "firebase/firestore";
+import { getDownloadURL, uploadBytes } from "firebase/storage";
+import { ref as sRef } from "firebase/storage";
 
 const actionConfig = {
   handleCodeInApp: true,
@@ -143,5 +147,132 @@ export const resetPassword = async (email) => {
   } catch (error) {
     console.error(error);
     toast.success(error?.message ?? "Server error please try again!");
+  }
+};
+const removeEmptyFields = (obj) => {
+  return Object.entries(obj).reduce((acc, [key, value]) => {
+    if (value !== null && value !== undefined && value !== "") {
+      acc[key] = value;
+    }
+    return acc;
+  }, {});
+};
+
+const getUser = async (saveTokenUser) => {
+  try {
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        saveTokenUser(docSnap.data());
+      } else {
+        console.log("noUser");
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateProfile = async (
+  userdata,
+  userImagebanner,
+  userImagelogo,
+  setAppLoading,
+  saveTokenUser
+) => {
+  try {
+    setAppLoading(true);
+    const userDatacleaned = removeEmptyFields(userdata);
+    console.log(userDatacleaned, userImagebanner, userImagelogo);
+    await setDoc(
+      doc(db, "users", userDatacleaned.uid),
+      {
+        ...userDatacleaned,
+      },
+      { merge: true }
+    );
+    if (
+      (userImagebanner &&
+        userImagebanner.name.match(/\.(jpg|jpeg|png|gif)$/i)) ||
+      (userImagelogo && userImagelogo.name.match(/\.(jpg|jpeg|png|gif)$/i))
+    ) {
+      if (
+        userImagebanner &&
+        userImagebanner.name.match(/\.(jpg|jpeg|png|gif)$/i)
+      ) {
+        await UploadImageBanner(
+          `${userDatacleaned.uid}`,
+          userImagebanner,
+          doc(db, "users", userDatacleaned.uid),
+          userDatacleaned
+        );
+      }
+      if (userImagelogo && userImagelogo.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        await UploadImageLogo(
+          `${userDatacleaned.uid}`,
+          userImagelogo,
+          doc(db, "users", userDatacleaned.uid),
+          userDatacleaned
+        );
+      }
+      getUser(saveTokenUser);
+      setAppLoading(false);
+    } else {
+      getUser(saveTokenUser);
+      setAppLoading(false);
+    }
+  } catch (error) {
+    console.log(error);
+    // alert("upload error");
+
+    return null;
+  }
+};
+
+export const UploadImageLogo = async (uid, userImage, userRef, data) => {
+  try {
+    const imageRef = sRef(storage, `usersImgs/${uid}-logo`);
+    await uploadBytes(imageRef, userImage);
+    //get image url and update document and add imageUrl to it
+    const url = await getDownloadURL(imageRef);
+
+    await setDoc(
+      userRef,
+      {
+        logoUrl: url,
+        uid: uid,
+      },
+      { merge: true }
+    );
+    return { ...data, logoUrl: url, uid: uid };
+  } catch (error) {
+    console.log(error);
+    alert("upload error image");
+    return null;
+  }
+};
+
+export const UploadImageBanner = async (uid, userImage, userRef, data) => {
+  try {
+    const imageRef = sRef(storage, `usersImgs/${uid}-banner`);
+    await uploadBytes(imageRef, userImage);
+    //get image url and update document and add imageUrl to it
+    const url = await getDownloadURL(imageRef);
+
+    await setDoc(
+      userRef,
+      {
+        bannerUrl: url,
+        uid: uid,
+      },
+      { merge: true }
+    );
+    return { ...data, bannerUrl: url, uid: uid };
+  } catch (error) {
+    console.log(error);
+    alert("upload error image");
+    return null;
   }
 };

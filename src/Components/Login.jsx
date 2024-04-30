@@ -22,8 +22,8 @@ export default function Login() {
       <div className="top-0 left-0 right-0 w-full h-full absolute flex justify-center items-center">
         <div className="max-w-md w-full  bg-bg flex flex-col rounded">
           <div className="flex flex-col gap-1 justify-center w-full pt-4">
-            <h3 className="font-semibold text-xl text-center">Welcome back!</h3>
-            <p className="font-light text-gray-400 text-center">
+            <h3 className="font-sans font-semibold text-xl text-center">Welcome back!</h3>
+            <p className="font-sans font-light text-gray-400 text-center">
               We're so excited to see you again!
             </p>
           </div>
@@ -31,7 +31,7 @@ export default function Login() {
             <div>
               <label
                 htmlFor="email"
-                className="flex text-xs font-bold leading-6 text-gray-300 gap-1"
+                className="flex text-xs font-sans font-bold leading-6 text-gray-300 gap-1"
               >
                 EMAIL<span className="text-red-500">*</span>
               </label>
@@ -59,7 +59,7 @@ export default function Login() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="flex text-xs font-bold leading-6 text-gray-300 gap-1"
+                  className="flex text-xs font-sans font-bold leading-6 text-gray-300 gap-1"
                 >
                   PASSWORD<span className="text-red-500">*</span>
                 </label>
@@ -84,7 +84,7 @@ export default function Login() {
                 <div className="text-sm">
                   <Link
                     to={"/forgotpassword"}
-                    className="block text-xs font-bold leading-6 text-blue-400"
+                    className="block text-xs font-sans font-bold leading-6 text-blue-400"
                   >
                     Forgot your password?
                   </Link>
@@ -96,11 +96,11 @@ export default function Login() {
               <button
                 type="submit"
                 onClick={() => formik.submitForm()}
-                className="flex w-full justify-center h-[40px] rounded-sm bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center h-[40px] rounded-sm bg-primary px-3 py-1.5 text-sm font-sans font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 LOGIN
               </button>
-              <span className="flex  gap-2 mt-2 text-xs font light text-gray-400">
+              <span className="flex  gap-2 mt-2 text-xs font-sans font light text-gray-400">
                 using Firebase and FireStore to login into your account{" "}<IoLogoFirebase color="#FFA000"/>
 
               </span>
@@ -108,7 +108,7 @@ export default function Login() {
                 <span className="text-sm text-gray-400">Need an account?</span>
                 <Link
                   to={"/register"}
-                  className="block text-sm font-bold leading-6 text-blue-400 "
+                  className="block text-sm font-sans font-bold leading-6 text-blue-400 "
                 >
                   Register
                 </Link>

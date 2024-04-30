@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import LoggedUser from "./LoggedUser";
+import Profile from "./Profile";
 
 // const Login = lazy(() => import("./Login"));
 // const Register = lazy(() => import("./Register"));
@@ -23,6 +24,7 @@ export const PrivateRoutes = () => {
       element: <Layout />,
       children: [
         { path: "/", element: <LoggedUser /> },
+        { path: "/profile", element: <Profile /> },
         { path: "*", element: <Navigate to="/" replace /> },
       ],
     },

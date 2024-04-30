@@ -9,15 +9,36 @@ import useAuthTokenHook from "./hooks/useAuthTokenHook";
 
 function App() {
   const [appLoading, setAppLoading] = useState(false);
-  const { accessToken, saveToken, clearToken, userData, usersData } = useAuthTokenHook();
+  const {
+    accessToken,
+    saveToken,
+    clearToken,
+    userData,
+    usersData,
+    getUser,
+    saveTokenUser,
+    setUserData,
+    
+  } = useAuthTokenHook();
   return (
     <LoadingContext.Provider value={{ appLoading, setAppLoading }}>
-      <UserContext.Provider value={{ accessToken, saveToken, clearToken , userData, usersData}}>
-          {appLoading ? (
-            <div className="z-50 fixed">
-              <Loader />
-            </div>
-          ) : null}
+      <UserContext.Provider
+        value={{
+          saveTokenUser,
+          accessToken,
+          saveToken,
+          clearToken,
+          setUserData,
+          userData,
+          usersData,
+          getUser,
+        }}
+      >
+        {appLoading ? (
+          <div className="z-50 fixed">
+            <Loader />
+          </div>
+        ) : null}
         <div className="flex min-h-screen bg-bg">
           <MainRouter />
         </div>

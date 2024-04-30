@@ -5,9 +5,9 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { RoomsContext, UserContext } from "../Context/UserContext";
 import StreamVideo from "./StreamVideo";
 import Video from "./Video";
+import Footer from "./Footer";
 
 const Peer = ({ peer, rightClicked, setightClicked }) => {
-  const [color, setColor] = useState("red");
   const { userData, usersData } = useContext(UserContext);
   const { screenshareVideoTrack, presenters } = useContext(RoomsContext);
   const ref = useRef(null);
@@ -16,12 +16,6 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
     audio: true,
     video: true,
   });
-
-  useEffect(() => {
-    const color = usersData?.filter((user) => user.userName === peer.name)?.[0]
-      ?.color;
-    setColor(color);
-  }, [usersData]);
 
   useEffect(() => {
     if (ref.current.addEventListener) {
@@ -40,23 +34,29 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
       });
     }
   }, []);
-
-
   return (
     <>
-      <StreamVideo
-        screenshareVideoTrack={screenshareVideoTrack}
-        presenter={presenters}
-        peer={peer}
-      />
+      {presenters.map((presenter, index) => (
+        <>
+          <StreamVideo
+            key={index}
+            screenshareVideoTrack={screenshareVideoTrack}
+            presenter={presenters}
+            peer={peer}
+          />
+        </>
+      ))}
 
+      <Footer peer={peer} userData={userData} />
       <div className="flex flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
         <div className="w-full h-full flex flex-col gap-2">
           <div className="w-full h-[200px]  md:rounded-md overflow-visible flex border flex-col">
             {userConrols.video ? (
               <div
-                className={`flex w-full h-full relative bg-[${color}]`}
-                style={{ backgroundColor: color }}
+                className={`flex w-full h-full relative `}
+                style={{
+                  backgroundColor: userData.color,
+                }}
                 ref={ref}
               >
                 <Video peer={peer} />
@@ -74,7 +74,7 @@ const Peer = ({ peer, rightClicked, setightClicked }) => {
 
             {/* {rightClicked ? <Menu peer={peer} userData={userData} /> : null} */}
           </div>
-          <div className="text-center text-sm font-light absolute bottom-4 left-4 bg-bg/50 p-1 px-2 rounded-md">
+          <div className="text-center text-sm font-sans font-light absolute bottom-4 left-4 bg-bg/50 p-1 px-2 rounded-md">
             {peer.name}
           </div>
         </div>

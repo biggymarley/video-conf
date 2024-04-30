@@ -27,7 +27,7 @@ export default function Register() {
       <div className="top-0 left-0 right-0 w-full h-full absolute flex justify-center items-center">
         <div className="max-w-md w-full  bg-bg flex flex-col rounded">
           <div className="flex flex-col gap-1 justify-center w-full pt-4">
-            <h3 className="font-semibold text-xl text-center">
+            <h3 className="font-sans font-semibold text-xl text-center">
               Create an account
             </h3>
           </div>
@@ -35,7 +35,7 @@ export default function Register() {
             <div>
               <label
                 htmlFor="userName"
-                className="flex text-xs font-bold leading-6 text-gray-300 gap-1"
+                className="flex text-xs font-sans font-bold leading-6 text-gray-300 gap-1"
               >
                 USERNAME<span className="text-red-500">*</span>
               </label>
@@ -60,7 +60,7 @@ export default function Register() {
             <div>
               <label
                 htmlFor="email"
-                className="flex text-xs font-bold leading-6 text-gray-300 gap-1"
+                className="flex text-xs font-sans font-bold leading-6 text-gray-300 gap-1"
               >
                 EMAIL<span className="text-red-500">*</span>
               </label>
@@ -88,7 +88,7 @@ export default function Register() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="flex text-xs font-bold leading-6 text-gray-300 gap-1"
+                  className="flex text-xs font-sans font-bold leading-6 text-gray-300 gap-1"
                 >
                   PASSWORD<span className="text-red-500">*</span>
                 </label>
@@ -102,6 +102,7 @@ export default function Register() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.password}
+                  
                   required
                   className=" h-[40px] block w-full rounded-sm border-0 py-1.5 text-white shadow-sm   sm:text-sm sm:leading-6"
                 />
@@ -116,7 +117,7 @@ export default function Register() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="confirmPassword"
-                  className="flex text-xs font-bold leading-6 text-gray-300 gap-1"
+                  className="flex text-xs font-sans font-bold leading-6 text-gray-300 gap-1"
                 >
                   CONFIRM PASSWORD<span className="text-red-500">*</span>
                 </label>
@@ -126,6 +127,8 @@ export default function Register() {
                   id="confirmPassword"
                   name="confirmPassword"
                   type="password"
+                  autoComplete="current-password"
+
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.confirmPassword}
@@ -143,17 +146,17 @@ export default function Register() {
               <button
                 type="submit"
                 onClick={registerUser}
-                className="flex w-full justify-center h-[40px] rounded-sm bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center h-[40px] rounded-sm bg-primary px-3 py-1.5 text-sm font-sans font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 REGISTER
               </button>
-              <span className="flex  gap-2 mt-2 text-xs font light text-gray-400">
+              <span className="flex  gap-2 mt-2 text-xs font-sans font light text-gray-400">
                 using Firebase and FireStore to create your account{" "}<IoLogoFirebase color="#FFA000"/>
               </span>
               <div className=" flex items-center mt-2 gap-1">
                 <Link
                   to={"/login"}
-                  className="block text-sm font-medium leading-6 text-blue-400 "
+                  className="block text-sm font-sans font-medium leading-6 text-blue-400 "
                 >
                   Already have an account?
                 </Link>

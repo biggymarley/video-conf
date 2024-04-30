@@ -11,10 +11,9 @@ export default function StreamVideo({
     trackId: screenshareVideoTrack?.id,
   });
 
-  console.log(presenter);
   return screenshareVideoTrack &&
     presenter.filter((pre) => pre.name === peer.name).length > 0 ? (
-    <div className="flex flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
+    <div className="flex z-[99] flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
       <div className="w-full h-[200px]  md:rounded-md overflow-visible flex border flex-col ">
         <div
           onClick={open ? () => setOpen(false) : undefined}

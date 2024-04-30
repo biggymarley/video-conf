@@ -26,7 +26,6 @@ export default function useStream() {
       console.log(error);
     }
   };
-
   const screenshareVideoTrack = useHMSStore(
     selectScreenShareByPeerID(presenters[0]?.id ?? "")
   );

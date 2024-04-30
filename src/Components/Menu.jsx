@@ -99,7 +99,7 @@ export default function Menu({ isOpen, setIsOpen }) {
           > */}
           <div className="flex w-screen sm:w-[400px] bg-bg overflow-hidden">
             <div className="absolute top-0 shadow-sm shadow-gray-600 w-full flex bg-bg z-10 overflow-hidden">
-              <p className=" font-bold text-xl flex items-center gap-1 flex-grow p-4 ">
+              <p className=" font-sans font-bold text-xl flex items-center gap-1 flex-grow p-4 ">
                 <IoChatbubbleSharp size={25} color="#838383" />
                 {rooms?.data?.[selectedRoom]?.template}
               </p>
@@ -142,7 +142,7 @@ export default function Menu({ isOpen, setIsOpen }) {
               className="flex flex-col  gap-4 overflow-auto  h-screen pb-[72px] absolute w-full pt-[56px]"
             >
               <div className="">
-                <p className="font-light text-center pb-8 pt-4 px-1 text-gray-400">
+                <p className="font-sans font-light text-center pb-8 pt-4 px-1 text-gray-400">
                   Welcom to {rooms?.data?.[selectedRoom]?.template}'s Chat, Type
                   Somthing!
                 </p>
@@ -150,20 +150,20 @@ export default function Menu({ isOpen, setIsOpen }) {
               {messages?.map((msg, index) => (
                 <div key={index} className={`flex gap-4  px-2`}>
                   <div
-                    className="font-light text-sm "
+                    className="font-sans font-light text-sm "
                     style={{ lineBreak: "anywhere" }}
                   >
                     <div className="flex w-full gap-2 items-center">
                       <span
                         style={{ color: msg.color }}
-                        className={`font-semibold text-sm]`}
+                        className={`font-sans font-semibold text-sm]`}
                       >
                         {msg.senderName === "You"
                           ? userData.userName
                           : msg.senderName}{" "}
                         :
                       </span>
-                      <span className="font-light text-xs text-gray-400">
+                      <span className="font-sans font-light text-xs text-gray-400">
                         {moment(msg.time).fromNow()}
                       </span>
                     </div>

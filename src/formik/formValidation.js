@@ -20,6 +20,23 @@ export const registerValidation = Yup.object({
     .required("Required"),
 });
 
+
+export const profileValidation = Yup.object({
+  userName: Yup.string()
+    .min(4, "Must 3 characters or more"),
+  password: Yup.string()
+    .min(6, "Must be 6 characters or more"),
+});
+
+export const profileFormValues = {
+  userName: "",
+  email: "",
+  password: "",
+  banner: "",
+  logo: "",
+};
+
+
 export const forgotPasswordValidation = Yup.object({
   email: Yup.string().email("Invalid email address").required("Required"),
 });

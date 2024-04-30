@@ -1,4 +1,7 @@
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
+import { db } from "../firebase/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 const useAuthTokenHook = () => {
   const [accessToken, setaccessToken] = useState(null);
@@ -19,8 +22,24 @@ const useAuthTokenHook = () => {
     if (storedusersData) {
       setUsersData(JSON.parse(storedusersData));
     }
-
   }, []);
+
+  const saveTokenUser = (userData) => {
+    // Save token to localStorage
+    console.log(userData);
+    localStorage.setItem("userData", JSON.stringify(userData));
+    localStorage.setItem(
+      "usersData",
+      JSON.stringify(
+        usersData.map((user) => {
+          if (user.uid === userData.uid) return userData;
+          else return user;
+        })
+      )
+    );
+    setUserData(userData);
+    setUsersData(usersData);
+  };
 
   const saveToken = (accessToken, userData, usersData) => {
     // Save token to localStorage
@@ -40,10 +59,37 @@ const useAuthTokenHook = () => {
     setaccessToken(null);
     setUserData(null);
     setUsersData(null);
-
   };
+  const getUser = async () => {
+    try {
+      const auth = getAuth();
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+          saveTokenUser(docSnap.data());
+        } else {
+          console.log("noUser");
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
 
-  return { usersData, userData, accessToken, saveToken, clearToken };
+  return {
+    usersData,
+    userData,
+    accessToken,
+    saveToken,
+    clearToken,
+    saveTokenUser,
+    setUsersData,
+    getUser,
+  };
 };
 
 export default useAuthTokenHook;

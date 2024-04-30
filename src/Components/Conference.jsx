@@ -7,6 +7,7 @@ import { ChatContext, RoomsContext, UserContext } from "../Context/UserContext";
 import { BiSolidVolumeFull } from "react-icons/bi";
 import { IoChatbubbleSharp } from "react-icons/io5";
 import LiquidSideNav from "./SideChat";
+import JoinForm from "./JoinForm";
 
 const Conference = () => {
   const peers = useHMSStore(selectPeers);
@@ -17,17 +18,20 @@ const Conference = () => {
       className="flex min-h-screen  w-full relative pb-12 md:pb-0"
       onClick={() => setightClicked(false)}
     >
-      <div className="h-full min-h-screen p-0 md:p-4 bg-secondaryBg md:flex hidden sticky ">
-        <div className="rounded-full bg-slate-600 flex w-[50px] h-[50px] justify-center items-center">
-          <img
-            src={logo}
-            alt="logo"
-            className="w-[35px] filter  invert brightness-0"
-          />
+      <div className="z-[99] h-full w-[90px] min-h-screen  bg-secondaryBg flex-col md:flex hidden sticky justify-start items-center">
+        <div className="border-b-[1px] pb-2 w-full flex justify-center border-white/20">
+          <div className="rounded-full  bg-slate-600 flex  w-[50px] h-[50px] justify-center items-center mt-4">
+            <img
+              src={logo}
+              alt="logo"
+              className="w-[35px] filter  invert brightness-0"
+            />
+          </div>
         </div>
+        <JoinForm />
       </div>
-      <div className="w-full h-full min-h-screen bg-black p-0 md:p-8 flex-grow overflow-auto">
-        <div className="flex  flex-wrap sm:gap-4 px-0 py-20 md:p-6 pb-20 justify-center">
+      <div className="w-full h-full min-h-screen bg-black p-0 py-8 flex-grow overflow-auto">
+        <div className="flex  flex-wrap sm:gap-4 px-0 py-20  pb-20 justify-center">
           {peers.map((peer, index) => (
             <>
               <Peer
@@ -41,8 +45,7 @@ const Conference = () => {
           ))}
         </div>
       </div>
-          <LiquidSideNav peers={peers}/>
-      <Footer />
+      <LiquidSideNav peers={peers} />
       <RoomInfos />
     </div>
   );
@@ -54,7 +57,7 @@ const RoomInfos = () => {
 
   return (
     <div className="absolute top-3 flex w-full transition " id="child">
-      <p className="md:ml-[100px] ml-[20px] font-bold text-xl flex items-center gap-1 flex-grow">
+      <p className="md:ml-[100px] ml-[20px] font-sans font-bold text-xl flex items-center gap-1 flex-grow">
         {rooms?.data?.[selectedRoom]?.template}
         <BiSolidVolumeFull />
       </p>

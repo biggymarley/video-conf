@@ -1,4 +1,4 @@
-import { useAVToggle, useHMSActions } from "@100mslive/react-sdk";
+import { selectIsLocalScreenShared, useAVToggle, useHMSActions, useHMSStore } from "@100mslive/react-sdk";
 import { useContext, useEffect, useState } from "react";
 import { BsFillMicFill, BsMicMuteFill } from "react-icons/bs";
 import { FaYoutube } from "react-icons/fa";
@@ -11,7 +11,7 @@ import { MdStopScreenShare } from "react-icons/md";
 import { MdHeadset } from "react-icons/md";
 import { MdHeadsetOff } from "react-icons/md";
 
-const Footer = () => {
+const Footer = ({ peer, userData, presenter }) => {
   const hmsActions = useHMSActions();
   const {
     setselectedRoom,
@@ -40,15 +40,17 @@ const Footer = () => {
     });
     setmute(false);
   };
-  // useEffect(() => {
-  //    toggleAudio();
-  //   toggleVideo();
-  // }, []);
-
+  const amIScreenSharing =  useHMSStore(selectIsLocalScreenShared);
+ 
+  useEffect(() => {
+     console.log(amIScreenSharing)
+  }, [amIScreenSharing]);
   return (
     <div className="flex fixed bottom-0 w-full p-4 justify-center z-10 gap-2 bg-secondaryBg">
       <button
-        className={`flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full ${!isLocalAudioEnabled && ("bg-red-500")}`}
+        className={`flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full ${
+          !isLocalAudioEnabled && "bg-red-500"
+        }`}
         onClick={toggleAudio}
       >
         {isLocalAudioEnabled ? (
@@ -69,12 +71,14 @@ const Footer = () => {
           className="flex justify-center items-center bg-red-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
           onClick={unmute}
         >
-          <MdHeadsetOff  size="60%" />
+          <MdHeadsetOff size="60%" />
         </button>
       )}
 
       <button
-        className={`flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full ${!isLocalVideoEnabled && ("bg-red-500")}`}
+        className={`flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full ${
+          !isLocalVideoEnabled && "bg-red-500"
+        }`}
         onClick={toggleVideo}
       >
         {isLocalVideoEnabled ? (
@@ -83,7 +87,7 @@ const Footer = () => {
           <FaVideoSlash size="60%" />
         )}
       </button>
-      {screenshareVideoTrack ? (
+      {screenshareVideoTrack && amIScreenSharing ? (
         <button
           className="flex justify-center items-center bg-red-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
           onClick={offShareScreen}
