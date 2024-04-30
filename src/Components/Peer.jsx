@@ -32,7 +32,7 @@ const Peer = ({ peer, setightClicked, open }) => {
     } else {
       ref.current.attachEvent("oncontextmenu", function () {
         alert("You've tried to open context menu");
-        setightClicked(peer.name);
+        // setightClicked(peer.name);
       });
     }
   }, []);
