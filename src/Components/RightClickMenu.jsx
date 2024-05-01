@@ -105,12 +105,12 @@ const ProfileBox = ({ usersData, peerid }) => {
         <div className="w-[100px] h-[100px] bg-slate-300 rounded-full absolute top-[20%] left-4 border-t-gray-700/80 border-4 border-b-0 border-r-gray-700/80 border-gray-700/80">
           {/* PROFILE IMG */}
           {user?.logoUrl && (
-            <div>
+            <div className="rounded-full overflow-hidden">
               <img
                 src={user?.logoUrl}
                 alt="Selected"
                 style={{ height: "100%", width: "100%" }}
-                className="absolute top-0 left-0 bottom-0 right-0"
+                className="absolute top-0 left-0 bottom-0 right-0 rounded-full"
               />
             </div>
           )}
