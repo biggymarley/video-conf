@@ -112,7 +112,7 @@ export const createUser = async (
         userName: userName,
         email: email,
         color: getRandomColor(),
-        roles: [{id:"662d73ba7a8ae1f0e51ac727", label:'Wagners'}],
+        roles: [{id:"662dfc6add47a667f37ba353", label:'Wagners'}],
       };
       await setDoc(doc(db, "users", userCredential.user.uid), user);
     }
