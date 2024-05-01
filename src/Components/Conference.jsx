@@ -35,7 +35,7 @@ const Conference = () => {
       </div> */}
       <SideBarWeb />
       <NavBarMobileConf active={active} setActive={setActive} />
-      <div className="w-full h-full min-h-screen bg-black p-0 py-8 flex-grow overflow-auto">
+      <div className="w-full h-full min-h-screen bg-black pl-20 py-8 flex-grow overflow-auto">
         <div className="flex  flex-wrap sm:gap-4 px-0 py-20  pb-20 justify-center relative">
           {peers.map((peer, index) => (
             <>

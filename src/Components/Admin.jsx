@@ -104,7 +104,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {/* <TableCell padding="checkbox">
+        <TableCell padding="checkbox">
           <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -113,8 +113,8 @@ function EnhancedTableHead(props) {
             inputProps={{
               "aria-label": "select all desserts",
             }}
-          /> */}
-        {/* </TableCell> */}
+          />
+        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -225,7 +225,7 @@ export default function Admin() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = data.map((n) => n.id);
+      const newSelected = data.map((n) => n.uid);
       setSelected(newSelected);
       return;
     }
@@ -301,22 +301,22 @@ export default function Admin() {
             />
             <TableBody>
               {data.map((row, index) => {
-                const isItemSelected = isSelected(row.id);
+                const isItemSelected = isSelected(row.uid);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
+                    onClick={(event) => handleClick(event, row.uid)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={row.uid}
                     selected={isItemSelected}
-                    sx={{ cursor: "pointer", bgcolor: row?.color }}
+                    sx={{ cursor: "pointer" }}
 
                   >
-                    {/* <TableCell padding="checkbox">
+                    <TableCell padding="checkbox">
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
@@ -324,7 +324,7 @@ export default function Admin() {
                           "aria-labelledby": labelId,
                         }}
                       />
-                    </TableCell> */}
+                    </TableCell>
                     <TableCell
                       component="th"
                       id={labelId}
@@ -335,7 +335,7 @@ export default function Admin() {
                     </TableCell>
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.bio}</TableCell>
-                    <TableCell align="left">{row?.color}</TableCell>
+                    <TableCell align="left" sx={{bgcolor: row?.color, color: row?.color}}>{row?.color}</TableCell>
                     <TableCell align="left" className="flex gap-2 flex-col">
                       {row.roles.map((role, index) => (
                         <p key={index}>{role.label}</p>
