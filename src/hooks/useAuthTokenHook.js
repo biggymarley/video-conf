@@ -14,7 +14,7 @@ const useAuthTokenHook = () => {
     const storeduserData = localStorage.getItem("userData");
     const storedusersData = localStorage.getItem("usersData");
     if (storedaccessToken) {
-      setaccessToken(storedaccessToken);
+      setaccessToken(storedaccessToken ?? "");
     }
     if (storeduserData) {
       setUserData(JSON.parse(storeduserData ?? {}));
@@ -27,8 +27,8 @@ const useAuthTokenHook = () => {
   const saveTokenUser = (userData, usersData) => {
     // Save token to localStorage
     console.log(userData);
-    localStorage.setItem("userData", JSON.stringify(userData));
-    localStorage.setItem("usersData", JSON.stringify(usersData));
+    localStorage.setItem("userData", JSON.stringify(userData ?? {}));
+    localStorage.setItem("usersData", JSON.stringify(usersData ?? []));
     setUserData(userData);
     setUsersData(usersData);
   };
@@ -59,7 +59,10 @@ const useAuthTokenHook = () => {
         if (user) {
           const docRef = doc(db, "users", user.uid);
           const docSnap = await getDoc(docRef);
-          localStorage.setItem("userData", JSON.stringify(docSnap.data() ?? {}));
+          localStorage.setItem(
+            "userData",
+            JSON.stringify(docSnap.data() ?? {})
+          );
           // saveTokenUser(docSnap.data());
         } else {
           console.log("noUser");
@@ -73,7 +76,7 @@ const useAuthTokenHook = () => {
   const getUsers = async () => {
     try {
       const users = await getDocs(collection(db, "users"));
-      console.log(users)
+      console.log(users);
       let usersArray = [];
       users.forEach((docs) => {
         usersArray = [...usersArray, docs.data()];

@@ -314,7 +314,7 @@ const BannerUploader = () => {
             src={selectedImageBanner?.preview ?? userData?.bannerUrl}
             alt="Selected"
             style={{ height: "100%", width: "100%" }}
-            className="absolute top-0 left-0 bottom-0 right-0 rounded-full"
+            className="absolute top-0 left-0 bottom-0 right-0 "
           />
         </div>
       )}
