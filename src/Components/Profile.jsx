@@ -309,7 +309,7 @@ const BannerUploader = () => {
         className="hidden"
       />
       {(userData?.bannerUrl || selectedImageBanner) && (
-        <div className="rounded-full overflow-hidden"> 
+        <div className=""> 
           <img
             src={selectedImageBanner?.preview ?? userData?.bannerUrl}
             alt="Selected"
