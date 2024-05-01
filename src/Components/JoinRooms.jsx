@@ -6,6 +6,9 @@ import JoinForm from "./JoinForm";
 import { NavBarMobile } from "./NavBarMobile";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
+import { FaPowerOff } from "react-icons/fa";
+import { BsFilePerson } from "react-icons/bs";
+import { RiUserSettingsFill } from "react-icons/ri";
 const JoinRooms = () => {
   const [active, setActive] = useState(false);
 
@@ -14,7 +17,7 @@ const JoinRooms = () => {
       <SideBarWeb />
       <HamburgerButton active={active} setActive={setActive} />
       <NavBarMobile active={active} setActive={setActive} />
-      <div className="flex flex-col w-full h-full min-h-screen md:ml-[90px] items-center justify-end">
+      <div className="flex flex-col w-full h-full min-h-screen md:ml-[80px] items-center justify-end">
         <InnerJoinRooms />
       </div>
     </div>
@@ -23,27 +26,38 @@ const JoinRooms = () => {
 
 const SideBarWeb = () => {
   const { clearToken } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   return (
-    <div className="p-2 sm:p-0 w-[90px] md:flex hidden flex-row sm:flex-col justify-center items-center sm:h-screen   bg-secondaryBg static sm:fixed ">
+    <div className="p-2 sm:p-0 w-[80px] md:flex hidden flex-row sm:flex-col justify-center items-center sm:h-screen   bg-secondaryBg static sm:fixed ">
       <div className="flex-grow relative">
         <div>
           <button
             onClick={() => clearToken()}
-            className="z-[99] bg-red-500  p-4 w-full font-sans font-bold absolute bottom-0"
+            className="z-[99] bg-red-500 flex justify-center items-center  p-4 w-full font-sans font-bold absolute bottom-0"
           >
-            Log out
+            <FaPowerOff size={25} />
           </button>
         </div>
         <div>
           <Link
             to={"profile"}
-            className="z-[99] bg-bg hover:bg-primary  p-4 w-full font-sans font-bold absolute bottom-14 left-0"
+            className="z-[99] flex justify-center items-center bg-bg hover:bg-primary  p-4 w-full font-sans font-bold absolute bottom-14 left-0"
           >
-            Profile
+            <BsFilePerson size={30} />
           </Link>
         </div>
-        <div className=" h-full w-[90px] min-h-screen  bg-secondaryBg flex-col md:flex hidden sticky justify-start items-center">
+        {userData?.roles.filter((role) => role.id === "admin").length > 0 ? (
+          <div>
+            <Link
+              to={"admin"}
+              className="z-[99] flex justify-center items-center bg-bg hover:bg-primary  p-4 w-full font-sans font-bold absolute bottom-[115px] left-0"
+            >
+              <RiUserSettingsFill size={30} />
+            </Link>
+          </div>
+        ) : null}
+        <div className=" h-full w-[80px] min-h-screen  bg-secondaryBg flex-col md:flex hidden sticky justify-start items-center">
           <div className="border-b-[1px] pb-2 w-full flex justify-center border-white/20">
             <div className="rounded-full  bg-slate-600 flex  w-[50px] h-[50px] justify-center items-center mt-4">
               <img

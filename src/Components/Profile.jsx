@@ -9,8 +9,14 @@ import { useProfileHook } from "../hooks/useProfileHook";
 import { SketchPicker } from "react-color";
 
 export default function Profile() {
-  const { getUser, userData, saveTokenUser, usersData, setUserData, setUsersData } =
-    useContext(UserContext);
+  const {
+    getUser,
+    userData,
+    saveTokenUser,
+    usersData,
+    setUserData,
+    setUsersData,
+  } = useContext(UserContext);
   const { setAppLoading } = useContext(LoadingContext);
   const [selectedImageLogo, setSelectedImageLogo] = useState(undefined);
   const [selectedImageBanner, setSelectedImageBanner] = useState(undefined);
@@ -130,7 +136,6 @@ export default function Profile() {
                       onBlur={formik.handleBlur}
                       value={formik.values.bio}
                       autoComplete="bio"
-                      
                       className="block h-full w-full outline-none bg-gray-700  rounded border-0 px-3.5 py-2 text-gray-300 shadow-sm  sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -175,10 +180,9 @@ export default function Profile() {
 }
 
 const ProfileBox = ({ userData, formik }) => {
-
   const handleChangeComplete = (color) => {
-    formik.setFieldValue("color", color.hex)
-  }
+    formik.setFieldValue("color", color.hex);
+  };
   return (
     <div className="max-w-md bg-gray-700/80 w-full flex flex-col rounded-xl overflow-hidden relative h-[400px]">
       <div className="h-[35%] bg-blue-500">
@@ -215,12 +219,15 @@ const ProfileBox = ({ userData, formik }) => {
           </p>
           <div className="flex gap-2 mt-2 items-center">
             <p className="text-gray-300 font-sans text-sm">Rooms: </p>
-            <Chip
-              label="Wagners"
-              variant="filled"
-              size="small"
-              color="success"
-            />
+            {userData?.roles.map((role, index) => (
+              <Chip
+                key={index}
+                label={role.label}
+                variant="filled"
+                size="small"
+                color="success"
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -263,7 +270,7 @@ const ImageUploader = () => {
             src={selectedImageLogo?.preview ?? userData?.logoUrl}
             alt="Selected"
             style={{ maxWidth: "100%" }}
-            className="absolute top-0 left-0 bottom-0 right-0 rounded-full"
+            className="absolute top-0 left-0 bottom-0 right-0 rounded-full h-full"
           />
         </div>
       )}

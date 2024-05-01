@@ -13,14 +13,14 @@ export default function StreamVideo({
 
   return screenshareVideoTrack &&
     presenter.filter((pre) => pre.name === peer.name).length > 0 ? (
-    <div className="flex z-[99] flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
+    <div className="flex z-[10] flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
       <div className="w-full h-[200px]  rounded-xl overflow-visible flex  flex-col ">
         <div
           onClick={open ? () => setOpen(false) : undefined}
           className={
             open
               ? "flex items-center justify-center w-screen min-h-screen h-full fixed top-0 left-0 z-50 bg-bg/50 backdrop-blur-xl overflow-auto cursor-pointer"
-              : "rounded-xl w-full h-full cursor-pointer"
+              : "rounded-xl w-full h-full cursor-pointer flex items-center"
           }
         >
           <video

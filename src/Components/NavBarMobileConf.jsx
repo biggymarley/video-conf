@@ -60,7 +60,7 @@ const LinksContainer = () => {
     }
   };
   return (
-    <motion.div className="p-8">
+    <motion.div className="p-8 z-[100]">
       <div className="flex flex-col  h-full mt-6 justify-start items-center ">
         <div className="flex flex-col gap-4 w-full justify-center items-center ">
           {rooms?.data?.map((room, index) => (

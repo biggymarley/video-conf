@@ -23,7 +23,7 @@ import { ref as sRef } from "firebase/storage";
 
 const actionConfig = {
   handleCodeInApp: true,
-  url: "http://localhost:5173/",
+  url: "https://video-conf-pink.vercel.app/",
 };
 
 export const loginUser = async (email, password, saveToken, setAppLoading) => {
@@ -54,7 +54,7 @@ export const loginUser = async (email, password, saveToken, setAppLoading) => {
     console.error("errrrrrrrrrr", error);
     toast.error(
       error?.code?.replace("auth/", "").replaceAll("-", " ") ||
-        "error please retry"
+        "Server error, Contact Biggy"
     );
   }
 };
@@ -112,6 +112,7 @@ export const createUser = async (
         userName: userName,
         email: email,
         color: getRandomColor(),
+        roles: [{id:"662d73ba7a8ae1f0e51ac727", label:'Wagners'}],
       };
       await setDoc(doc(db, "users", userCredential.user.uid), user);
     }
@@ -124,7 +125,7 @@ export const createUser = async (
 
     toast.error(
       error?.code?.replace("auth/", "").replaceAll("-", " ") ||
-        "error please retry"
+        "Server error, Contact Biggy"
     );
     return null;
   }
@@ -140,6 +141,8 @@ export const googleLogin = async (saveToken, setAppLoading) => {
     saveToken(user.accessToken);
   } catch (error) {
     setAppLoading(false);
+    toast.error("Server error, Contact Biggy");
+
     console.error(error);
   }
 };
@@ -150,7 +153,7 @@ export const resetPassword = async (email) => {
     toast.success("Password reset email sent. Check your inbox.");
   } catch (error) {
     console.error(error);
-    toast.success(error?.message ?? "Server error please try again!");
+    toast.error("Server error, Contact Biggy");
   }
 };
 const removeEmptyFields = (obj) => {
@@ -177,6 +180,7 @@ const getUser = async (setUserData) => {
       }
     });
   } catch (error) {
+    // toast.error("Server error, Contact Biggy");
     console.log(error);
   }
 };
@@ -193,6 +197,8 @@ const getUsers = async (setUsersData) => {
     localStorage.setItem("usersData", JSON.stringify(usersArray));
   } catch (error) {
     console.log(error);
+    // toast.error("Server error, Contact Biggy");
+
     return null;
   }
 };
@@ -243,16 +249,17 @@ export const updateProfile = async (
       }
       await getUser(setUserData);
       await getUsers(setUsersData);
+      toast.success("Profie Updated");
       setAppLoading(false);
     } else {
       getUser();
       getUsers();
       setAppLoading(false);
+      toast.success("Profie Updated");
     }
   } catch (error) {
     console.log(error);
-    // alert("upload error");
-
+    toast.error("Server error, Contact Biggy");
     return null;
   }
 };
@@ -275,7 +282,7 @@ export const UploadImageLogo = async (uid, userImage, userRef, data) => {
     return { ...data, logoUrl: url, uid: uid };
   } catch (error) {
     console.log(error);
-    alert("upload error image");
+    toast.error("Server error, Contact Biggy");
     return null;
   }
 };
@@ -298,7 +305,7 @@ export const UploadImageBanner = async (uid, userImage, userRef, data) => {
     return { ...data, bannerUrl: url, uid: uid };
   } catch (error) {
     console.log(error);
-    alert("upload error image");
+    toast.error("Server error, Contact Biggy");
     return null;
   }
 };

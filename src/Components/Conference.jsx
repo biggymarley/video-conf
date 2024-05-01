@@ -10,6 +10,9 @@ import JoinForm from "./JoinForm";
 import { NavBarMobileConf } from "./NavBarMobileConf";
 import Peer from "./Peer";
 import LiquidSideNav from "./SideChat";
+import { FaPowerOff } from "react-icons/fa";
+import { BsFilePerson } from "react-icons/bs";
+import { RiUserSettingsFill } from "react-icons/ri";
 const Conference = () => {
   const peers = useHMSStore(selectPeers);
   const [rightClicked, setightClicked] = useState(null);
@@ -65,7 +68,9 @@ const RoomInfos = ({ setActive, active }) => {
       </p>
 
       <button
-        className={`absolute lg:right-4 right-12 top-[-3] mb-4 ${isOpen ? "hidden" : "block"}`}
+        className={`absolute lg:right-4 right-12 top-[-3] mb-4 ${
+          isOpen ? "hidden" : "block"
+        }`}
         onClick={() => setIsOpen(true)}
       >
         <IoChatbubbleSharp size={25} />
@@ -79,27 +84,40 @@ const RoomInfos = ({ setActive, active }) => {
 
 const SideBarWeb = () => {
   const { clearToken } = useContext(UserContext);
-
+  const { userData } = useContext(UserContext);
   return (
-    <div className="z-[100] p-2 sm:p-0 w-[90px] lg:flex hidden flex-row sm:flex-col justify-center items-center sm:h-screen   bg-secondaryBg static sm:fixed ">
+    <div className="z-[100] p-2 sm:p-0 w-[80px] lg:flex hidden flex-row sm:flex-col justify-center items-center sm:h-screen   bg-secondaryBg static sm:fixed ">
       <div className="flex-grow relative">
         <div>
           <button
             onClick={() => clearToken()}
-            className="z-[99] bg-red-500  p-4 w-full font-sans font-bold absolute bottom-0"
+            className="z-[99] bg-red-500 flex justify-center items-center  p-4 w-full font-sans font-bold absolute bottom-0"
           >
-            Log out
+            <FaPowerOff size={25} />
           </button>
         </div>
         <div>
           <Link
             to={"profile"}
-            className="z-[99] bg-bg hover:bg-primary  p-4 w-full font-sans font-bold absolute bottom-14 left-0"
+            className="z-[99] flex justify-center items-center bg-bg hover:bg-primary  p-4 w-full font-sans font-bold absolute bottom-14 left-0"
           >
-            Profile
+            <BsFilePerson size={30} />
           </Link>
         </div>
-        <div className=" h-full w-[90px] min-h-screen  bg-secondaryBg flex-col md:flex hidden sticky justify-start items-center">
+        {userData?.roles.filter((role) => role.id === "admin").length > 0 ? (
+          <div>
+            <Link
+              to={"admin"}
+              className="z-[99] flex justify-center items-center bg-bg hover:bg-primary  p-4 w-full font-sans font-bold absolute bottom-[115px] left-0"
+            >
+              <RiUserSettingsFill size={30} />
+            </Link>
+          </div>
+        ) : (
+          null
+        )}
+
+        <div className=" h-full w-[80px] min-h-screen  bg-secondaryBg flex-col md:flex hidden sticky justify-start items-center">
           <div className="border-b-[1px] pb-2 w-full flex justify-center border-white/20">
             <div className="rounded-full  bg-slate-600 flex  w-[50px] h-[50px] justify-center items-center mt-4">
               <img

@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import LoggedUser from "./LoggedUser";
 import Profile from "./Profile";
+import Admin from "./Admin";
 
 // const Login = lazy(() => import("./Login"));
 // const Register = lazy(() => import("./Register"));
@@ -25,6 +26,7 @@ export const PrivateRoutes = () => {
       children: [
         { path: "/", element: <LoggedUser /> },
         { path: "/profile", element: <Profile /> },
+        { path: "/admin", element: <Admin /> },
         { path: "*", element: <Navigate to="/" replace /> },
       ],
     },
