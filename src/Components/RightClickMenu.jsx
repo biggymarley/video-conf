@@ -117,7 +117,7 @@ const ProfileBox = ({ usersData, peerid }) => {
         </div>
         <div className="w-full p-2  absolute bottom-0">
           <div
-            style={{ backgroundColor: user.color }}
+            style={{ backgroundColor: user?.color }}
             className={`p-2 pb-10  bg-bg w-full rounded-md  flex flex-col gap-1 relative`}
           >
             <p className="font-sans font-bold text-xl text-gray-300 text-end">

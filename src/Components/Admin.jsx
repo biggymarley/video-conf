@@ -313,7 +313,8 @@ export default function Admin() {
                     tabIndex={-1}
                     key={row.uid}
                     selected={isItemSelected}
-                    sx={{ cursor: "pointer", bgcolor: row.color }}
+                    sx={{ cursor: "pointer", bgcolor: row?.color }}
+
                   >
                     {/* <TableCell padding="checkbox">
                       <Checkbox
@@ -334,7 +335,7 @@ export default function Admin() {
                     </TableCell>
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.bio}</TableCell>
-                    <TableCell align="left">{row.color}</TableCell>
+                    <TableCell align="left">{row?.color}</TableCell>
                     <TableCell align="left" className="flex gap-2 flex-col">
                       {row.roles.map((role, index) => (
                         <p key={index}>{role.label}</p>

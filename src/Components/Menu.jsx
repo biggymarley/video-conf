@@ -181,7 +181,7 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
                   >
                     <div className="flex w-full gap-2 items-center">
                       <span
-                        style={{ color: msg.color }}
+                        style={{ color: msg?.color }}
                         className={`font-sans font-semibold text-sm]`}
                       >
                         {msg.senderName === "You"
