@@ -84,7 +84,7 @@ export default function Login() {
                 <div className="text-sm">
                   <Link
                     to={"/forgotpassword"}
-                    className="block text-xs font-sans font-bold leading-6 text-blue-400"
+                    className="block text-xs font-sans font-bold leading-6 text-primary"
                   >
                     Forgot your password?
                   </Link>
@@ -96,7 +96,7 @@ export default function Login() {
               <button
                 type="submit"
                 onClick={() => formik.submitForm()}
-                className="flex w-full justify-center h-[40px] rounded-sm bg-primary px-3 py-1.5 text-sm font-sans font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center h-[40px] rounded-sm bg-primary px-3 py-1.5 text-sm font-sans font-semibold leading-6 text-white shadow-sm hover:bg-primary/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 LOGIN
               </button>
@@ -108,7 +108,7 @@ export default function Login() {
                 <span className="text-sm text-gray-400">Need an account?</span>
                 <Link
                   to={"/register"}
-                  className="block text-sm font-sans font-bold leading-6 text-blue-400 "
+                  className="block text-sm font-sans font-bold leading-6  text-primary "
                 >
                   Register
                 </Link>

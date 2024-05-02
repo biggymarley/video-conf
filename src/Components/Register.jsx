@@ -146,7 +146,7 @@ export default function Register() {
               <button
                 type="submit"
                 onClick={registerUser}
-                className="flex w-full justify-center h-[40px] rounded-sm bg-primary px-3 py-1.5 text-sm font-sans font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center h-[40px] rounded-sm bg-primary px-3 py-1.5 text-sm font-sans font-semibold leading-6 text-white shadow-sm hover:bg-primary/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 REGISTER
               </button>
@@ -156,7 +156,7 @@ export default function Register() {
               <div className=" flex items-center mt-2 gap-1">
                 <Link
                   to={"/login"}
-                  className="block text-sm font-sans font-medium leading-6 text-blue-400 "
+                  className="block text-sm font-sans font-medium leading-6  text-primary "
                 >
                   Already have an account?
                 </Link>
