@@ -83,7 +83,7 @@ const Option = ({ text, Icon, setOpen, open }) => {
 const ProfileBox = ({ usersData, peerid }) => {
   const [user, setUser] = useState({});
   useEffect(() => {
-    setUser(usersData.filter((user) => user.userName === peerid)[0]);
+    setUser(usersData?.filter((user) => user.userName === peerid)[0]);
     usersData, peerid;
   }, [peerid, usersData]);
 

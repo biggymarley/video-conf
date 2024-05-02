@@ -22,8 +22,8 @@ const JoinForm = ({}) => {
 
   const goLive = async (id, index) => {
     if (
-      userData.roles.filter((role) => role.id === id).length > 0 ||
-      userData.roles.filter((role) => role.id === "admin").length > 0
+      userData.roles?.filter((role) => role.id === id).length > 0 ||
+      userData.roles?.filter((role) => role.id === "admin").length > 0
     ) {
       try {
         setAppLoading(true);

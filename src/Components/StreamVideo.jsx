@@ -12,7 +12,7 @@ export default function StreamVideo({
   });
 
   return screenshareVideoTrack &&
-    presenter.filter((pre) => pre.name === peer.name).length > 0 ? (
+    presenter?.filter((pre) => pre.name === peer.name).length > 0 ? (
     <div className="flex z-[20] flex-col h-full sm:h-auto relative ">
       <div className="w-full  h-full rounded-xl overflow-visible flex flex-col ">
         <div

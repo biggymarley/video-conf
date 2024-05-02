@@ -119,7 +119,7 @@ const SideBarWeb = () => {
             <BsFilePerson size={30} />
           </Link>
         </div>
-        {userData?.roles.filter((role) => role.id === "admin").length > 0 ? (
+        {userData?.roles?.filter((role) => role.id === "admin").length > 0 ? (
           <div>
             <Link
               to={"admin"}
