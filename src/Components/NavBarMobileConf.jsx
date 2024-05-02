@@ -8,12 +8,11 @@ import React, { useContext } from "react";
 import { FaPowerOff } from "react-icons/fa";
 import { IoIosPerson } from "react-icons/io";
 import { SiInstagram, SiLinkedin, SiYoutube } from "react-icons/si";
+import { TiPlus } from "react-icons/ti";
 import { Link } from "react-router-dom";
-import chill from "../assets/chill.jpg";
-import logo from "../assets/discord.png";
-import wglogo from "../assets/Wagner-Group-Logo.png";
+import logo from "../assets/chillGray.png";
 import { LoadingContext } from "../Context/LoadingContext";
-import { RoomsContext, UserContext } from "../Context/UserContext";
+import { ChatContext, RoomsContext, UserContext } from "../Context/UserContext";
 
 export const NavBarMobileConf = ({ active, setActive }) => {
   return (
@@ -25,7 +24,7 @@ export const NavBarMobileConf = ({ active, setActive }) => {
 
 const LinksOverlay = () => {
   return (
-    <nav className="fixed right-4 top-4 z-40 h-[calc(100vh_-_120px)] w-[calc(100%_-_32px)] overflow-hidden">
+    <nav className="fixed z-[999] right-4 top-4  h-[calc(100vh_-_120px)] w-[calc(100%_-_32px)] overflow-hidden">
       <Logo />
       <LinksContainer />
       <FooterCTAs />
@@ -36,7 +35,8 @@ const LinksOverlay = () => {
 const LinksContainer = () => {
   const hmsActions = useHMSActions();
   const { rooms, getRoomCodes, setselectedRoom } = useContext(RoomsContext);
-  const { userData, clearToken } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
+  const { setModalOpen } = useContext(ChatContext);
   const { setAppLoading } = useContext(LoadingContext);
   const isConnected = useHMSStore(selectIsConnectedToRoom);
 
@@ -60,23 +60,32 @@ const LinksContainer = () => {
     }
   };
   return (
-    <motion.div className="p-8 z-[100]">
+    <motion.div className="p-8 z-[12]">
       <div className="flex flex-col  h-full mt-6 justify-start items-center ">
         <div className="flex flex-col gap-4 w-full justify-center items-center ">
-          {rooms?.data?.map((room, index) => (
-            <NavLink key={index} href={() => goLive(room.id, index)}>
-              <div className="w-[50px] ">
+          {rooms?.map((room, index) => (
+            <NavLink key={index} href={() => goLive(room.id, index)} className=''>
+              <div className="w-[50px]  h-[50px] ">
                 <img
-                  src={room.template === "WAGNERS-room" ? wglogo : chill}
+                  src={room.logoUrl}
                   alt="roomlogo"
-                  className="w-full rounded-full"
+                  className="w-full h-full rounded-full"
                 />
               </div>
-              <p className="font-sans font-bold lg:text-xl  text-md">
-                {room.template}
+              <p className="font-sans font-bold lg:text-xl  text-md text-slate-300">
+                {room.label}
               </p>
             </NavLink>
           ))}
+          <div
+            onClick={() => setModalOpen(true)}
+            className=" shadow-bg shadow-md flex items-center justify-start gap-4 rounded-md w-full  h-auto p-7   	cursor-pointer bg-bg/50"
+          >
+            <TiPlus size={30} />{" "}
+            <span className="font-sans font-bold lg:text-xl  text-md text-slate-300">
+              Create Room
+            </span>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -104,11 +113,10 @@ const NavLink = ({ children, href, idx }) => {
     </motion.div>
   );
 };
-
 const Logo = () => {
   // Temp logo from https://logoipsum.com/
   return (
-    <motion.a
+    <motion.div
       initial={{ opacity: 0, y: -12 }}
       animate={{
         opacity: 1,
@@ -116,15 +124,10 @@ const Logo = () => {
         transition: { delay: 0.5, duration: 0.5, ease: "easeInOut" },
       }}
       exit={{ opacity: 0, y: -12 }}
-      href="#"
       className="grid h-20 w-20 place-content-center rounded-br-xl rounded-tl-xl bg-bg transition-colors hover:bg-violet-50"
     >
-      <img
-        src={logo}
-        alt="logo"
-        className="w-12 invert brightness-0 hover:invert-0 hover:brightness-1 transition-all"
-      />
-    </motion.a>
+      <img src={logo} alt="logo" className="w-24 rounded-br-xl rounded-tl-xl" />
+    </motion.div>
   );
 };
 

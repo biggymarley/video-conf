@@ -7,7 +7,7 @@ import { FaPowerOff } from "react-icons/fa";
 import { IoChatbubbleSharp } from "react-icons/io5";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import logo from "../assets/discord.png";
+import logo from "../assets/chillGray.png";
 import { ChatContext, RoomsContext, UserContext } from "../Context/UserContext";
 import JoinForm from "./JoinForm";
 import { NavBarMobileConf } from "./NavBarMobileConf";
@@ -23,19 +23,7 @@ const Conference = () => {
   const [active, setActive] = useState(false);
 
   return (
-    <div className="flex min-h-screen  w-full relative  md:pb-0">
-      {/* <div className="z-[99] h-full w-[90px] min-h-screen  bg-secondaryBg flex-col md:flex hidden sticky justify-start items-center">
-        <div className="border-b-[1px] pb-2 w-full flex justify-center border-white/20">
-          <div className="rounded-full  bg-slate-600 flex  w-[50px] h-[50px] justify-center items-center mt-4">
-            <img
-              src={logo}
-              alt="logo"
-              className="w-[35px] filter  invert brightness-0"
-            />
-          </div>
-        </div>
-        <JoinForm />
-      </div> */}
+    <div className="flex min-h-screen  w-full relative  md:pb-0 z-[999]">
       <SideBarWeb />
       <NavBarMobileConf active={active} setActive={setActive} />
       <div className="flex w-full h-full min-h-screen bg-black lg:pl-[5.5rem] py-8 flex-grow overflow-auto px-2 relative">
@@ -71,7 +59,7 @@ const RoomInfos = ({ setActive, active }) => {
   return (
     <div className="absolute top-3 flex w-full transition " id="child">
       <p className="lg:ml-[100px] ml-[8px] mb-4 font-sans font-bold text-xl flex items-center gap-1 flex-grow">
-        {rooms?.data?.[selectedRoom]?.template}
+        {rooms?.[selectedRoom]?.label}
         <BiSolidVolumeFull />
       </p>
 
@@ -129,7 +117,7 @@ const SideBarWeb = () => {
               <img
                 src={logo}
                 alt="logo"
-                className="w-[35px] filter  invert brightness-0"
+                className="w-[50px] rounded-full"
               />
             </div>
           </div>

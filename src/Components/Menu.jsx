@@ -100,7 +100,7 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
             <div className="absolute top-0 shadow-sm shadow-gray-600 w-full flex bg-bg z-10 overflow-hidden">
               <p className=" font-sans font-bold text-xl flex items-center gap-1 flex-grow p-4 ">
                 <IoChatbubbleSharp size={25} color="#838383" />
-                {rooms?.data?.[selectedRoom]?.template}
+                {rooms?.[selectedRoom]?.label}
               </p>
               <motion.button
                 className="text-white p-2 rounded-full"
@@ -120,7 +120,7 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
                 onKeyDown={Send}
                 onChange={handleChange}
                 value={message?.content ?? ""}
-                placeholder={`Message ${rooms?.data?.[selectedRoom]?.template}`}
+                placeholder={`Message ${rooms?.[selectedRoom]?.label} room`}
                 className=" h-[40px] pl-10 block w-full rounded-md border-0 py-1.5 text-white shadow-sm bg-gray-600 sm:text-sm sm:leading-6"
               />
               <button

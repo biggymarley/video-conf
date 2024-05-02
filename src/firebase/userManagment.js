@@ -112,7 +112,7 @@ export const createUser = async (
         userName: userName,
         email: email,
         color: getRandomColor(),
-        roles: [{id:"662dfc6add47a667f37ba353", label:'Wagners'}],
+        roles: [{ id: "662dfc6add47a667f37ba353", label: "Wagners" }],
       };
       await setDoc(doc(db, "users", userCredential.user.uid), user);
     }
@@ -173,8 +173,7 @@ const getUser = async (saveTokenUser) => {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         const userfa = docSnap.data();
-        saveTokenUser(userfa)
-
+        saveTokenUser(userfa);
       } else {
         console.log("noUser");
       }
@@ -192,7 +191,23 @@ const getUsers = async (saveTokenUsers) => {
     users.forEach((docs) => {
       usersArray = [...usersArray, docs.data()];
     });
-    saveTokenUsers(usersArray)
+    saveTokenUsers(usersArray);
+  } catch (error) {
+    console.log(error);
+    toast.error("Server error, Contact Biggy");
+
+    return null;
+  }
+};
+
+export const getRooms = async () => {
+  try {
+    const users = await getDocs(collection(db, "rooms"));
+    let usersArray = [];
+    users.forEach((docs) => {
+      usersArray = [...usersArray, docs.data()];
+    });
+    return usersArray;
   } catch (error) {
     console.log(error);
     toast.error("Server error, Contact Biggy");
@@ -207,7 +222,7 @@ export const updateProfile = async (
   userImagelogo,
   setAppLoading,
   saveTokenUser,
-  saveTokenUsers,
+  saveTokenUsers
 ) => {
   try {
     setAppLoading(true);
@@ -255,6 +270,19 @@ export const updateProfile = async (
     }
   } catch (error) {
     console.log(error);
+    toast.error("Server error, Contact Biggy");
+    return null;
+  }
+};
+
+export const UploadRoomLogo = async (id, roomImage) => {
+  try {
+    const imageRef = sRef(storage, `usersImgs/${id}-room`);
+    await uploadBytes(imageRef, roomImage);
+    //get image url and update document and add imageUrl to it
+    const url = await getDownloadURL(imageRef);
+    return url;
+  } catch (error) {
     toast.error("Server error, Contact Biggy");
     return null;
   }

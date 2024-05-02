@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useContext, useState } from "react";
-import logo from "../assets/discord.png";
+import logo from "../assets/chillGray.png";
 import { InnerJoinRooms } from "./InnerJoinRooms";
 import JoinForm from "./JoinForm";
 import { NavBarMobile } from "./NavBarMobile";
@@ -63,7 +63,7 @@ const SideBarWeb = () => {
               <img
                 src={logo}
                 alt="logo"
-                className="w-[35px] filter  invert brightness-0"
+                className="w-[50px] rounded-full"
               />
             </div>
           </div>

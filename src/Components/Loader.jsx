@@ -1,4 +1,4 @@
-import logo from "../assets/discord.png";
+import logo from "../assets/chillGray.png";
 import { motion } from "framer-motion";
 export const Loader = () => {
   return (
@@ -9,7 +9,7 @@ export const Loader = () => {
         exit={{ opacity: 0 }}
         className="fixed  w-screen h-screen bg-bg flex items-center justify-center flex-col gap-8 z-50"
       >
-        <img src={logo} className="filter  invert brightness-0" />
+        <img src={logo} className="w-[90px] rounded-full " />
         <BarLoader />
       </motion.div>
     </div>
