@@ -24,7 +24,6 @@ const Peer = ({ peer, setightClicked, open }) => {
         "contextmenu",
         function (e) {
           e.preventDefault();
-          console.log("here")
           setightClicked(peer.name);
         },
         false
@@ -52,9 +51,9 @@ const Peer = ({ peer, setightClicked, open }) => {
 
 
       <Footer peer={peer} userData={userData} />
-      <div className="flex flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
-        <div className="w-full h-full flex flex-col gap-2">
-          <div className="w-full h-[200px]  rounded-xl overflow-visible flex  flex-col">
+      <div className="flex flex-col h-full w-auto relative ">
+        <div className="w-full h-full">
+          <div className="w-full h-full  rounded-xl overflow-visible flex  flex-col relative">
             {userConrols.video ? (
               <div
                 className={`flex w-full h-full relative rounded-xl`}
@@ -83,9 +82,9 @@ const Peer = ({ peer, setightClicked, open }) => {
             )}
 
             {/* {rightClicked ? <Menu peer={peer} userData={userData} /> : null} */}
-          </div>
-          <div className="text-center text-sm font-sans font-light absolute bottom-4 left-4 bg-bg/50 p-1 px-2 rounded-md">
+          <div className="z-[11] text-center text-sm font-sans font-light absolute bottom-4 left-4 bg-bg/50 p-1 px-2 rounded-md">
             {peer.name}
+          </div>
           </div>
         </div>
       </div>

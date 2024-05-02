@@ -1,8 +1,11 @@
 import { selectPeers, useHMSStore } from "@100mslive/react-sdk";
 import { motion } from "framer-motion";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { BiSolidVolumeFull } from "react-icons/bi";
+import { BsFilePerson } from "react-icons/bs";
+import { FaPowerOff } from "react-icons/fa";
 import { IoChatbubbleSharp } from "react-icons/io5";
+import { RiUserSettingsFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import logo from "../assets/discord.png";
 import { ChatContext, RoomsContext, UserContext } from "../Context/UserContext";
@@ -10,9 +13,9 @@ import JoinForm from "./JoinForm";
 import { NavBarMobileConf } from "./NavBarMobileConf";
 import Peer from "./Peer";
 import LiquidSideNav from "./SideChat";
-import { FaPowerOff } from "react-icons/fa";
-import { BsFilePerson } from "react-icons/bs";
-import { RiUserSettingsFill } from "react-icons/ri";
+import { Stars } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+
 const Conference = () => {
   const peers = useHMSStore(selectPeers);
   const [rightClicked, setightClicked] = useState(null);
@@ -20,7 +23,7 @@ const Conference = () => {
   const [active, setActive] = useState(false);
 
   return (
-    <div className="flex min-h-screen  w-full relative pb-12 md:pb-0">
+    <div className="flex min-h-screen  w-full relative  md:pb-0">
       {/* <div className="z-[99] h-full w-[90px] min-h-screen  bg-secondaryBg flex-col md:flex hidden sticky justify-start items-center">
         <div className="border-b-[1px] pb-2 w-full flex justify-center border-white/20">
           <div className="rounded-full  bg-slate-600 flex  w-[50px] h-[50px] justify-center items-center mt-4">
@@ -35,8 +38,8 @@ const Conference = () => {
       </div> */}
       <SideBarWeb />
       <NavBarMobileConf active={active} setActive={setActive} />
-      <div className="w-full h-full min-h-screen bg-black pl-20 py-8 flex-grow overflow-auto">
-        <div className="flex  flex-wrap sm:gap-4 px-0 py-20  pb-20 justify-center relative">
+      <div className="flex w-full h-full min-h-screen bg-black lg:pl-[5.5rem] py-8 flex-grow overflow-auto px-2 relative">
+        <div className=" grid grid-rows-[500px_1fr] gap-2 gap-y-8  sm:lg-grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 xxl:grid-cols-3  min-h-[calc(100vh-7rem)] flex- px-0 py-20  pb-20 justify-center relative w-full h-full">
           {peers.map((peer, index) => (
             <>
               <Peer
@@ -49,6 +52,11 @@ const Conference = () => {
             </>
           ))}
         </div>
+        <div className="absolute inset-0 z-0">
+        <Canvas>
+          <Stars radius={50} count={2500} factor={4} fade speed={2} />
+        </Canvas>
+      </div>
       </div>
       <LiquidSideNav peers={peers} active={active} setActive={setActive} />
       <RoomInfos active={active} setActive={setActive} />
@@ -113,9 +121,7 @@ const SideBarWeb = () => {
               <RiUserSettingsFill size={30} />
             </Link>
           </div>
-        ) : (
-          null
-        )}
+        ) : null}
 
         <div className=" h-full w-[80px] min-h-screen  bg-secondaryBg flex-col md:flex hidden sticky justify-start items-center">
           <div className="border-b-[1px] pb-2 w-full flex justify-center border-white/20">

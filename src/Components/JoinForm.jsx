@@ -12,7 +12,7 @@ import { toast } from "sonner";
 const JoinForm = () => {
   const hmsActions = useHMSActions();
   const { rooms, getRoomCodes, setselectedRoom } = useContext(RoomsContext);
-  const { userData, clearToken } = useContext(UserContext);
+  const { userData, getUser, getUsers } = useContext(UserContext);
   const { setAppLoading } = useContext(LoadingContext);
   const isConnected = useHMSStore(selectIsConnectedToRoom);
 
@@ -31,6 +31,8 @@ const JoinForm = () => {
           roomCode: code.viwer,
         });
         await hmsActions.join({ userName: userData.userName, authToken });
+        await getUser();
+        await getUsers();
         setselectedRoom(index);
         setAppLoading(false);
       } catch (e) {
@@ -39,7 +41,6 @@ const JoinForm = () => {
         setselectedRoom(null);
       }
     } else {
-      console.log(userData.roles.includes(id));
       toast.warning(
         "You dont have permission to this room, please contact BIGGY!"
       );

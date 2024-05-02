@@ -68,22 +68,11 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
     setimessage({ content: e.target.value, messageType: "TEXT" });
   };
 
-  // useEffect(() => {
-  //   if (allMessages?.[allMessages?.length - 1] && ) {
-
-  //     setallMessagesArray([
-  //       ...allMessagesArray,
-  //       allMessages[allMessages.length - 1],
-  //     ]);
-  //   }
-  // }, [allMessages]);
   useEffect(() => {
     const color = usersData?.filter(
       (user) => user.userName === userData.userName
     )?.[0]?.color;
     setColor(color);
-    console.log(color);
-    console.log(usersData, userData);
   }, [usersData, userData]);
 
   useEffect(() => {
@@ -206,7 +195,6 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
 }
 
 const MessageHandler = ({ message }) => {
-  console.log("themsg", message);
   switch (message?.messageType) {
     case "GIF":
       return (

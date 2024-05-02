@@ -233,7 +233,6 @@ export default function Admin() {
   };
   React.useEffect(() => {
     if (usersData) setData([...usersData]);
-    console.log(usersData);
   }, [usersData]);
 
   const handleClick = (event, id) => {

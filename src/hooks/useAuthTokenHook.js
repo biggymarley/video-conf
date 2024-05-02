@@ -24,12 +24,15 @@ const useAuthTokenHook = () => {
     }
   }, []);
 
-  const saveTokenUser = (userData, usersData) => {
+  const saveTokenUser = (userData) => {
     // Save token to localStorage
-    console.log(userData);
     localStorage.setItem("userData", JSON.stringify(userData ?? {}));
-    localStorage.setItem("usersData", JSON.stringify(usersData ?? []));
     setUserData(userData);
+  };
+
+  const saveTokenUsers = (usersData) => {
+    // Save token to localStorage
+    localStorage.setItem("usersData", JSON.stringify(usersData ?? []));
     setUsersData(usersData);
   };
 
@@ -63,7 +66,7 @@ const useAuthTokenHook = () => {
             "userData",
             JSON.stringify(docSnap.data() ?? {})
           );
-          // saveTokenUser(docSnap.data());
+          saveTokenUser(docSnap.data() ?? {});
         } else {
           console.log("noUser");
         }
@@ -76,12 +79,12 @@ const useAuthTokenHook = () => {
   const getUsers = async () => {
     try {
       const users = await getDocs(collection(db, "users"));
-      console.log(users);
       let usersArray = [];
       users.forEach((docs) => {
         usersArray = [...usersArray, docs.data()];
       });
       localStorage.setItem("usersData", JSON.stringify(usersArray ?? []));
+      saveTokenUsers(usersArray ?? []);
     } catch (error) {
       console.log(error);
       return null;
@@ -99,8 +102,10 @@ const useAuthTokenHook = () => {
     saveToken,
     clearToken,
     saveTokenUser,
+    saveTokenUsers,
     setUsersData,
     getUser,
+    getUsers,
   };
 };
 

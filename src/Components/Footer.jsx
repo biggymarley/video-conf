@@ -1,4 +1,9 @@
-import { selectIsLocalScreenShared, useAVToggle, useHMSActions, useHMSStore } from "@100mslive/react-sdk";
+import {
+  selectIsLocalScreenShared,
+  useAVToggle,
+  useHMSActions,
+  useHMSStore,
+} from "@100mslive/react-sdk";
 import { useContext, useEffect, useState } from "react";
 import { BsFillMicFill, BsMicMuteFill } from "react-icons/bs";
 import { FaYoutube } from "react-icons/fa";
@@ -40,15 +45,16 @@ const Footer = ({ peer, userData, presenter }) => {
     });
     setmute(false);
   };
-  const amIScreenSharing =  useHMSStore(selectIsLocalScreenShared);
- 
-  useEffect(() => {
-     console.log(amIScreenSharing)
-  }, [amIScreenSharing]);
+  const amIScreenSharing = useHMSStore(selectIsLocalScreenShared);
+
+
   return (
-    <div className="flex fixed bottom-0 w-full p-4 justify-center z-10 gap-2 bg-secondaryBg">
+    <div
+      className="left-0 flex fixed bottom-0 w-full p-4 justify-center z-10 gap-2 bg-transparent transition"
+      id="child"
+    >
       <button
-        className={`flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full ${
+        className={`flex justify-center items-center bg-gray-500   w-[50px] h-[50px] rounded-full ${
           !isLocalAudioEnabled && "bg-red-500"
         }`}
         onClick={toggleAudio}
@@ -61,14 +67,14 @@ const Footer = ({ peer, userData, presenter }) => {
       </button>
       {!muted ? (
         <button
-          className="flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
+          className="flex justify-center items-center bg-gray-500   w-[50px] h-[50px] rounded-full "
           onClick={mute}
         >
           <MdHeadset size="60%" />
         </button>
       ) : (
         <button
-          className="flex justify-center items-center bg-red-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
+          className="flex justify-center items-center bg-red-500   w-[50px] h-[50px] rounded-full "
           onClick={unmute}
         >
           <MdHeadsetOff size="60%" />
@@ -76,7 +82,7 @@ const Footer = ({ peer, userData, presenter }) => {
       )}
 
       <button
-        className={`flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full ${
+        className={`flex justify-center items-center bg-gray-500   w-[50px] h-[50px] rounded-full ${
           !isLocalVideoEnabled && "bg-red-500"
         }`}
         onClick={toggleVideo}
@@ -89,14 +95,14 @@ const Footer = ({ peer, userData, presenter }) => {
       </button>
       {screenshareVideoTrack && amIScreenSharing ? (
         <button
-          className="flex justify-center items-center bg-red-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
+          className="flex justify-center items-center bg-red-500   w-[50px] h-[50px] rounded-full "
           onClick={offShareScreen}
         >
           <MdStopScreenShare size="60%" />
         </button>
       ) : (
         <button
-          className="flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
+          className="flex justify-center items-center bg-gray-500   w-[50px] h-[50px] rounded-full "
           onClick={shareScreen}
         >
           <MdScreenShare size="60%" />
@@ -104,13 +110,13 @@ const Footer = ({ peer, userData, presenter }) => {
       )}
 
       {/* <button
-        className="flex justify-center items-center bg-gray-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
+        className="flex justify-center items-center bg-gray-500   w-[50px] h-[50px] rounded-full "
         onClick={() => setopen(true)}
       >
         <FaYoutube size="30px" color={"red"} />
       </button> */}
       <button
-        className="flex justify-center items-center bg-red-500 md:w-[64px] md:h-[64px]  w-[50px] h-[50px] rounded-full "
+        className="flex justify-center items-center bg-red-500   w-[50px] h-[50px] rounded-full "
         onClick={Hangout}
       >
         <ImPhoneHangUp size="60%" />

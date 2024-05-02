@@ -12,9 +12,10 @@ export default function Video({ peer, setightClicked, open }) {
   return (
     <div
       onClick={opens ? () => setOpen(false) : undefined}
+      style={opens ? {backgroundColor: `${usersData?.filter((user) => user.userName === peer.name)?.[0]?.color}0D`} : {}}
       className={
         opens
-          ? "rounded flex items-center justify-center w-screen min-h-screen h-full fixed top-0 left-0 z-[99] bg-bg/50 backdrop-blur-xl overflow-auto cursor-pointer"
+          ? "lg:pl-12 p-1 rounded flex items-center justify-center w-screen min-h-screen h-full fixed top-0 left-0 z-[99] bg-bg/50 backdrop-blur-xl overflow-auto cursor-pointer"
           : "rounded-xl w-full h-full cursor-pointer flex items-center justify-center shadow-xl shadow-black"
       }
     >
@@ -30,8 +31,8 @@ export default function Video({ peer, setightClicked, open }) {
           ref={videoRef}
           className={
             opens
-              ? "peer-video z-[2] w-auto md:h-screen h-auto   p-2 md:p-14 cursor-pointer"
-              : "rounded-xl peer-video z-[2] w-full h-full md:h-full cursor-pointer shadow shadow-black"
+              ? "peer-video z-[2] w-full md:h-auto h-auto   p-2 md:p-14 cursor-pointer"
+              : "rounded-md peer-video z-[2] w-full h-full md:h-full cursor-pointer shadow shadow-black"
           }
           autoPlay
           muted
@@ -39,7 +40,7 @@ export default function Video({ peer, setightClicked, open }) {
         ></video>
       <img
         src={
-          usersData?.filter((user) => user.userName === peer.name)?.[0]?.logoUrl
+          `${usersData?.filter((user) => user.userName === peer.name)?.[0]?.logoUrl}?${new Date().getDate()}`
         }
         alt={"user-logo"}
         className="w-20 h-20 rounded-full  absolute z-[1] shadow-md shadow-black outline-[5px] outline-black"

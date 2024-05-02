@@ -10,26 +10,25 @@ import { SketchPicker } from "react-color";
 
 export default function Profile() {
   const {
+    getUsers,
     getUser,
     userData,
     saveTokenUser,
+    saveTokenUsers,
     usersData,
-    setUserData,
-    setUsersData,
   } = useContext(UserContext);
   const { setAppLoading } = useContext(LoadingContext);
   const [selectedImageLogo, setSelectedImageLogo] = useState(undefined);
   const [selectedImageBanner, setSelectedImageBanner] = useState(undefined);
   const { formik } = useProfileHook(
     setAppLoading,
-    saveTokenUser,
     usersData,
-    setUserData,
-    setUsersData,
-    getUser
+    saveTokenUser,
+    saveTokenUsers,
   );
   useEffect(() => {
     getUser();
+    getUsers();
   }, []);
   useEffect(() => {
     formik.setFieldValue("banner", selectedImageBanner);
@@ -41,6 +40,13 @@ export default function Profile() {
   useEffect(() => {
     formik.setValues({ ...formik.values, ...userData });
   }, [userData]);
+
+const submitForm = async () => {
+   formik.handleSubmit();
+  await getUser();
+  await getUsers();
+};
+
 
   return (
     <ProfileContext.Provider
@@ -164,7 +170,7 @@ export default function Profile() {
               <div className="mt-10">
                 <button
                   type="button"
-                  onClick={() => formik.handleSubmit()}
+                  onClick={submitForm}
                   className="block w-full rounded bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-sans font-semibold text-white shadow-sm hover:bg-indigo-500"
                 >
                   Update Profile
@@ -219,7 +225,7 @@ const ProfileBox = ({ userData, formik }) => {
           </p>
           <div className="flex gap-2 mt-2 items-center">
             <p className="text-gray-300 font-sans text-sm">Rooms: </p>
-            {userData?.roles.map((role, index) => (
+            {userData?.roles?.map((role, index) => (
               <Chip
                 key={index}
                 label={role.label}

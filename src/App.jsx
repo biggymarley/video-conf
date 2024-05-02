@@ -17,7 +17,9 @@ function App() {
     usersData,
     getUser,
     saveTokenUser,
+    saveTokenUsers,
     setUserData,
+    getUsers
     
   } = useAuthTokenHook();
   return (
@@ -25,6 +27,7 @@ function App() {
       <UserContext.Provider
         value={{
           saveTokenUser,
+          saveTokenUsers,
           accessToken,
           saveToken,
           clearToken,
@@ -32,6 +35,7 @@ function App() {
           userData,
           usersData,
           getUser,
+          getUsers,
         }}
       >
         {appLoading ? (

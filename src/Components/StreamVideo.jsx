@@ -13,14 +13,14 @@ export default function StreamVideo({
 
   return screenshareVideoTrack &&
     presenter.filter((pre) => pre.name === peer.name).length > 0 ? (
-    <div className="flex z-[10] flex-col h-[200px] sm:h-auto w-[200px] basis-2/4 sm:basis-auto sm:w-[400px] relative">
-      <div className="w-full h-[200px]  rounded-xl overflow-visible flex  flex-col ">
+    <div className="flex z-[20] flex-col h-full sm:h-auto relative ">
+      <div className="w-full  h-full rounded-xl overflow-visible flex flex-col ">
         <div
           onClick={open ? () => setOpen(false) : undefined}
           className={
             open
-              ? "flex items-center justify-center w-screen min-h-screen h-full fixed top-0 left-0 z-50 bg-bg/50 backdrop-blur-xl overflow-auto cursor-pointer"
-              : "rounded-xl w-full h-full cursor-pointer flex items-center"
+            ? "lg:pl-12 p-1 max-h-screen rounded-md flex items-center justify-center w-screen min-h-screen h-full fixed top-0 left-0 z-[99] bg-bg/50 backdrop-blur-xl overflow-auto cursor-pointer"
+            : "rounded-md w-full h-full cursor-pointer flex items-center justify-center shadow-xl shadow-black"
           }
         >
           <video
@@ -28,8 +28,8 @@ export default function StreamVideo({
             ref={videoRef}
             className={
               open
-                ? "peer-video w-full h-auto md:h-auto p-2 md:p-14 cursor-pointer"
-                : "rounded-xl peer-video w-full h-auto md:h-full cursor-pointer "
+                ? "rounded-md max-h-screen w-auto h-auto p-2 md:p-14 cursor-pointer"
+                : "rounded-md peer-video w-full h-full  cursor-pointer "
             }
             autoPlay
             muted

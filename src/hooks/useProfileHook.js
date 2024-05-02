@@ -5,19 +5,15 @@ import { profileFormValues } from "../formik/formValues";
 
 export const useProfileHook = (
   setAppLoading,
-  saveTokenUser,
   usersData,
-  setUserData,
-  setUsersData,
-  getUser
+  saveTokenUser,
+  saveTokenUsers,
 ) => {
   const formik = useFormik({
     initialValues: profileFormValues,
     validationSchema: profileValidation,
     validateOnChange: false,
     onSubmit: async (values) => {
-      console.log(usersData);
-
       await updateProfile(
         {
           uid: values.uid,
@@ -31,8 +27,7 @@ export const useProfileHook = (
         values.logo.file,
         setAppLoading,
         saveTokenUser,
-        setUserData,
-        setUsersData,
+        saveTokenUsers,
       );
     },
   });

@@ -38,14 +38,6 @@ export default function useMessages(userName) {
   }, []);
   const getMessages = async () => {
     try {
-      // const messagesRes = await getDocs(collection(db, "messages"));
-      // let messagesArray = [];
-      // messagesRes.forEach((docs) => {
-      //   messagesArray = [...messagesArray, docs.data()];
-      // });
-      // let sortedmessagesArray = messagesArray.sort((a, b) => a.time - b.time)
-      // console.log(sortedmessagesArray)
-      // setMessages([...sortedmessagesArray]);
       const query = ref(database, "messages");
 
       return onValue(query, (snapshot) => {
@@ -68,27 +60,6 @@ export default function useMessages(userName) {
       const messagesRef = ref(database, 'messages')
       const newDataref = push(messagesRef)
       set(newDataref, cleanmessage);
-      console.log(cleanmessage)
-      // const messagesRef = doc(
-      //   db,
-      //   "messages",
-      //   cleanmessage?.id ?? moment.now().toExponential()
-      // );
-      // await setDoc(messagesRef, {
-      //   ...cleanmessage,
-      //   senderName: userName,
-      //   time: moment.now(),
-      //   id: moment.now().toExponential(),
-      // });
-      // setMessages([
-      //   ...messages,
-      //   {
-      //     ...cleanmessage,
-      //     senderName: userName,
-      //     time: moment.now(),
-      //     id: moment.now().toExponential(),
-      //   },
-      // ]);
     } catch (error) {
       console.error(error);
     }

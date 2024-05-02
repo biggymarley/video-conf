@@ -165,7 +165,7 @@ const removeEmptyFields = (obj) => {
   }, {});
 };
 
-const getUser = async (setUserData) => {
+const getUser = async (saveTokenUser) => {
   try {
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
@@ -173,31 +173,29 @@ const getUser = async (setUserData) => {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         const userfa = docSnap.data();
-        setUserData({ ...userfa });
-        localStorage.setItem("userData", JSON.stringify(userfa));
+        saveTokenUser(userfa)
+
       } else {
         console.log("noUser");
       }
     });
   } catch (error) {
-    // toast.error("Server error, Contact Biggy");
+    toast.error("Server error, Contact Biggy");
     console.log(error);
   }
 };
 
-const getUsers = async (setUsersData) => {
+const getUsers = async (saveTokenUsers) => {
   try {
     const users = await getDocs(collection(db, "users"));
-    console.log(users);
     let usersArray = [];
     users.forEach((docs) => {
       usersArray = [...usersArray, docs.data()];
     });
-    setUsersData([...usersArray]);
-    localStorage.setItem("usersData", JSON.stringify(usersArray));
+    saveTokenUsers(usersArray)
   } catch (error) {
     console.log(error);
-    // toast.error("Server error, Contact Biggy");
+    toast.error("Server error, Contact Biggy");
 
     return null;
   }
@@ -209,13 +207,11 @@ export const updateProfile = async (
   userImagelogo,
   setAppLoading,
   saveTokenUser,
-  setUserData,
-  setUsersData
+  saveTokenUsers,
 ) => {
   try {
     setAppLoading(true);
     const userDatacleaned = removeEmptyFields(userdata);
-    console.log(userDatacleaned, userImagebanner, userImagelogo);
     await setDoc(
       doc(db, "users", userDatacleaned.uid),
       {
@@ -247,13 +243,13 @@ export const updateProfile = async (
           userDatacleaned
         );
       }
-      await getUser(setUserData);
-      await getUsers(setUsersData);
+      await getUser(saveTokenUser);
+      await getUsers(saveTokenUsers);
       toast.success("Profie Updated");
       setAppLoading(false);
     } else {
-      getUser();
-      getUsers();
+      getUser(saveTokenUser);
+      getUsers(saveTokenUsers);
       setAppLoading(false);
       toast.success("Profie Updated");
     }
