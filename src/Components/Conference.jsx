@@ -31,7 +31,7 @@ const Conference = () => {
           {peers.map((peer, index) => (
             <>
               <Peer
-                key={peer.id}
+                key={index}
                 peer={peer}
                 setightClicked={setightClicked}
                 open={rightClicked}

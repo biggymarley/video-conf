@@ -8,6 +8,8 @@ import logo from "../assets/chillGray.png";
 import { GrAddCircle } from "react-icons/gr";
 import useRoomsHook from "../hooks/useRoomsHook";
 import { BiMinusCircle } from "react-icons/bi";
+import { updateProfileRollesRooms } from "../firebase/userManagment";
+import { LoadingContext } from "../Context/LoadingContext";
 
 const ShuffleSortTable = () => {
   return (
@@ -126,12 +128,25 @@ const TableRows = ({ user, index, roomsData, setselectedUser }) => {
 
 const ProfileBox = ({ user, setselectedUser, roomsData }) => {
   const [addRoomOpned, setaddedRoomOpened] = useState(false);
+  const { setAppLoading } = useContext(LoadingContext);
+  const { saveTokenUser, saveTokenUsers } = useContext(UserContext);
   const theme = useTheme();
   const defaultContrastThresholdTheme = createTheme({
     palette: {
       contrastThreshold: 5,
     },
   });
+
+  const UpdateUserRolesRooms = (room) => {
+    console.log("Updating", [...user.roles, room], user);
+    updateProfileRollesRooms(
+      user.uid,
+      [...user.roles, room],
+      setAppLoading,
+      saveTokenUser,
+      saveTokenUsers
+    );
+  };
 
   return (
     <ThemeProvider theme={defaultContrastThresholdTheme}>
@@ -172,7 +187,7 @@ const ProfileBox = ({ user, setselectedUser, roomsData }) => {
                   />
                 </div>
               </div>
-              <div className="z-[99] w-full p-2  absolute bottom-0">
+              <div className=" w-full p-2  absolute bottom-0">
                 <div
                   style={{ backgroundColor: user.color }}
                   className={`p-2 pb-10  bg-bg w-full rounded-md  flex flex-col gap-1 relative`}
@@ -205,7 +220,7 @@ const ProfileBox = ({ user, setselectedUser, roomsData }) => {
                       ))}
                       <button
                         onClick={() => setaddedRoomOpened(!addRoomOpned)}
-                        className="z-[99] transition transform scale-1 hover:scale-[1.08]"
+                        className=" transition transform scale-1 hover:scale-[1.08]"
                       >
                         {addRoomOpned ? (
                           <BiMinusCircle size={20} />
@@ -215,7 +230,7 @@ const ProfileBox = ({ user, setselectedUser, roomsData }) => {
                       </button>
                     </div>
                     {addRoomOpned ? (
-                      <div className="flex gap-2 z-[99]">
+                      <div className="flex gap-2 ">
                         {roomsData.map((room, index) => (
                           <Chip
                             key={index}
@@ -230,6 +245,7 @@ const ProfileBox = ({ user, setselectedUser, roomsData }) => {
                             size="info"
                             color="default"
                             clickable
+                            onClick={() => UpdateUserRolesRooms(room)}
                           />
                         ))}
                       </div>

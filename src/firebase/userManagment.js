@@ -275,6 +275,34 @@ export const updateProfile = async (
   }
 };
 
+export const updateProfileRollesRooms = async (
+  id,
+  roles,
+  setAppLoading,
+  saveTokenUser,
+  saveTokenUsers
+) => {
+  try {
+    setAppLoading(true);
+
+    await setDoc(
+      doc(db, "users", id),
+      {
+        roles: roles,
+      },
+      { merge: true }
+    );
+    await getUser(saveTokenUser);
+    await getUsers(saveTokenUsers);
+    setAppLoading(false);
+    toast.success("Profie Updated");
+  } catch (error) {
+    console.log(error);
+    toast.error("Server error, Contact Biggy");
+    return null;
+  }
+};
+
 export const UploadRoomLogo = async (id, roomImage) => {
   try {
     const imageRef = sRef(storage, `usersImgs/${id}-room`);
