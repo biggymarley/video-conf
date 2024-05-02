@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { LoadingContext } from "../Context/LoadingContext";
 import { useProfileHook } from "../hooks/useProfileHook";
 import { SketchPicker } from "react-color";
+import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 
 export default function Profile() {
   const {
@@ -24,7 +25,7 @@ export default function Profile() {
     setAppLoading,
     usersData,
     saveTokenUser,
-    saveTokenUsers,
+    saveTokenUsers
   );
   useEffect(() => {
     getUser();
@@ -41,12 +42,11 @@ export default function Profile() {
     formik.setValues({ ...formik.values, ...userData });
   }, [userData]);
 
-const submitForm = async () => {
-   formik.handleSubmit();
-  await getUser();
-  await getUsers();
-};
-
+  const submitForm = async () => {
+    formik.handleSubmit();
+    await getUser();
+    await getUsers();
+  };
 
   return (
     <ProfileContext.Provider
@@ -171,7 +171,7 @@ const submitForm = async () => {
                 <button
                   type="button"
                   onClick={submitForm}
-                  className="block w-full rounded bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-sans font-semibold text-white shadow-sm hover:bg-indigo-500"
+                  className="block w-full rounded bg-primary px-3.5 py-2.5 text-center text-sm font-sans font-semibold text-bg shadow-sm hover:bg-parimary"
                 >
                   Update Profile
                 </button>
@@ -186,58 +186,68 @@ const submitForm = async () => {
 }
 
 const ProfileBox = ({ userData, formik }) => {
+  const theme = useTheme();
+  const defaultContrastThresholdTheme = createTheme({
+    palette: {
+      contrastThreshold: 10,
+    },
+  });
   const handleChangeComplete = (color) => {
     formik.setFieldValue("color", color.hex);
   };
   return (
-    <div className="max-w-md bg-gray-700/80 w-full flex flex-col rounded-xl overflow-hidden relative h-[400px]">
-      <div className="h-[35%] bg-blue-500">
-        <BannerUploader />
-      </div>
-      <div className="w-[100px] h-[100px] bg-slate-300 rounded-full absolute top-[20%] left-4 border-t-gray-700/80 border-4 border-b-0 border-r-gray-700/80 border-gray-700/80">
-        {/* PROFILE IMG */}
-        <ImageUploader />
-      </div>
-      <div className="w-full p-2  absolute bottom-0">
-        <div
-          style={{ backgroundColor: formik.values.color }}
-          className={`p-2 pb-10  bg-bg w-full rounded-md  flex flex-col gap-1 relative`}
-        >
-          <button className="penparent z-10 w-full h-full flex justify-center items-center transition-all hover:bg-bg/15 absolute top-0 left-0">
-            <div className="penchild">
-              <SketchPicker
-                color={formik.values.color}
-                onChangeComplete={handleChangeComplete}
-              />
+    <ThemeProvider theme={defaultContrastThresholdTheme}>
+      <div className="max-w-md bg-gray-700/80 w-full flex flex-col rounded-xl overflow-hidden relative h-[400px]">
+        <div className="h-[35%] bg-blue-500">
+          <BannerUploader />
+        </div>
+        <div className="w-[100px] h-[100px] bg-slate-300 rounded-full absolute top-[20%] left-4 border-t-gray-700/80 border-4 border-b-0 border-r-gray-700/80 border-gray-700/80">
+          {/* PROFILE IMG */}
+          <ImageUploader />
+        </div>
+        <div className="w-full p-2  absolute bottom-0">
+          <div
+            style={{ backgroundColor: formik.values.color }}
+            className={`p-2 pb-10  bg-bg w-full rounded-md  flex flex-col gap-1 relative`}
+          >
+            <button className="penparent z-10 w-full h-full flex justify-center items-center transition-all hover:bg-bg/15 absolute top-0 left-0">
+              <div className="penchild">
+                <SketchPicker
+                  color={formik.values.color}
+                  onChangeComplete={handleChangeComplete}
+                />
+              </div>
+            </button>
+            <span className="hidden">{theme.palette.contrastThreshold}</span>
+
+            <p className="font-sans font-bold text-xl text-gray-300 text-end">
+              {userData?.userName}
+            </p>
+            <p className="font-sans font-light text-md text-gray-400  pb-2 text-end">
+              {userData?.userName}
+            </p>
+            <p className="font-sans font-bold text-sm text-gray-300">
+              ABOUT ME :
+            </p>
+            <p className="font-sans font-light text-md text-gray-400 border-b-red-50/20 pb-2 border-b-[.5px]">
+              {userData?.bio}
+            </p>
+            <div className="flex gap-2 mt-2 items-center">
+              <p className="text-gray-300 font-sans text-sm">Rooms: </p>
+              {userData?.roles?.map((role, index) => (
+                <Chip
+                  key={index}
+                  label={role.label}
+                  variant="filled"
+                  size="small"
+                  color="success"
+                />
+              ))}
             </div>
-          </button>
-          <p className="font-sans font-bold text-xl text-gray-300 text-end">
-            {userData?.userName}
-          </p>
-          <p className="font-sans font-light text-md text-gray-400  pb-2 text-end">
-            {userData?.userName}
-          </p>
-          <p className="font-sans font-bold text-sm text-gray-300">
-            ABOUT ME :
-          </p>
-          <p className="font-sans font-light text-md text-gray-400 border-b-red-50/20 pb-2 border-b-[.5px]">
-            {userData?.bio}
-          </p>
-          <div className="flex gap-2 mt-2 items-center">
-            <p className="text-gray-300 font-sans text-sm">Rooms: </p>
-            {userData?.roles?.map((role, index) => (
-              <Chip
-                key={index}
-                label={role.label}
-                variant="filled"
-                size="small"
-                color="success"
-              />
-            ))}
           </div>
         </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 
@@ -315,7 +325,7 @@ const BannerUploader = () => {
         className="hidden"
       />
       {(userData?.bannerUrl || selectedImageBanner) && (
-        <div className=""> 
+        <div className="">
           <img
             src={selectedImageBanner?.preview ?? userData?.bannerUrl}
             alt="Selected"

@@ -136,7 +136,7 @@ const FooterCTAs = () => {
 
   return (
     <>
-      <div className="absolute bottom-6 left-6 flex gap-4 lg:flex-col">
+      <div className="absolute bottom-6 left-6 flex gap-4 md:flex-col">
         {SOCIAL_CTAS.map((l, idx) => {
           return (
             <motion.a
@@ -154,7 +154,7 @@ const FooterCTAs = () => {
               }}
               exit={{ opacity: 0, y: -8 }}
             >
-              <l.Component className="text-xl text-white transition-colors hover:text-violet-300" />
+              <l.Component className="text-xl text-primary transition-colors hover:text-violet-300" />
             </motion.a>
           );
         })}
@@ -172,9 +172,9 @@ const FooterCTAs = () => {
           },
         }}
         exit={{ opacity: 0, y: 8 }}
-        className="absolute bottom-2 right-20 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-violet-200 transition-colors hover:bg-white hover:text-red-500 lg:bottom-4 lg:right-4 lg:px-6 lg:text-2xl"
+        className="absolute bottom-2 right-20 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-primary transition-colors hover:bg-secondaryBg hover:text-primary md:bottom-4 md:right-4 md:px-6 md:text-2xl"
       >
-        <FaPowerOff />
+        <span className="hidden md:block">Logout</span> <FaPowerOff />
       </motion.button>
       <motion.button
         initial={{ opacity: 0, y: 8 }}
@@ -188,10 +188,10 @@ const FooterCTAs = () => {
           },
         }}
         exit={{ opacity: 0, y: 8 }}
-        className="absolute bottom-2 right-2 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-violet-200 transition-colors hover:bg-white hover:text-primary lg:bottom-4 lg:right-4 lg:px-6 lg:text-2xl"
+        className="absolute bottom-2 right-2 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-primary transition-colors hover:bg-secondaryBg hover:text-primary md:bottom-4 md:right-4 md:px-6 md:text-2xl"
       >
         <Link to="profile">
-          <IoIosPerson />
+          <span className="hidden md:block">Profile</span> <IoIosPerson />
         </Link>
       </motion.button>
     </>

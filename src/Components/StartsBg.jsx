@@ -134,7 +134,7 @@ const Beam = ({ top, left, transition = {} }) => {
         top,
         left,
       }}
-      className="absolute z-10 h-[64px] w-[1px] bg-gradient-to-b from-blue-500/0 to-blue-500"
+      className="absolute z-10 h-[64px] w-[1px] bg-gradient-to-b from-blue-500/0 to-primary"
     />
   );
 };

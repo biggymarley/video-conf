@@ -13,7 +13,7 @@ import logo100ms from "../assets/100ms.png";
 import { AddRoomModal } from "./JoinForm";
 import { ChatContext } from "../Context/UserContext";
 
-const COLORS_TOP = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
+const COLORS_TOP = ["#FFD819", "#1E67C6", "#CE84CF", "#DD335C"];
 
 export const InnerJoinRooms = ({}) => {
   const color = useMotionValue(COLORS_TOP[0]);

@@ -95,7 +95,7 @@ const SideBarWeb = () => {
         <div>
           <Link
             to={"profile"}
-            className="z-[99] flex justify-center items-center bg-bg hover:bg-primary  p-4 w-full font-sans font-bold absolute bottom-14 left-0"
+            className="z-[99] flex justify-center items-center bg-bg hover:bg-gray-800 text-primary p-4 w-full font-sans font-bold absolute bottom-14 left-0"
           >
             <BsFilePerson size={30} />
           </Link>
@@ -104,7 +104,7 @@ const SideBarWeb = () => {
           <div>
             <Link
               to={"admin"}
-              className="z-[99] flex justify-center items-center bg-bg hover:bg-primary  p-4 w-full font-sans font-bold absolute bottom-[115px] left-0"
+              className="z-[99] flex justify-center items-center bg-bg hover:bg-gray-800 text-primary  p-4 w-full font-sans font-bold absolute bottom-[115px] left-0"
             >
               <RiUserSettingsFill size={30} />
             </Link>

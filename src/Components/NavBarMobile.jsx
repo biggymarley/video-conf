@@ -155,7 +155,7 @@ const FooterCTAs = () => {
               }}
               exit={{ opacity: 0, y: -8 }}
             >
-              <l.Component className="text-xl text-white transition-colors hover:text-violet-300" />
+              <l.Component className="text-xl text-primary transition-colors hover:text-violet-300" />
             </motion.a>
           );
         })}
@@ -173,7 +173,7 @@ const FooterCTAs = () => {
           },
         }}
         exit={{ opacity: 0, y: 8 }}
-        className="absolute bottom-2 right-20 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-violet-200 transition-colors hover:bg-white hover:text-red-500 md:bottom-4 md:right-4 md:px-6 md:text-2xl"
+        className="absolute bottom-2 right-20 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-primary transition-colors hover:bg-secondaryBg hover:text-primary md:bottom-4 md:right-4 md:px-6 md:text-2xl"
       >
         <span className="hidden md:block">Logout</span> <FaPowerOff />
       </motion.button>
@@ -189,7 +189,7 @@ const FooterCTAs = () => {
           },
         }}
         exit={{ opacity: 0, y: 8 }}
-        className="absolute bottom-2 right-2 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-violet-200 transition-colors hover:bg-white hover:text-primary md:bottom-4 md:right-4 md:px-6 md:text-2xl"
+        className="absolute bottom-2 right-2 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-primary transition-colors hover:bg-secondaryBg hover:text-primary md:bottom-4 md:right-4 md:px-6 md:text-2xl"
       >
         <Link to="profile">
           <span className="hidden md:block">Profile</span> <IoIosPerson />
