@@ -158,7 +158,7 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
             >
               <div className="">
                 <p className="font-sans font-light text-center pb-8 pt-4 px-1 text-gray-400">
-                  Welcom to {rooms?.data?.[selectedRoom]?.template}'s Chat, Type
+                  Welcom to {rooms?.data?.[selectedRoom]?.label}'s Chat, Type
                   Somthing!
                 </p>
               </div>
