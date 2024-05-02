@@ -41,8 +41,8 @@ export default function Video({ peer, setightClicked, open }) {
         ref={videoRef}
         className={
           opens
-            ? "peer-video z-[2] w-full md:h-auto h-auto   p-2 md:p-14 cursor-pointer"
-            : "rounded-md peer-video z-[2] w-full h-full md:h-full cursor-pointer shadow shadow-black"
+            ? "peer-video z-[3] w-full md:h-auto h-auto   p-2 md:p-14 cursor-pointer"
+            : "rounded-md peer-video z-[3] w-full h-full md:h-full cursor-pointer shadow shadow-black"
         }
         autoPlay
         muted
