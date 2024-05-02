@@ -1,4 +1,6 @@
 import { selectPeers, useHMSStore } from "@100mslive/react-sdk";
+import { Stars } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { BiSolidVolumeFull } from "react-icons/bi";
@@ -7,19 +9,17 @@ import { FaPowerOff } from "react-icons/fa";
 import { IoChatbubbleSharp } from "react-icons/io5";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import logo from "../assets/chillGray.png";
 import { ChatContext, RoomsContext, UserContext } from "../Context/UserContext";
 import JoinForm from "./JoinForm";
 import { NavBarMobileConf } from "./NavBarMobileConf";
 import Peer from "./Peer";
 import LiquidSideNav from "./SideChat";
-import { Stars } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
 
 const Conference = () => {
   const peers = useHMSStore(selectPeers);
   const [rightClicked, setightClicked] = useState(null);
-  const { userData } = useContext(UserContext);
   const [active, setActive] = useState(false);
 
   return (
@@ -27,7 +27,7 @@ const Conference = () => {
       <SideBarWeb />
       <NavBarMobileConf active={active} setActive={setActive} />
       <div className="flex w-full h-full min-h-screen bg-black lg:pl-[5.5rem] py-8 flex-grow overflow-auto px-2 relative">
-        <div className=" grid grid-rows-[500px_1fr] gap-2 gap-y-8  sm:lg-grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 xxl:grid-cols-3  min-h-[calc(100vh-7rem)] flex- px-0 py-20  pb-20 justify-center relative w-full h-full">
+        <div className=" grid grid-rows-[500px_1fr] gap-2 gap-y-8  sm:lg-grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4  min-h-[calc(100vh-7rem)] flex- px-0 py-20  pb-20 justify-center relative w-full h-full">
           {peers.map((peer, index) => (
             <>
               <Peer
@@ -77,16 +77,35 @@ const RoomInfos = ({ setActive, active }) => {
     </div>
   );
 };
+const Dialog = () => {
+  const { clearToken } = useContext(UserContext);
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="p-4 bg-primary flex gap-4 flex-col items-center justify-center w-full rounded-md"
+    >
+      <p className="font-sans font-bold font-xxl">Are you sure you want to Logout</p>
+      <button className="p-2 bg-bg text-white px-4 rounded-md font-sans font-bold font-xxl" onClick={() => clearToken()}>
+        Logout
+      </button>
+    </motion.div>
+  );
+};
 
 const SideBarWeb = () => {
-  const { clearToken } = useContext(UserContext);
   const { userData } = useContext(UserContext);
   return (
     <div className="z-[100] p-2 sm:p-0 w-[80px] lg:flex hidden flex-row sm:flex-col justify-center items-center sm:h-screen   bg-secondaryBg static sm:fixed ">
       <div className="flex-grow relative">
         <div>
-          <button
-            onClick={() => clearToken()}
+        <button
+            onClick={() =>
+              toast(<Dialog />, {
+                position: "top-center",
+              })
+            }
             className="z-[99] bg-red-500 flex justify-center items-center  p-4 w-full font-sans font-bold absolute bottom-0"
           >
             <FaPowerOff size={25} />

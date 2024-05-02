@@ -1,14 +1,16 @@
 import { motion } from "framer-motion";
 import React, { useContext, useState } from "react";
+import { BsFilePerson } from "react-icons/bs";
+import { FaPowerOff } from "react-icons/fa";
+import { RiUserSettingsFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import logo from "../assets/chillGray.png";
+import { UserContext } from "../Context/UserContext";
 import { InnerJoinRooms } from "./InnerJoinRooms";
 import JoinForm from "./JoinForm";
 import { NavBarMobile } from "./NavBarMobile";
-import { Link } from "react-router-dom";
-import { UserContext } from "../Context/UserContext";
-import { FaPowerOff } from "react-icons/fa";
-import { BsFilePerson } from "react-icons/bs";
-import { RiUserSettingsFill } from "react-icons/ri";
+
 const JoinRooms = () => {
   const [active, setActive] = useState(false);
 
@@ -24,8 +26,24 @@ const JoinRooms = () => {
   );
 };
 
-const SideBarWeb = () => {
+const Dialog = () => {
   const { clearToken } = useContext(UserContext);
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="p-4 bg-primary flex gap-4 flex-col items-center justify-center w-full rounded-md"
+    >
+      <p className="font-sans font-bold font-xxl">Are you sure you want to Logout</p>
+      <button className="p-2 bg-bg text-white px-4 rounded-md font-sans font-bold font-xxl" onClick={() => clearToken()}>
+        Logout
+      </button>
+    </motion.div>
+  );
+};
+
+const SideBarWeb = () => {
   const { userData } = useContext(UserContext);
 
   return (
@@ -33,7 +51,11 @@ const SideBarWeb = () => {
       <div className="flex-grow relative">
         <div>
           <button
-            onClick={() => clearToken()}
+            onClick={() =>
+              toast(<Dialog />, {
+                position: "top-center",
+              })
+            }
             className="z-[99] bg-red-500 flex justify-center items-center  p-4 w-full font-sans font-bold absolute bottom-0"
           >
             <FaPowerOff size={25} />
@@ -60,11 +82,7 @@ const SideBarWeb = () => {
         <div className=" h-full w-[80px] min-h-screen  bg-secondaryBg flex-col md:flex hidden sticky justify-start items-center">
           <div className="border-b-[1px] pb-2 w-full flex justify-center border-white/20">
             <div className="rounded-full  bg-slate-600 flex  w-[50px] h-[50px] justify-center items-center mt-4">
-              <img
-                src={logo}
-                alt="logo"
-                className="w-[50px] rounded-full"
-              />
+              <img src={logo} alt="logo" className="w-[50px] rounded-full" />
             </div>
           </div>
           <JoinForm />
