@@ -11,7 +11,12 @@ import { RiUserSettingsFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import logo from "../assets/chillGray.png";
-import { ChatContext, RoomsContext, UserContext } from "../Context/UserContext";
+import {
+  ChatContext,
+  FrameContext,
+  RoomsContext,
+  UserContext,
+} from "../Context/UserContext";
 import JoinForm from "./JoinForm";
 import { NavBarMobileConf } from "./NavBarMobileConf";
 import Peer from "./Peer";
@@ -20,35 +25,45 @@ import LiquidSideNav from "./SideChat";
 const Conference = () => {
   const peers = useHMSStore(selectPeers);
   const [rightClicked, setightClicked] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [active, setActive] = useState(false);
-
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
-    <div className="flex min-h-screen  w-full relative  md:pb-0 z-[999]">
-      <SideBarWeb />
-      <NavBarMobileConf active={active} setActive={setActive} />
-      <div className="flex w-full h-full min-h-screen bg-black lg:pl-[5.5rem] py-8 flex-grow overflow-auto px-2 relative">
-        <div className=" grid grid-rows-[500px_1fr] gap-2 gap-y-8  sm:lg-grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4  min-h-[calc(100vh-7rem)] flex- px-0 py-20  pb-20 justify-center relative w-full h-full">
-          {peers.map((peer, index) => (
-            <>
-              <Peer
-                key={index}
-                peer={peer}
-                setightClicked={setightClicked}
-                open={rightClicked}
-                index={index}
-              />
-            </>
-          ))}
+    <FrameContext.Provider
+      value={{ anchorEl, setAnchorEl, handleClick, handleClose }}
+    >
+      <div className="flex min-h-screen  w-full relative  md:pb-0 z-[999]">
+        <SideBarWeb />
+        <NavBarMobileConf active={active} setActive={setActive} />
+        <div className="flex w-full h-full min-h-screen bg-black lg:pl-[5.5rem] py-8 flex-grow overflow-auto px-2 relative">
+          <div className=" grid grid-rows-[500px_1fr] gap-2 gap-y-8  sm:lg-grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4  min-h-[calc(100vh-7rem)] flex- px-0 py-20  pb-20 justify-center relative w-full h-full">
+            {peers.map((peer, index) => (
+              <>
+                <Peer
+                  key={index}
+                  peer={peer}
+                  setightClicked={setightClicked}
+                  open={rightClicked}
+                  index={index}
+                />
+              </>
+            ))}
+          </div>
+          <div className="absolute inset-0 z-0">
+            <Canvas>
+              <Stars radius={50} count={2500} factor={4} fade speed={2} />
+            </Canvas>
+          </div>
         </div>
-        <div className="absolute inset-0 z-0">
-        <Canvas>
-          <Stars radius={50} count={2500} factor={4} fade speed={2} />
-        </Canvas>
+        <LiquidSideNav peers={peers} active={active} setActive={setActive} />
+        <RoomInfos active={active} setActive={setActive} />
       </div>
-      </div>
-      <LiquidSideNav peers={peers} active={active} setActive={setActive} />
-      <RoomInfos active={active} setActive={setActive} />
-    </div>
+    </FrameContext.Provider>
   );
 };
 
@@ -86,8 +101,13 @@ const Dialog = () => {
       exit={{ opacity: 0 }}
       className="p-4 bg-primary flex gap-4 flex-col items-center justify-center w-full rounded-md"
     >
-      <p className="font-sans font-bold font-xxl">Are you sure you want to Logout</p>
-      <button className="p-2 bg-bg text-white px-4 rounded-md font-sans font-bold font-xxl" onClick={() => clearToken()}>
+      <p className="font-sans font-bold font-xxl">
+        Are you sure you want to Logout
+      </p>
+      <button
+        className="p-2 bg-bg text-white px-4 rounded-md font-sans font-bold font-xxl"
+        onClick={() => clearToken()}
+      >
         Logout
       </button>
     </motion.div>
@@ -100,7 +120,7 @@ const SideBarWeb = () => {
     <div className="z-[100] p-2 sm:p-0 w-[80px] lg:flex hidden flex-row sm:flex-col justify-center items-center sm:h-screen   bg-secondaryBg static sm:fixed ">
       <div className="flex-grow relative">
         <div>
-        <button
+          <button
             onClick={() =>
               toast(<Dialog />, {
                 position: "top-center",
@@ -133,11 +153,7 @@ const SideBarWeb = () => {
         <div className=" h-full w-[80px] min-h-screen  bg-secondaryBg flex-col md:flex hidden sticky justify-start items-center">
           <div className="border-b-[1px] pb-2 w-full flex justify-center border-white/20">
             <div className="rounded-full  bg-slate-600 flex  w-[50px] h-[50px] justify-center items-center mt-4">
-              <img
-                src={logo}
-                alt="logo"
-                className="w-[50px] rounded-full"
-              />
+              <img src={logo} alt="logo" className="w-[50px] rounded-full" />
             </div>
           </div>
           <JoinForm />

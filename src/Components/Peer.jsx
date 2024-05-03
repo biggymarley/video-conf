@@ -2,7 +2,11 @@ import { useAVToggle, useVideo } from "@100mslive/react-sdk";
 import Avatar from "react-nice-avatar";
 import { BsMicMuteFill } from "react-icons/bs";
 import { useContext, useEffect, useRef, useState } from "react";
-import { RoomsContext, UserContext } from "../Context/UserContext";
+import {
+  FrameContext,
+  RoomsContext,
+  UserContext,
+} from "../Context/UserContext";
 import StreamVideo from "./StreamVideo";
 import Video from "./Video";
 import Footer from "./Footer";
@@ -17,13 +21,14 @@ const Peer = ({ peer, setightClicked, open }) => {
     audio: true,
     video: true,
   });
-
+  const { handleClick, anchorEl } = useContext(FrameContext);
   useEffect(() => {
     if (ref.current.addEventListener) {
       ref.current.addEventListener(
         "contextmenu",
         function (e) {
           e.preventDefault();
+          handleClick(e);
           setightClicked(peer.name);
         },
         false
@@ -31,7 +36,7 @@ const Peer = ({ peer, setightClicked, open }) => {
     } else {
       ref.current.attachEvent("oncontextmenu", function () {
         alert("You've tried to open context menu");
-        // setightClicked(peer.name);
+        setightClicked(peer.name);
       });
     }
   }, [peer]);
@@ -47,8 +52,6 @@ const Peer = ({ peer, setightClicked, open }) => {
           />
         </>
       ))}
-
-
 
       <Footer peer={peer} userData={userData} />
       <div className="flex flex-col h-full w-auto relative ">
@@ -66,7 +69,9 @@ const Peer = ({ peer, setightClicked, open }) => {
               >
                 <Video
                   peer={peer}
-                  setightClicked={setightClicked}
+                  setightClicked={handleClick}
+                  handleClick={handleClick}
+                  anchorEl={anchorEl}
                   open={open}
                 />
                 {!isLocalAudioEnabled && peer.name === userData.userName ? (
@@ -82,9 +87,9 @@ const Peer = ({ peer, setightClicked, open }) => {
             )}
 
             {/* {rightClicked ? <Menu peer={peer} userData={userData} /> : null} */}
-          <div className="z-[11] text-center text-sm font-sans font-light absolute bottom-4 left-4 bg-bg/50 p-1 px-2 rounded-md">
-            {peer.name}
-          </div>
+            <div className="z-[11] text-center text-sm font-sans font-light absolute bottom-4 left-4 bg-bg/50 p-1 px-2 rounded-md">
+              {peer.name}
+            </div>
           </div>
         </div>
       </div>

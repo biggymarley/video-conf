@@ -1,4 +1,4 @@
-import { Chip } from "@mui/material";
+import { Avatar, Chip } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa6";
 import { IoIosCloseCircleOutline } from "react-icons/io";
@@ -8,7 +8,7 @@ import { LoadingContext } from "../Context/LoadingContext";
 import { useProfileHook } from "../hooks/useProfileHook";
 import { SketchPicker } from "react-color";
 import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
-
+import logo from "../assets/chillGray.png";
 export default function Profile() {
   const {
     getUsers,
@@ -201,11 +201,11 @@ const ProfileBox = ({ userData, formik }) => {
         <div className="h-[35%] bg-blue-500">
           <BannerUploader />
         </div>
-        <div className="w-[100px] h-[100px] bg-slate-300 rounded-full absolute top-[20%] left-4 border-t-gray-700/80 border-4 border-b-0 border-r-gray-700/80 border-gray-700/80">
-          {/* PROFILE IMG */}
-          <ImageUploader />
-        </div>
         <div className="w-full p-2  absolute bottom-0">
+          <div className="z-[2] w-[100px] h-[100px] bg-slate-300 rounded-full absolute top-[-10%] left-4 border-t-gray-700/80 border-4 border-b-0 border-r-gray-700/80 border-gray-700/80">
+            {/* PROFILE IMG */}
+            <ImageUploader />
+          </div>
           <div
             style={{ backgroundColor: formik.values.color }}
             className={`p-2 pb-10  bg-bg w-full rounded-md  flex flex-col gap-1 relative`}
@@ -232,14 +232,16 @@ const ProfileBox = ({ userData, formik }) => {
             <p className="font-sans font-light text-md text-gray-400 border-b-red-50/20 pb-2 border-b-[.5px]">
               {userData?.bio}
             </p>
-            <div className="flex gap-2 mt-2 items-center">
+            <div className="flex gap-2 mt-2 items-center flex-wrap">
               <p className="text-gray-300 font-sans text-sm">Rooms: </p>
               {userData?.roles?.map((role, index) => (
                 <Chip
                   key={index}
                   label={role.label}
                   variant="filled"
-                  size="small"
+                  // size="small"
+                  avatar={<Avatar alt="room-logo" src={role.logoUrl ?? logo} />}
+                  className="font-sans font-bold"
                   color="success"
                 />
               ))}

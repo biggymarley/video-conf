@@ -1,69 +1,163 @@
-import { Chip } from "@mui/material";
+import { Button, Chip, Menu, MenuItem } from "@mui/material";
 import { motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
 import { AiFillMessage } from "react-icons/ai";
 import { BsFilePerson, BsPersonFillAdd } from "react-icons/bs";
-import { UserContext } from "../Context/UserContext";
+import { FrameContext, UserContext } from "../Context/UserContext";
 import { FaPlus } from "react-icons/fa";
-import { set } from "firebase/database";
 
-const RightClickMenu = ({ open, setOpen, peerid }) => {
+const RightClickMenu = ({ peerid }) => {
   const [profileOpen, setProfileOpen] = useState(false);
-  const { usersData } = useContext(UserContext);
-  useEffect(() => {
-    if (profileOpen === false) setOpen(false);
-  }, [profileOpen]);
+  // const [anchorEl, setAnchorEl] = useState(null);
+  const { anchorEl, handleClose } = useContext(FrameContext);
+  const open = Boolean(anchorEl);
 
+  const { usersData, userData } = useContext(UserContext);
+  const closeAll = () => {
+    handleClose();
+    setProfileOpen(false);
+  };
+  // useEffect(() => {
+  //   if (profileOpen === false) setOpen(false);
+  // }, [profileOpen]);
   return (
-    <div
-      className="flex items-center justify-center z-[30]"
-      onClick={profileOpen ? () => setProfileOpen(false) : undefined}
+    <Menu
+      id="basic-menu"
+      anchorEl={anchorEl}
+      open={open}
+      onClose={handleClose}
+      sx={{ '& .MuiPaper-root ': {
+        backgroundColor: '#313338',
+      },}}
+      transformOrigin={{ horizontal: "center", vertical: "center" }}
+      anchorOrigin={{ horizontal: "center", vertical: "center" }}
+      MenuListProps={{
+        "aria-labelledby": "basic-button",
+      }}
     >
-      {/* <ProfileBox userData={userData} /> */}
-      <motion.div
-        animate={open ? "open" : "closed"}
-        className="relative z-[30]"
+      <MenuItem onClick={() => setProfileOpen(true)}>
+        <p className=" flex items-center gap-2 w-full p-2 text-sm font-medium whitespace-nowrap  hover:bg-indigo-100 text-gray-300 hover:text-primary transition-colors ">
+          <BsFilePerson size={20} /> Profile
+        </p>
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <p className=" flex items-center gap-2 w-full p-2 text-sm font-medium whitespace-nowrap  hover:bg-indigo-100 text-gray-300 hover:text-primary transition-colors ">
+          <AiFillMessage size={20} /> Message (comming soon)
+        </p>
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <p className=" flex items-center gap-2 w-full p-2 text-sm font-medium whitespace-nowrap  hover:bg-indigo-100 text-gray-300 hover:text-primary transition-colors ">
+          <BsPersonFillAdd size={20} /> Add friend (comming soon)
+        </p>
+      </MenuItem>
+      {profileOpen ? (
+        <ProfileBox
+          usersData={usersData}
+          setProfileOpen={setProfileOpen}
+          peerid={peerid}
+        />
+      ) : null}
+
+      {/* <div
+        className="flex items-center justify-center z-[30]"
+        // onClick={profileOpen ? () => setProfileOpen(false) : undefined}
       >
-        <motion.ul
-          initial={wrapperVariants.closed}
-          variants={wrapperVariants}
-          //   style={{ originY: "top", translateX: "-50%" }}
-          className="flex flex-col gap-2 p-2 rounded-lg bg-bg shadow-xl absolute  w-48 overflow-hidden z-[40]"
+        <ProfileBox userData={userData} />
+        <motion.div
+          // animate={open ? "open" : "closed"}
+          className="relative z-[30]"
         >
-          <motion.li
-            variants={itemVariants}
-            onClick={() => {
-              setProfileOpen(true);
-            }}
-            className="z-[99] flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-indigo-100 text-gray-300 hover:text-primary transition-colors cursor-pointer"
+          <motion.ul
+            initial={wrapperVariants.closed}
+            variants={wrapperVariants}
+              style={{ originY: "top", translateX: "-50%" }}
+            className="flex flex-col gap-2 p-2 rounded-lg bg-bg shadow-xl absolute  w-48 overflow-hidden z-[40]"
           >
-            <motion.span variants={actionIconVariants}>
-              <BsFilePerson />
-            </motion.span>
-            <span>{"Profile"}</span>
-          </motion.li>
-          {/* <Option setOpen={setProfileOpen} Icon={BsFilePerson} text="Profile" /> */}
-          <Option
-            open={open}
-            setOpen={setOpen}
-            Icon={AiFillMessage}
-            text="Message (comming soon)"
-          />
-          <Option
-            open={open}
-            setOpen={setOpen}
-            Icon={BsPersonFillAdd}
-            text="Add friend (comming soon)"
-          />
-          {/* <Option setOpen={setOpen} Icon={FiTrash} text="Remove" /> */}
-        </motion.ul>
-        {profileOpen ? (
-          <ProfileBox usersData={usersData} peerid={peerid} />
-        ) : null}
-      </motion.div>
-    </div>
+            <motion.li
+              variants={itemVariants}
+              onClick={() => {
+                setProfileOpen(true);
+              }}
+              className="z-[99] flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-indigo-100 text-gray-300 hover:text-primary transition-colors cursor-pointer"
+            >
+              <motion.span variants={actionIconVariants}>
+                <BsFilePerson />
+              </motion.span>
+              <span>{"Profile"}</span>
+            </motion.li>
+            <Option setOpen={setProfileOpen} Icon={BsFilePerson} text="Profile" />
+            <Option
+              open={open}
+              setOpen={setOpen}
+              Icon={AiFillMessage}
+              text="Message (comming soon)"
+            />
+            <Option
+              open={open}
+              setOpen={setOpen}
+              Icon={BsPersonFillAdd}
+              text="Add friend (comming soon)"
+            />
+            <Option setOpen={setOpen} Icon={FiTrash} text="Remove" />
+          </motion.ul>
+          {profileOpen ? (
+            <ProfileBox usersData={usersData} peerid={peerid} />
+          ) : null}
+        </motion.div>
+      </div> */}
+    </Menu>
   );
 };
+// return (
+//   <div
+//     className="flex items-center justify-center z-[30]"
+//     onClick={profileOpen ? () => setProfileOpen(false) : undefined}
+//   >
+//     {/* <ProfileBox userData={userData} /> */}
+//     <motion.div
+//       animate={open ? "open" : "closed"}
+//       className="relative z-[30]"
+//     >
+//       <motion.ul
+//         initial={wrapperVariants.closed}
+//         variants={wrapperVariants}
+//         //   style={{ originY: "top", translateX: "-50%" }}
+//         className="flex flex-col gap-2 p-2 rounded-lg bg-bg shadow-xl absolute  w-48 overflow-hidden z-[40]"
+//       >
+//         <motion.li
+//           variants={itemVariants}
+//           onClick={() => {
+//             setProfileOpen(true);
+//           }}
+//           className="z-[99] flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-indigo-100 text-gray-300 hover:text-primary transition-colors cursor-pointer"
+//         >
+//           <motion.span variants={actionIconVariants}>
+//             <BsFilePerson />
+//           </motion.span>
+//           <span>{"Profile"}</span>
+//         </motion.li>
+//         {/* <Option setOpen={setProfileOpen} Icon={BsFilePerson} text="Profile" /> */}
+//         <Option
+//           open={open}
+//           setOpen={setOpen}
+//           Icon={AiFillMessage}
+//           text="Message (comming soon)"
+//         />
+//         <Option
+//           open={open}
+//           setOpen={setOpen}
+//           Icon={BsPersonFillAdd}
+//           text="Add friend (comming soon)"
+//         />
+//         {/* <Option setOpen={setOpen} Icon={FiTrash} text="Remove" /> */}
+//       </motion.ul>
+//       {profileOpen ? (
+//         <ProfileBox usersData={usersData} peerid={peerid} />
+//       ) : null}
+//     </motion.div>
+//   </div>
+// );
+// };
 
 const Option = ({ text, Icon, setOpen, open }) => {
   return (
@@ -80,7 +174,7 @@ const Option = ({ text, Icon, setOpen, open }) => {
   );
 };
 
-const ProfileBox = ({ usersData, peerid }) => {
+const ProfileBox = ({ usersData, peerid, setProfileOpen }) => {
   const [user, setUser] = useState({});
   useEffect(() => {
     setUser(usersData?.filter((user) => user.userName === peerid)[0]);
@@ -88,7 +182,10 @@ const ProfileBox = ({ usersData, peerid }) => {
   }, [peerid, usersData]);
 
   return (
-    <div className="w-screen h-screen bg-bg/40 backdrop-blur-sm flex fixed z-[99] top-0 left-0 items-center justify-center">
+    <div
+      className="w-screen h-screen bg-bg/40 backdrop-blur-sm flex fixed z-[99] top-0 left-0 items-center justify-center"
+      onClick={() => setProfileOpen(false)}
+    >
       <div className="max-w-md bg-gray-700/80 w-full flex flex-col rounded-xl overflow-hidden relative h-[400px]">
         <div className="h-[35%] bg-blue-500">
           {user?.bannerUrl && (

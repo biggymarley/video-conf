@@ -4,7 +4,7 @@ import { UserContext } from "../Context/UserContext";
 import RightClickMenu from "./RightClickMenu";
 import logo from "../assets/chillGray.png";
 import bgColored from "../assets/bgColored.png";
-export default function Video({ peer, setightClicked, open }) {
+export default function Video({ peer, setightClicked, open, handleClick, anchorEl }) {
   const [opens, setOpen] = useState(false);
   const { usersData } = useContext(UserContext);
   const { videoRef } = useVideo({
@@ -34,6 +34,8 @@ export default function Video({ peer, setightClicked, open }) {
           open={open !== null}
           setOpen={setightClicked}
           peerid={open}
+          handleClick={handleClick}
+          anchorEl={anchorEl}
         />
       ) : null}
       <video
