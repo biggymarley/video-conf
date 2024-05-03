@@ -26,7 +26,7 @@ import { NavBarMobileConf } from "./NavBarMobileConf";
 import Peer from "./Peer";
 import LiquidSideNav from "./SideChat";
 import YoutubeMusic from "./YoutubeMusic";
-import SpotifyPlayer from "./spotifyPlayer";
+// import SpotifyPlayer from "./spotifyPlayer";
 import useMessages from "../hooks/useMessages";
 
 const Conference = () => {
