@@ -1,23 +1,21 @@
+import { useHMSActions } from "@100mslive/react-sdk";
 import Drawer from "@mui/material/Drawer";
-import {
-  selectBroadcastMessages,
-  selectHMSMessages,
-  useHMSActions,
-  useHMSStore,
-} from "@100mslive/react-sdk";
 import EmojiPicker from "emoji-picker-react";
 import { motion } from "framer-motion";
+import GifPicker from "gif-picker-react";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { BsEmojiDizzyFill } from "react-icons/bs";
 import { FiX } from "react-icons/fi";
 import { IoChatbubbleSharp } from "react-icons/io5";
-import { RoomsContext, UserContext } from "../Context/UserContext";
-import useMessages from "../hooks/useMessages";
-import GifPicker from "gif-picker-react";
 import { MdOutlineGifBox } from "react-icons/md";
-import { HamburgerButton } from "./Conference";
-export default function Menu({ isOpen, setIsOpen, setActive , active}) {
+import {
+  FrameContext,
+  RoomsContext,
+  UserContext,
+} from "../Context/UserContext";
+import useMessages from "../hooks/useMessages";
+export default function Menu({ isOpen, setIsOpen, setActive, active }) {
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -27,9 +25,9 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
     }
     setIsOpen(open);
   };
-  const allMessages = useHMSStore(selectBroadcastMessages);
   const hmsActions = useHMSActions();
   const { userData, usersData } = useContext(UserContext);
+  const { allMessages, messages, setMessagesdB } = useContext(FrameContext);
   const { selectedRoom, rooms } = useContext(RoomsContext);
   const [isOpenEmojie, setisOpenEmojie] = useState(false);
   const [isOpenGif, setisOpenGif] = useState(false);
@@ -37,9 +35,22 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
   const [selectedGif, setiselectedGif] = useState(null);
   const [message, setimessage] = useState({});
   const [color, setColor] = useState("red");
-  const { messages, setMessagesdB } = useMessages(userData.userName);
+
+  const checkforbotCmd = (type, content) => {
+    if (type === "TEXT") {
+      const splited = content.split(" ");
+      if (splited[0] === "tle9-skhoun" && splited[1])
+        return {
+          messageType: "BOT",
+          content: content.substr(content.indexOf(" ") + 1),
+        };
+    }
+    return { messageType: type, content };
+  };
+
   const Send = (e) => {
     if (e.key === "Enter") {
+      const tcontent = checkforbotCmd(message.messageType, message.content);
       hmsActions.sendBroadcastMessage(message);
       setMessagesdB(
         {
@@ -48,6 +59,7 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
           messageType: message.messageType,
           senderName: userData.userName,
           color: userData?.color ?? "red",
+          ...tcontent,
         } ?? {
           senderName: userData.userName,
           color: userData?.color ?? "red",
@@ -55,6 +67,7 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
           messageType: message.messageType,
           time: moment.now(),
           id: moment.now().toExponential(),
+          ...tcontent,
         }
       );
       setimessage(null);
@@ -109,7 +122,6 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
               >
                 <FiX size={25} />
               </motion.button>
-
             </div>
             <div className="p-4 absolute bottom-0 w-full flex z-10 bg-bg">
               <input
@@ -171,7 +183,7 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
                     <div className="flex w-full gap-2 items-center">
                       <span
                         style={{ color: msg?.color }}
-                        className={`font-sans font-semibold text-sm]`}
+                        className={`font-sans font-bold`}
                       >
                         {msg.senderName === "You"
                           ? userData.userName
@@ -196,6 +208,15 @@ export default function Menu({ isOpen, setIsOpen, setActive , active}) {
 
 const MessageHandler = ({ message }) => {
   switch (message?.messageType) {
+    case "BOT":
+      return (
+        <div>
+          <span className="text-red-500 font-sans font-semibold">
+            Youtube:{" "}
+          </span>
+          <span className="font-sans font-semibold">{message.content}</span>
+        </div>
+      );
     case "GIF":
       return (
         <div>
@@ -203,6 +224,10 @@ const MessageHandler = ({ message }) => {
         </div>
       );
     default:
-      return <div>{message.content}</div>;
+      return (
+        <div>
+          <span className="font-sans font-semibold">{message.content}</span>
+        </div>
+      );
   }
 };

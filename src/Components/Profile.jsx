@@ -202,7 +202,7 @@ const ProfileBox = ({ userData, formik }) => {
           <BannerUploader />
         </div>
         <div className="w-full p-2  absolute bottom-0">
-          <div className="z-[2] w-[100px] h-[100px] bg-slate-300 rounded-full absolute top-[-10%] left-4 border-t-gray-700/80 border-4 border-b-0 border-r-gray-700/80 border-gray-700/80">
+          <div className="z-[11] w-[100px] h-[100px] bg-slate-300 rounded-full absolute top-[-10%] left-4 border-t-gray-700/80 border-4 border-b-0 border-r-gray-700/80 border-gray-700/80">
             {/* PROFILE IMG */}
             <ImageUploader />
           </div>
@@ -266,12 +266,12 @@ const ImageUploader = () => {
   };
 
   return (
-    <div className="relative flex justify-center items-center w-full h-full">
+    <div className="z-[11] relative flex justify-center items-center w-full h-full">
       <label
         htmlFor="file-upload"
-        className="penparent z-10 w-full h-full flex justify-center items-center transition-all hover:bg-bg/15 rounded-full"
+        className="penparent z-[11] w-full h-full flex justify-center items-center transition-all hover:bg-bg/15 rounded-full"
       >
-        <div className="penchild">
+        <div className="penchild z-[11]">
           <FaPen size={30} />
         </div>
       </label>

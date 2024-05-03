@@ -24,7 +24,7 @@ export const NavBarMobileConf = ({ active, setActive }) => {
 
 const LinksOverlay = () => {
   return (
-    <nav className="fixed z-[999] right-4 top-4  h-[calc(100vh_-_120px)] w-[calc(100%_-_32px)] overflow-hidden">
+    <nav className="fixed z-[24] right-4 top-4  h-[calc(100vh_-_120px)] w-[calc(100%_-_32px)] overflow-hidden">
       <Logo />
       <LinksContainer />
       <FooterCTAs />
@@ -60,12 +60,16 @@ const LinksContainer = () => {
     }
   };
   return (
-    <motion.div className="p-8 z-[12]">
-      <div className="flex flex-col  h-full mt-6 justify-start items-center ">
-        <div className="flex flex-col gap-4 w-full justify-center items-center ">
+    <motion.div className="p-8 z-[24]">
+      <div className="flex flex-col z-[24]  h-full mt-6 justify-start items-center ">
+        <div className="flex flex-col z-[24] gap-4 w-full justify-center items-center ">
           {rooms?.map((room, index) => (
-            <NavLink key={index} href={() => goLive(room.id, index)} className=''>
-              <div className="w-[50px]  h-[50px] ">
+            <NavLink
+              key={index}
+              href={() => goLive(room.id, index)}
+              className=""
+            >
+              <div className="w-[50px] z-[24]  h-[50px] ">
                 <img
                   src={room.logoUrl}
                   alt="roomlogo"
@@ -79,7 +83,7 @@ const LinksContainer = () => {
           ))}
           <div
             onClick={() => setModalOpen(true)}
-            className=" shadow-bg shadow-md flex items-center justify-start gap-4 rounded-md w-full  h-auto p-7   	cursor-pointer bg-bg/50"
+            className=" shadow-bg z-[24] shadow-md flex items-center justify-start gap-4 rounded-md w-full  h-auto p-7   	cursor-pointer bg-bg/50"
           >
             <TiPlus size={30} />{" "}
             <span className="font-sans font-bold lg:text-xl  text-md text-slate-300">
@@ -172,9 +176,9 @@ const FooterCTAs = () => {
           },
         }}
         exit={{ opacity: 0, y: 8 }}
-        className="absolute bottom-2 right-20 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-primary transition-colors hover:bg-secondaryBg hover:text-primary md:bottom-4 md:right-4 md:px-6 md:text-2xl"
+        className="absolute bottom-2 right-20 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-primary transition-colors hover:bg-secondaryBg hover:text-primary"
       >
-        <span className="hidden md:block">Logout</span> <FaPowerOff />
+        <FaPowerOff />
       </motion.button>
       <motion.button
         initial={{ opacity: 0, y: 8 }}
@@ -188,10 +192,10 @@ const FooterCTAs = () => {
           },
         }}
         exit={{ opacity: 0, y: 8 }}
-        className="absolute bottom-2 right-2 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-primary transition-colors hover:bg-secondaryBg hover:text-primary md:bottom-4 md:right-4 md:px-6 md:text-2xl"
+        className="absolute bottom-2 right-2 flex items-center gap-2 rounded-full bg-bg px-3 py-3 text-4xl uppercase text-primary transition-colors hover:bg-secondaryBg hover:text-primary"
       >
         <Link to="profile">
-          <span className="hidden md:block">Profile</span> <IoIosPerson />
+          <IoIosPerson />
         </Link>
       </motion.button>
     </>

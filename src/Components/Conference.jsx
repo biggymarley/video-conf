@@ -1,4 +1,8 @@
-import { selectPeers, useHMSStore } from "@100mslive/react-sdk";
+import {
+  selectBroadcastMessages,
+  selectPeers,
+  useHMSStore,
+} from "@100mslive/react-sdk";
 import { Stars } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { motion } from "framer-motion";
@@ -21,12 +25,19 @@ import JoinForm from "./JoinForm";
 import { NavBarMobileConf } from "./NavBarMobileConf";
 import Peer from "./Peer";
 import LiquidSideNav from "./SideChat";
+import YoutubeMusic from "./YoutubeMusic";
+import SpotifyPlayer from "./spotifyPlayer";
+import useMessages from "../hooks/useMessages";
 
 const Conference = () => {
   const peers = useHMSStore(selectPeers);
   const [rightClicked, setightClicked] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [active, setActive] = useState(false);
+  const allMessages = useHMSStore(selectBroadcastMessages);
+  const { userData } = useContext(UserContext);
+  const { messages, setMessagesdB } = useMessages(userData.userName);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -35,13 +46,23 @@ const Conference = () => {
   };
   return (
     <FrameContext.Provider
-      value={{ anchorEl, setAnchorEl, handleClick, handleClose }}
+      value={{
+        messages,
+        setMessagesdB,
+        allMessages,
+        anchorEl,
+        setAnchorEl,
+        handleClick,
+        handleClose,
+      }}
     >
       <div className="flex min-h-screen  w-full relative  md:pb-0 z-[999]">
         <SideBarWeb />
         <NavBarMobileConf active={active} setActive={setActive} />
         <div className="flex w-full h-full min-h-screen bg-black lg:pl-[5.5rem] py-8 flex-grow overflow-auto px-2 relative">
           <div className=" grid grid-rows-[500px_1fr] gap-2 gap-y-8  sm:lg-grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4  min-h-[calc(100vh-7rem)] flex- px-0 py-20  pb-20 justify-center relative w-full h-full">
+            <YoutubeMusic />
+            {/* <SpotifyPlayer /> */}
             {peers.map((peer, index) => (
               <>
                 <Peer
