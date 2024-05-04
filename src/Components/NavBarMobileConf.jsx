@@ -156,7 +156,7 @@ const FooterCTAs = () => {
                   ease: "easeInOut",
                 },
               }}
-              exit={{ opacity: 0, y: -8 }}
+              exit={{ opacity: 1, y: -8 }}
             >
               <l.Component className="text-xl text-primary transition-colors hover:text-violet-300" />
             </motion.a>

@@ -51,25 +51,69 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
   const Send = (e) => {
     if (e.key === "Enter") {
       const tcontent = checkforbotCmd(message.messageType, message.content);
-      hmsActions.sendBroadcastMessage(message);
-      setMessagesdB(
-        {
-          ...allMessages?.[allMessages?.length - 1],
-          content: message.content,
-          messageType: message.messageType,
-          senderName: userData.userName,
-          color: userData?.color ?? "red",
-          ...tcontent,
-        } ?? {
-          senderName: userData.userName,
-          color: userData?.color ?? "red",
-          content: message.content,
-          messageType: message.messageType,
-          time: moment.now(),
-          id: moment.now().toExponential(),
-          ...tcontent,
-        }
-      );
+      if (tcontent.messageType === "BOT") {
+        hmsActions.sendBroadcastMessage(message);
+        setMessagesdB(
+          {
+            ...allMessages?.[allMessages?.length - 1],
+            content: message.content,
+            messageType: message.messageType,
+            senderName: userData.userName,
+            color: userData?.color ?? "red",
+            ...tcontent,
+          } ?? {
+            senderName: userData.userName,
+            color: userData?.color ?? "red",
+            content: message.content,
+            messageType: message.messageType,
+            time: moment.now(),
+            id: moment.now().toExponential(),
+            ...tcontent,
+          }
+        );
+        // THIS TO STOP BOT FROM PLAYING EVERY TIME YOU ENTER THE ROOM
+        setTimeout(() => {
+          hmsActions.sendBroadcastMessage(message);
+          setMessagesdB(
+            {
+              ...allMessages?.[allMessages?.length - 1],
+              senderName: userData.userName,
+              color: userData?.color ?? "red",
+              ...tcontent,
+              content: "",
+              messageType: "TEXT",
+            } ?? {
+              senderName: userData.userName,
+              color: userData?.color ?? "red",
+              time: moment.now(),
+              id: moment.now().toExponential(),
+              ...tcontent,
+              messageType: "TEXT",
+              content: "",
+            }
+          );
+        }, 5000);
+      } else {
+        hmsActions.sendBroadcastMessage(message);
+        setMessagesdB(
+          {
+            ...allMessages?.[allMessages?.length - 1],
+            content: message.content,
+            messageType: message.messageType,
+            senderName: userData.userName,
+            color: userData?.color ?? "red",
+            ...tcontent,
+          } ?? {
+            senderName: userData.userName,
+            color: userData?.color ?? "red",
+            content: message.content,
+            messageType: message.messageType,
+            time: moment.now(),
+            id: moment.now().toExponential(),
+            ...tcontent,
+          }
+        );
+      }
       setimessage(null);
       setisselectedEmojie(null);
       setiselectedGif(null);
@@ -174,30 +218,32 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
                   Somthing!
                 </p>
               </div>
-              {messages?.map((msg, index) => (
-                <div key={index} className={`flex gap-4  px-2`}>
-                  <div
-                    className="font-sans font-light text-sm "
-                    style={{ lineBreak: "anywhere" }}
-                  >
-                    <div className="flex w-full gap-2 items-center">
-                      <span
-                        style={{ color: msg?.color }}
-                        className={`font-sans font-bold`}
-                      >
-                        {msg.senderName === "You"
-                          ? userData.userName
-                          : msg.senderName}{" "}
-                        :
-                      </span>
-                      <span className="font-sans font-light text-xs text-gray-400">
-                        {moment(msg.time).fromNow()}
-                      </span>
+              {messages?.map((msg, index) =>
+                msg.content && msg.content !== "" ? (
+                  <div key={index} className={`flex gap-4  px-2`}>
+                    <div
+                      className="font-sans font-light text-sm "
+                      style={{ lineBreak: "anywhere" }}
+                    >
+                      <div className="flex w-full gap-2 items-center">
+                        <span
+                          style={{ color: msg?.color }}
+                          className={`font-sans font-bold`}
+                        >
+                          {msg.senderName === "You"
+                            ? userData.userName
+                            : msg.senderName}{" "}
+                          :
+                        </span>
+                        <span className="font-sans font-light text-xs text-gray-400">
+                          {moment(msg.time).fromNow()}
+                        </span>
+                      </div>
+                      <MessageHandler message={msg} />
                     </div>
-                    <MessageHandler message={msg} />
                   </div>
-                </div>
-              ))}
+                ) : null
+              )}
             </div>
           </div>
         </Drawer>

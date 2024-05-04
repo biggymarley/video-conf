@@ -54,17 +54,12 @@ const Peer = ({ peer, setightClicked, open }) => {
       ))}
 
       <Footer peer={peer} userData={userData} />
-      <div className="flex flex-col h-full w-auto relative ">
+      <div className="flex flex-col h-[250px]  sm:h-[500px] w-auto relative ">
         <div className="w-full h-full">
           <div className="w-full h-full  rounded-xl overflow-visible flex  flex-col relative">
             {userConrols.video ? (
               <div
                 className={`flex w-full h-full relative rounded-xl`}
-                // style={{
-                //   backgroundColor: usersData?.filter(
-                //     (user) => user.userName === peer.name
-                //   )?.[0]?.color,
-                // }}
                 ref={ref}
               >
                 <Video
@@ -87,7 +82,7 @@ const Peer = ({ peer, setightClicked, open }) => {
             )}
 
             {/* {rightClicked ? <Menu peer={peer} userData={userData} /> : null} */}
-            <div className="z-[11] text-center text-sm font-sans font-light absolute bottom-4 left-4 bg-bg/50 p-1 px-2 rounded-md">
+            <div className="z-[4] text-center text-sm font-sans font-light absolute bottom-4 left-4 bg-bg/50 p-1 px-2 rounded-md">
               {peer.name}
             </div>
           </div>

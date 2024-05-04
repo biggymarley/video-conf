@@ -4,7 +4,13 @@ import { UserContext } from "../Context/UserContext";
 import RightClickMenu from "./RightClickMenu";
 import logo from "../assets/chillGray.png";
 import bgColored from "../assets/bgColored.png";
-export default function Video({ peer, setightClicked, open, handleClick, anchorEl }) {
+export default function Video({
+  peer,
+  setightClicked,
+  open,
+  handleClick,
+  anchorEl,
+}) {
   const [opens, setOpen] = useState(false);
   const { usersData } = useContext(UserContext);
   const { videoRef } = useVideo({
@@ -26,7 +32,7 @@ export default function Video({ peer, setightClicked, open, handleClick, anchorE
       className={
         opens
           ? "lg:pl-12 p-1 rounded flex items-center justify-center w-screen min-h-screen h-full fixed top-0 left-0 z-[99] bg-bg/50 backdrop-blur-xl overflow-auto cursor-pointer"
-          : "rounded-xl w-full h-full cursor-pointer flex items-center justify-center shadow-xl shadow-black"
+          : "rounded-xl w-full h-[250px]  sm:h-[500px] cursor-pointer flex items-center justify-center shadow-xl shadow-black"
       }
     >
       {open === peer.name ? (
@@ -44,7 +50,7 @@ export default function Video({ peer, setightClicked, open, handleClick, anchorE
         className={
           opens
             ? "peer-video z-[3] w-full md:h-auto h-auto   p-2 md:p-14 cursor-pointer"
-            : "rounded-md peer-video z-[3] w-full h-full  cursor-pointer shadow shadow-black"
+            : "rounded-md peer-video z-[3] w-full h-[250px]  sm:h-[500px]  cursor-pointer shadow shadow-black"
         }
         autoPlay
         muted
@@ -61,7 +67,7 @@ export default function Video({ peer, setightClicked, open, handleClick, anchorE
           className={
             opens
               ? "object-cover w-[80%] h-auto rounded-md  filter blur-[2px] absolute z-[1] shadow-md shadow-black outline-[5px] outline-black"
-              : "w-full h-full rounded-md  filter blur-[2px] absolute z-[1] shadow-md shadow-black outline-[5px] outline-black"
+              : "w-full h-[250px]  sm:h-[500px] rounded-md  filter blur-[2px] absolute z-[1] shadow-md shadow-black outline-[5px] outline-black"
           }
         />
       ) : (
@@ -71,7 +77,7 @@ export default function Video({ peer, setightClicked, open, handleClick, anchorE
           className={
             opens
               ? "w-auto h-auto rounded-md  filter blur-[2px] absolute z-[1] shadow-md shadow-black outline-[5px] outline-black"
-              : "w-full h-full rounded-md  filter blur-[2px] absolute z-[1] shadow-md shadow-black outline-[5px] outline-black"
+              : "w-full h-[250px]  sm:h-[500px] rounded-md  filter blur-[2px] absolute z-[1] shadow-md shadow-black outline-[5px] outline-black"
           }
         />
       )}

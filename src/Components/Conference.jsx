@@ -60,7 +60,7 @@ const Conference = () => {
         <SideBarWeb />
         <NavBarMobileConf active={active} setActive={setActive} />
         <div className="flex w-full h-full min-h-screen bg-black lg:pl-[5.5rem] py-8 flex-grow overflow-auto px-2 relative">
-          <div className=" grid grid-rows-[500px_1fr] gap-2 gap-y-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5  min-h-[calc(100vh-7rem)] flex- px-0 py-20  pb-20 justify-center relative w-full h-full">
+          <div className=" grid grid-rows-[250px_1fr] sm:grid-rows-[500px_1fr] gap-2 gap-y-8 grid-cols-1 xs:grid-cols-2  lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5  min-h-[calc(100vh-7rem)] flex- px-0 py-20  pb-20 justify-center relative w-full h-full">
             <YoutubeMusic />
             {/* <SpotifyPlayer /> */}
             {peers.map((peer, index) => (

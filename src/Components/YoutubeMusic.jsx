@@ -89,9 +89,15 @@ function YoutubeMusic() {
 
   if (!video)
     return (
-      <div className="w-full h-full flex justify-center items-center relative bg-red-700  rounded-md">
-        <div className="bg-white absolute  w-8 h-8 z-[1]" />
-        <BsYoutube size={80} color="red" className="z-[2]" />
+      <div className="w-full h-full flex flex-col justify-center items-center relative bg-red-700  rounded-md">
+        <div className="w-full h-auto flex justify-center items-center">
+          <div className="bg-white absolute w-8 h-8 z-[1]" />
+          <BsYoutube size={80} color="red" className="z-[2]" />
+        </div>
+        <p className="font-sans text-xs   p-2 rounded-md ">
+          Type "m!p your song name" (without the "") in the chat to play your
+          favorite music with your friends.
+        </p>
         <p className="font-sans text-xs absolute bottom-5 left-5 bg-bg/25 p-2 rounded-md ">
           Youtube Bot
         </p>
@@ -122,7 +128,7 @@ function YoutubeMusic() {
             <Stack
               spacing={2}
               direction="row"
-              sx={{ mb: 1, bgcolor: "black", zIndex:5 }}
+              sx={{ mb: 1, bgcolor: "black", zIndex: 5 }}
               alignItems="center"
             >
               <BsVolumeDown size={25} color="#E5BE00" />
