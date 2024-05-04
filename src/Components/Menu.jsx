@@ -15,6 +15,9 @@ import {
   UserContext,
 } from "../Context/UserContext";
 import logo from "../assets/chillGray.png";
+
+const pattern =
+  /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
 export default function Menu({ isOpen, setIsOpen, setActive, active }) {
   const toggleDrawer = (open) => (event) => {
     if (
@@ -39,11 +42,18 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
   const checkforbotCmd = (type, content) => {
     if (type === "TEXT") {
       const splited = content.split(" ");
-      if (splited[0] === "m!p" && splited[1])
-        return {
-          messageType: "BOT",
-          content: content.substr(content.indexOf(" ") + 1),
-        };
+      if (splited[0] === "m!p" && splited[1]) {
+        if (splited[1].match(pattern))
+          return {
+            messageType: "BOT-LINK",
+            content: content.substr(content.indexOf(" ") + 1),
+          };
+        else
+          return {
+            messageType: "BOT-TEXT",
+            content: content.substr(content.indexOf(" ") + 1),
+          };
+      }
     }
     return { messageType: type, content };
   };
@@ -268,17 +278,38 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
 
 const MessageHandler = ({ message }) => {
   switch (message?.messageType) {
-    case "BOT":
+    case "BOT-TEXT":
       return (
         <div className="flex  items-center h-[90px] ml-14 bg-secondaryBg/50  rounded-md overflow-hidden">
-          <div className="h-full w-2 bg-red-600"/>
+          <div className="h-full w-2 bg-red-600" />
           <div className="flex  items-center gap-2 px-5 flex-wrap">
-          <span className="font-sans font-light ">Started playing :</span>
-          <span className="text-red-500 font-sans font-bold ">
-            {message.content}
-          </span>
-          <span className="font-sans font-light text-xs text-gray-400 ">from Youtube</span>
-
+            <span className="font-sans font-light ">Started playing :</span>
+            <span className="text-red-500 font-sans font-bold ">
+              {message.content}
+            </span>
+            <span className="font-sans font-light text-xs text-gray-400 ">
+              from Youtube
+            </span>
+          </div>
+        </div>
+      );
+    case "BOT-LINK":
+      return (
+        <div className="flex  items-center  h-full min-h-[90px] ml-14 bg-secondaryBg/50  rounded-md overflow-hidden">
+          <div className="h-full w-2 bg-red-600" />
+          <div className="flex  items-center gap-2 px-5 flex-wrap">
+            <span className="font-sans font-light ">Started playing :</span>
+            <a
+              href={message.content}
+              className="text-red-500 font-sans font-bold "
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {message.content}
+            </a>
+            <span className="font-sans font-light text-xs text-gray-400 ">
+              from Youtube
+            </span>
           </div>
         </div>
       );

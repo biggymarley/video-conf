@@ -11,7 +11,7 @@ const YOUTUBE_API_KEYS = [
   "API_KEY_3",
 ];
 let currentApiKeyIndex = 0;
-
+const regex = /[?&]v=([^&]+)/;
 const opts = {
   height: "100%",
   width: "100%",
@@ -65,12 +65,16 @@ function YoutubeMusic() {
   };
 
   useEffect(() => {
-    console.log(messages?.[messages.length - 1]?.messageType === "BOT");
     if (
       messages?.length > 0 &&
-      messages?.[messages?.length - 1]?.messageType === "BOT"
-    )
-      search(messages?.[messages.length - 1]?.content);
+      (messages?.[messages?.length - 1]?.messageType === "BOT-TEXT" ||
+        messages?.[messages?.length - 1]?.messageType === "BOT-LINK")
+    ) {
+      if (messages?.[messages?.length - 1]?.messageType === "BOT-LINK") {
+        const videoId = messages?.[messages.length - 1]?.content.match(regex);
+        search(videoId);
+      } else search(messages?.[messages.length - 1]?.content);
+    }
   }, [messages]);
 
   const HandleVolume = (volume) => {
@@ -122,6 +126,7 @@ function YoutubeMusic() {
             opts={opts}
             onReady={activateVol}
           />
+          <iframe src={messages?.[messages.length - 1]?.content} />
           <div className="absolute w-full h-full bg-black z-[2] top-[0px]" />
           <div className="absolute w-full h-[50px] bg-black z-[2] bottom-[0]" />
           <div className="absolute w-full h-[50px] bg-black z-[5] bottom-[0]">
