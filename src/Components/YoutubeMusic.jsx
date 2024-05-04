@@ -125,6 +125,7 @@ function YoutubeMusic() {
               transform: "translate(-50%, -50%)",
               opacity: 1,
             }}
+            onEnd={() => setVideo(null)}
             ref={ref}
             opts={opts}
             onReady={activateVol}
