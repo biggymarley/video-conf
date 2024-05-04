@@ -5,10 +5,10 @@ import { BsVolumeDown, BsVolumeUp, BsYoutube } from "react-icons/bs";
 import YouTube from "react-youtube";
 import { toast } from "sonner";
 import { FrameContext } from "../Context/UserContext";
+import dj from "../assets/dj.gif";
 const YOUTUBE_API_KEYS = [
   "AIzaSyAxqf220SM4lPTRxtQMQLRCJHRspR_p-Gw",
   "AIzaSyB8NT4ijQ7vYpekCdfOPCRs4ZIlOp32QLM",
-  "API_KEY_3",
 ];
 let currentApiKeyIndex = 0;
 const regex = /[?&]v=([^&]+)/;
@@ -95,10 +95,13 @@ function YoutubeMusic() {
     return (
       <div className="w-full h-full flex flex-col justify-center items-center relative bg-red-700  rounded-md">
         <div className="w-full h-auto flex justify-center items-center">
-          <div className="bg-white absolute w-8 h-8 z-[1]" />
-          <BsYoutube size={80} color="red" className="z-[2]" />
+          <img
+            src={dj}
+            alt="dj"
+            className="w-[120px] h-[120px] rounded-full shadow-md shadow-bg"
+          />
         </div>
-        <p className="font-sans text-xs   p-2 rounded-md ">
+        <p className="font-sans text-sm  font-light p-2 rounded-md text-center bg-bg/30 m-2 ">
           Type "m!p your song name" (without the "") in the chat to play your
           favorite music with your friends.
         </p>
@@ -126,7 +129,7 @@ function YoutubeMusic() {
             opts={opts}
             onReady={activateVol}
           />
-          <iframe src={messages?.[messages.length - 1]?.content} />
+          {/* <iframe src={messages?.[messages.length - 1]?.content} /> */}
           <div className="absolute w-full h-full bg-black z-[2] top-[0px]" />
           <div className="absolute w-full h-[50px] bg-black z-[2] bottom-[0]" />
           <div className="absolute w-full h-[50px] bg-black z-[5] bottom-[0]">
@@ -172,7 +175,7 @@ function YoutubeMusic() {
             className=" w-full h-full absolute  z-[2] top-[0px] blur-[2px] object-cover"
           />
           <div className="flex-col flex gap-2 absolute  z-[2] drop- backdrop-blur-sm w-full h-full top-[0px] justify-center items-center bg-black/40">
-            <p className="font-sans font-bold text-sm text-primary  ">
+            <p className="font-sans font-bold text-sm text-primary  text-center">
               {video.snippet.title}
             </p>
             <p className="font-sans font-bold text-sm text-red-700">

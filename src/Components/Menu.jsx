@@ -61,7 +61,10 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
   const Send = (e) => {
     if (e.key === "Enter") {
       const tcontent = checkforbotCmd(message.messageType, message.content);
-      if (tcontent.messageType === "BOT") {
+      if (
+        tcontent.messageType === "BOT-LINK" ||
+        tcontent.messageType === "BOT-TEXT"
+      ) {
         hmsActions.sendBroadcastMessage(message);
         setMessagesdB(
           {
