@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import GifPicker from "gif-picker-react";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
-import { BsEmojiDizzyFill } from "react-icons/bs";
+import { BsEmojiDizzyFill, BsYoutube } from "react-icons/bs";
 import { FiX } from "react-icons/fi";
 import { IoChatbubbleSharp } from "react-icons/io5";
 import { MdOutlineGifBox } from "react-icons/md";
@@ -14,7 +14,7 @@ import {
   RoomsContext,
   UserContext,
 } from "../Context/UserContext";
-import useMessages from "../hooks/useMessages";
+import logo from "../assets/chillGray.png";
 export default function Menu({ isOpen, setIsOpen, setActive, active }) {
   const toggleDrawer = (open) => (event) => {
     if (
@@ -47,7 +47,7 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
     }
     return { messageType: type, content };
   };
-
+  console.log(messages);
   const Send = (e) => {
     if (e.key === "Enter") {
       const tcontent = checkforbotCmd(message.messageType, message.content);
@@ -59,6 +59,7 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
             content: message.content,
             messageType: message.messageType,
             senderName: userData.userName,
+            logoUrl: userData.logoUrl,
             color: userData?.color ?? "red",
             ...tcontent,
           } ?? {
@@ -66,6 +67,8 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
             color: userData?.color ?? "red",
             content: message.content,
             messageType: message.messageType,
+            logoUrl: userData.logoUrl,
+
             time: moment.now(),
             id: moment.now().toExponential(),
             ...tcontent,
@@ -100,12 +103,16 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
             ...allMessages?.[allMessages?.length - 1],
             content: message.content,
             messageType: message.messageType,
+            logoUrl: userData.logoUrl,
+
             senderName: userData.userName,
             color: userData?.color ?? "red",
             ...tcontent,
           } ?? {
             senderName: userData.userName,
             color: userData?.color ?? "red",
+            logoUrl: userData.logoUrl,
+
             content: message.content,
             messageType: message.messageType,
             time: moment.now(),
@@ -225,19 +232,26 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
                       className="font-sans font-light text-sm "
                       style={{ lineBreak: "anywhere" }}
                     >
-                      <div className="flex w-full gap-2 items-center">
-                        <span
-                          style={{ color: msg?.color }}
-                          className={`font-sans font-bold`}
-                        >
-                          {msg.senderName === "You"
-                            ? userData.userName
-                            : msg.senderName}{" "}
-                          :
-                        </span>
-                        <span className="font-sans font-light text-xs text-gray-400">
-                          {moment(msg.time).fromNow()}
-                        </span>
+                      <div className="flex w-full gap-4 items-center">
+                        <img
+                          src={msg.logoUrl ?? logo}
+                          alt="user-logo"
+                          className="w-10 h-10 object-cover rounded-full"
+                        />
+                        <div className="flex gap-2 items-center">
+                          <span
+                            style={{ color: msg?.color }}
+                            className={`font-sans font-bold`}
+                          >
+                            {msg.senderName === "You"
+                              ? userData.userName
+                              : msg.senderName}{" "}
+                            :
+                          </span>
+                          <span className="font-sans font-light text-xs text-gray-400">
+                            {moment(msg.time).fromNow()}
+                          </span>
+                        </div>
                       </div>
                       <MessageHandler message={msg} />
                     </div>
@@ -256,23 +270,28 @@ const MessageHandler = ({ message }) => {
   switch (message?.messageType) {
     case "BOT":
       return (
-        <div>
-          <span className="text-red-500 font-sans font-semibold">
-            Youtube:{" "}
+        <div className="flex  items-center h-[90px] ml-14 bg-secondaryBg/50  rounded-md overflow-hidden">
+          <div className="h-full w-2 bg-red-600"/>
+          <div className="flex  items-center gap-2 px-5 flex-wrap">
+          <span className="font-sans font-light ">Started playing :</span>
+          <span className="text-red-500 font-sans font-bold ">
+            {message.content}
           </span>
-          <span className="font-sans font-semibold">{message.content}</span>
+          <span className="font-sans font-light text-xs text-gray-400 ">from Youtube</span>
+
+          </div>
         </div>
       );
     case "GIF":
       return (
-        <div>
+        <div className="mt-2  ml-14">
           <img src={message.content} alt="userGif" />
         </div>
       );
     default:
       return (
-        <div>
-          <span className="font-sans font-semibold">{message.content}</span>
+        <div className="ml-14">
+          <span className="font-sans font-semibold ">{message.content}</span>
         </div>
       );
   }
