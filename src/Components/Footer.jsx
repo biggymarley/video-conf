@@ -47,7 +47,6 @@ const Footer = ({ peer, userData, presenter }) => {
   };
   const amIScreenSharing = useHMSStore(selectIsLocalScreenShared);
 
-
   return (
     <div
       className="left-0 flex fixed bottom-0 w-full p-4 justify-center z-10 gap-2 bg-transparent transition"

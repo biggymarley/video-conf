@@ -1,25 +1,16 @@
-import { Button, Chip, Menu, MenuItem } from "@mui/material";
-import { motion } from "framer-motion";
+import { Chip, Menu, MenuItem } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AiFillMessage } from "react-icons/ai";
 import { BsFilePerson, BsPersonFillAdd } from "react-icons/bs";
-import { FrameContext, UserContext } from "../Context/UserContext";
 import { FaPlus } from "react-icons/fa";
+import { FrameContext, UserContext } from "../Context/UserContext";
 
 const RightClickMenu = ({ peerid }) => {
   const [profileOpen, setProfileOpen] = useState(false);
-  // const [anchorEl, setAnchorEl] = useState(null);
   const { anchorEl, handleClose } = useContext(FrameContext);
+  const { usersData } = useContext(UserContext);
   const open = Boolean(anchorEl);
 
-  const { usersData, userData } = useContext(UserContext);
-  const closeAll = () => {
-    handleClose();
-    setProfileOpen(false);
-  };
-  // useEffect(() => {
-  //   if (profileOpen === false) setOpen(false);
-  // }, [profileOpen]);
   return (
     <Menu
       id="basic-menu"
@@ -58,119 +49,8 @@ const RightClickMenu = ({ peerid }) => {
         />
       ) : null}
 
-      {/* <div
-        className="flex items-center justify-center z-[30]"
-        // onClick={profileOpen ? () => setProfileOpen(false) : undefined}
-      >
-        <ProfileBox userData={userData} />
-        <motion.div
-          // animate={open ? "open" : "closed"}
-          className="relative z-[30]"
-        >
-          <motion.ul
-            initial={wrapperVariants.closed}
-            variants={wrapperVariants}
-              style={{ originY: "top", translateX: "-50%" }}
-            className="flex flex-col gap-2 p-2 rounded-lg bg-bg shadow-xl absolute  w-48 overflow-hidden z-[40]"
-          >
-            <motion.li
-              variants={itemVariants}
-              onClick={() => {
-                setProfileOpen(true);
-              }}
-              className="z-[99] flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-indigo-100 text-gray-300 hover:text-primary transition-colors cursor-pointer"
-            >
-              <motion.span variants={actionIconVariants}>
-                <BsFilePerson />
-              </motion.span>
-              <span>{"Profile"}</span>
-            </motion.li>
-            <Option setOpen={setProfileOpen} Icon={BsFilePerson} text="Profile" />
-            <Option
-              open={open}
-              setOpen={setOpen}
-              Icon={AiFillMessage}
-              text="Message (comming soon)"
-            />
-            <Option
-              open={open}
-              setOpen={setOpen}
-              Icon={BsPersonFillAdd}
-              text="Add friend (comming soon)"
-            />
-            <Option setOpen={setOpen} Icon={FiTrash} text="Remove" />
-          </motion.ul>
-          {profileOpen ? (
-            <ProfileBox usersData={usersData} peerid={peerid} />
-          ) : null}
-        </motion.div>
-      </div> */}
+      
     </Menu>
-  );
-};
-// return (
-//   <div
-//     className="flex items-center justify-center z-[30]"
-//     onClick={profileOpen ? () => setProfileOpen(false) : undefined}
-//   >
-//     {/* <ProfileBox userData={userData} /> */}
-//     <motion.div
-//       animate={open ? "open" : "closed"}
-//       className="relative z-[30]"
-//     >
-//       <motion.ul
-//         initial={wrapperVariants.closed}
-//         variants={wrapperVariants}
-//         //   style={{ originY: "top", translateX: "-50%" }}
-//         className="flex flex-col gap-2 p-2 rounded-lg bg-bg shadow-xl absolute  w-48 overflow-hidden z-[40]"
-//       >
-//         <motion.li
-//           variants={itemVariants}
-//           onClick={() => {
-//             setProfileOpen(true);
-//           }}
-//           className="z-[99] flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-indigo-100 text-gray-300 hover:text-primary transition-colors cursor-pointer"
-//         >
-//           <motion.span variants={actionIconVariants}>
-//             <BsFilePerson />
-//           </motion.span>
-//           <span>{"Profile"}</span>
-//         </motion.li>
-//         {/* <Option setOpen={setProfileOpen} Icon={BsFilePerson} text="Profile" /> */}
-//         <Option
-//           open={open}
-//           setOpen={setOpen}
-//           Icon={AiFillMessage}
-//           text="Message (comming soon)"
-//         />
-//         <Option
-//           open={open}
-//           setOpen={setOpen}
-//           Icon={BsPersonFillAdd}
-//           text="Add friend (comming soon)"
-//         />
-//         {/* <Option setOpen={setOpen} Icon={FiTrash} text="Remove" /> */}
-//       </motion.ul>
-//       {profileOpen ? (
-//         <ProfileBox usersData={usersData} peerid={peerid} />
-//       ) : null}
-//     </motion.div>
-//   </div>
-// );
-// };
-
-const Option = ({ text, Icon, setOpen, open }) => {
-  return (
-    <motion.li
-      variants={itemVariants}
-      onClick={open ? () => setOpen(false) : undefined}
-      className="flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-indigo-100 text-gray-300 hover:text-primary transition-colors cursor-pointer"
-    >
-      <motion.span variants={actionIconVariants}>
-        <Icon />
-      </motion.span>
-      <span>{text}</span>
-    </motion.li>
   );
 };
 
@@ -253,42 +133,3 @@ const ProfileBox = ({ usersData, peerid, setProfileOpen }) => {
 };
 
 export default RightClickMenu;
-
-const wrapperVariants = {
-  open: {
-    scaleY: 1,
-    transition: {
-      when: "beforeChildren",
-      staggerChildren: 0.1,
-    },
-  },
-  closed: {
-    scaleY: 0,
-    transition: {
-      when: "afterChildren",
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  open: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      when: "beforeChildren",
-    },
-  },
-  closed: {
-    opacity: 0,
-    y: -15,
-    transition: {
-      when: "afterChildren",
-    },
-  },
-};
-
-const actionIconVariants = {
-  open: { scale: 1, y: 0 },
-  closed: { scale: 0, y: -7 },
-};

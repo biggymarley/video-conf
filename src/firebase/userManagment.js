@@ -46,7 +46,7 @@ export const loginUser = async (email, password, saveToken, setAppLoading) => {
       toast.warning(
         "Please proceed to the profile screen to complete your profile."
       );
-    else toast.success("Welcome to Discord Clone.");
+    else toast.success("Welcome to Chill Cloud.");
 
     // return user?.data() ?? null;
   } catch (error) {

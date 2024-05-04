@@ -39,7 +39,7 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
   const checkforbotCmd = (type, content) => {
     if (type === "TEXT") {
       const splited = content.split(" ");
-      if (splited[0] === "tle9-skhoun" && splited[1])
+      if (splited[0] === "m!p" && splited[1])
         return {
           messageType: "BOT",
           content: content.substr(content.indexOf(" ") + 1),
