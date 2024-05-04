@@ -102,8 +102,8 @@ function YoutubeMusic() {
           />
         </div>
         <p className="font-sans text-sm  font-light p-2 rounded-md text-center bg-bg/30 m-2 ">
-          Type "m!p your song name" (without the "") in the chat to play your
-          favorite music with your friends.
+          Type "m!p your song name or youtube url" (without the "") in the chat
+          to play your favorite music with your friends.
         </p>
         <p className="font-sans text-xs absolute bottom-5 left-5 bg-bg/25 p-2 rounded-md ">
           Youtube Bot
