@@ -31,10 +31,11 @@ function YoutubeMusic() {
   const refRight = useRef();
   const [mute, setMute] = useState(true);
   const { messages } = useContext(FrameContext);
-  const [volume, setVolume] = useState(30);
+  const [volume, setVolume] = useState(100);
 
   const handleChange = (event, newValue) => {
     setVolume(newValue);
+    HandleVolume(newValue);
   };
   const search = async (query) => {
     try {
@@ -74,6 +75,7 @@ function YoutubeMusic() {
 
   const HandleVolume = (volume) => {
     if (ref?.current?.internalPlayer) {
+      console.log(volume);
       ref?.current?.internalPlayer.setVolume(volume);
     }
   };
@@ -127,7 +129,8 @@ function YoutubeMusic() {
               <Slider
                 aria-label="Volume"
                 value={volume}
-                onChange={handleChange}
+                defaultValue={100}
+                onChange={(event, newValue) => handleChange(event, newValue)}
                 sx={{
                   color: "#E5BE00",
                   "& .MuiSlider-track": {
