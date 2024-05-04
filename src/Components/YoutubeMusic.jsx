@@ -100,11 +100,11 @@ function YoutubeMusic() {
 
   return (
     <>
-      <div className="w-full h-full relative " ref={refRight}>
-        <div className="w-full h-full flex items-center oveflow-hidden  ">
+      <div className="w-full h-full relative overflow-hidden" ref={refRight}>
+        <div className="w-full h-full flex items-center oveflow-hidden">
           <YouTube
             videoId={video.id.videoId}
-            className={"w-full h-full z-[2]"}
+            className={"w-full h-full z-[2] "}
             style={{
               position: "absolute",
               top: "50%",
@@ -116,13 +116,13 @@ function YoutubeMusic() {
             opts={opts}
             onReady={activateVol}
           />
-          <div className="absolute w-full h-full bg-black z-[2] top-[-50px]" />
+          <div className="absolute w-full h-full bg-black z-[2] top-[0px]" />
           <div className="absolute w-full h-[50px] bg-black z-[2] bottom-[0]" />
-          <div className="absolute w-full h-[50px] bg-black z-[2] bottom-[0]">
+          <div className="absolute w-full h-[50px] bg-black z-[5] bottom-[0]">
             <Stack
               spacing={2}
               direction="row"
-              sx={{ mb: 1 }}
+              sx={{ mb: 1, bgcolor: "black", zIndex:5 }}
               alignItems="center"
             >
               <BsVolumeDown size={25} color="#E5BE00" />
@@ -158,9 +158,9 @@ function YoutubeMusic() {
           <img
             src={video.snippet.thumbnails.high.url}
             alt="music"
-            className=" w-full h-full absolute  z-[2] top-[-50px] blur-[2px] object-cover"
+            className=" w-full h-full absolute  z-[2] top-[0px] blur-[2px] object-cover"
           />
-          <div className="flex-col flex gap-2 absolute  z-[2] drop- backdrop-blur-sm w-full h-full top-[-50px] justify-center items-center bg-black/40">
+          <div className="flex-col flex gap-2 absolute  z-[2] drop- backdrop-blur-sm w-full h-full top-[0px] justify-center items-center bg-black/40">
             <p className="font-sans font-bold text-sm text-primary  ">
               {video.snippet.title}
             </p>

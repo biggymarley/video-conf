@@ -60,11 +60,11 @@ const Peer = ({ peer, setightClicked, open }) => {
             {userConrols.video ? (
               <div
                 className={`flex w-full h-full relative rounded-xl`}
-                style={{
-                  backgroundColor: usersData?.filter(
-                    (user) => user.userName === peer.name
-                  )?.[0]?.color,
-                }}
+                // style={{
+                //   backgroundColor: usersData?.filter(
+                //     (user) => user.userName === peer.name
+                //   )?.[0]?.color,
+                // }}
                 ref={ref}
               >
                 <Video
