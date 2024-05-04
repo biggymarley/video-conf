@@ -239,7 +239,7 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
                 msg.content && msg.content !== "" ? (
                   <div key={index} className={`flex gap-4  px-2`}>
                     <div
-                      className="font-sans font-light text-sm "
+                      className="font-sans font-light text-sm flex flex-col"
                       style={{ lineBreak: "anywhere" }}
                     >
                       <div className="flex w-full gap-4 items-center">
@@ -295,9 +295,9 @@ const MessageHandler = ({ message }) => {
       );
     case "BOT-LINK":
       return (
-        <div className="flex  items-center  h-full min-h-[90px] ml-14 bg-secondaryBg/50  rounded-md overflow-hidden">
+        <div className="flex items-center  h-full min-h-[90px] ml-14 bg-secondaryBg/50  rounded-md overflow-hidden">
           <div className="h-full w-2 bg-red-600" />
-          <div className="flex  items-center gap-2 px-5 flex-wrap">
+          <div className="flex  items-center gap-2 px-5 flex-wrap py-4">
             <span className="font-sans font-light ">Started playing :</span>
             <a
               href={message.content}
