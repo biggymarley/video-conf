@@ -107,7 +107,7 @@ function YoutubeMusic() {
           to play your favorite music with your friends.
         </p>
         <p className="font-sans text-xs absolute bottom-5 left-5 bg-bg/25 p-2 rounded-md ">
-          Youtube Bot
+          Youtube music bot
         </p>
       </div>
     );
