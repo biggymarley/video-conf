@@ -12,6 +12,7 @@ import { LoadingContext } from "../Context/LoadingContext";
 import { ChatContext, RoomsContext, UserContext } from "../Context/UserContext";
 import { FaPen } from "react-icons/fa6";
 import logo from "../assets/chillGray.png";
+import { BsPlus } from "react-icons/bs";
 const JoinForm = ({}) => {
   const hmsActions = useHMSActions();
   const { rooms, getRoomCodes, setselectedRoom } = useContext(RoomsContext);
@@ -72,9 +73,9 @@ const JoinForm = ({}) => {
           ))}
           <div
             onClick={() => setModalOpen(true)}
-            className="flex items-center justify-center rounded-full w-[50px]  h-[50px]   transition transform scale-100 hover:scale-[1.02] 	cursor-pointer bg-gray-600"
+            className="flex items-center justify-center rounded-[50px] w-[50px]  h-[50px]  transform scale-100 hover:scale-[1.02] hover:rounded-[20px] 	cursor-pointer bg-gray-600 hover:bg-primary duration-300	hover:text-black ease-in-out transition-all"
           >
-            <TiPlus size={30} />
+            <BsPlus size={30} />
           </div>
         </div>
       </div>

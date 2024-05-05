@@ -25,19 +25,7 @@ const useRoomsHook = () => {
           template_id: "662dfc6ab644c98edca37b91",
         }),
       });
-      const res = await response.json();
-      const roomcodes = await fetch(
-        `https://api.100ms.live/v2/room-codes/room/${res.id}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${managementToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("res", res);
-      console.log("res", roomcodes);
+      const res = await response.json();   
       const logoUrl = await UploadRoomLogo(res.id, roomLogo.file);
       const room = {
         id: res.id,
