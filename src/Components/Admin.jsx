@@ -140,7 +140,7 @@ const ProfileBox = ({ user, setselectedUser, roomsData }) => {
     console.log("Updating", [room], user);
     updateProfileRollesRooms(
       user.uid,
-      [room],
+      [...user?.roles ?? {}, room],
       setAppLoading,
       saveTokenUser,
       saveTokenUsers
