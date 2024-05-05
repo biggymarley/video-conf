@@ -87,9 +87,7 @@ export const AddRoomModal = ({ isOpen, setIsOpen }) => {
   const [selectedImageLogo, setSelectedImageLogo] = useState(undefined);
   const [roomName, setroomName] = useState("");
   const { createRooms } = useContext(RoomsContext);
-  // useEffect(() => {
-  //   formik.setFieldValue("logo", selectedImageLogo);
-  // }, [selectedImageLogo]);
+
   return (
     <AnimatePresence>
       {isOpen && (

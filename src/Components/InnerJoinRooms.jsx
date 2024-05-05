@@ -33,7 +33,7 @@ export const InnerJoinRooms = ({}) => {
       }}
       className="relative grid  h-screen w-full place-content-center overflow-hidden  text-gray-200"
       >
-        <div className="absolute bottom-[-50%] opacity-50 right-[-55px]">
+        <div className="absolute bottom-[-50%] opacity-50 md:right-[-55px]">
       <Globe />
         </div>
       <div className="relative  flex flex-col items-center">
