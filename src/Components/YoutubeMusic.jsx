@@ -87,6 +87,7 @@ function YoutubeMusic() {
   const activateVol = () => {
     if (ref?.current?.internalPlayer) {
       ref?.current?.internalPlayer.unMute();
+      ref?.current?.internalPlayer.setVolume(volume);
       setMute(false);
     }
   };
