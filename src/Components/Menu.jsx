@@ -15,7 +15,10 @@ import {
   UserContext,
 } from "../Context/UserContext";
 import logo from "../assets/chillGray.png";
-
+function bottom() {
+  document.getElementById("bottom")?.scrollIntoView();
+  // window.setTimeout( function () { top(); }, 2000 );
+}
 const pattern =
   /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
 export default function Menu({ isOpen, setIsOpen, setActive, active }) {
@@ -28,6 +31,7 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
     }
     setIsOpen(open);
   };
+
   const hmsActions = useHMSActions();
   const { userData, usersData } = useContext(UserContext);
   const { allMessages, messages, setMessagesdB } = useContext(FrameContext);
@@ -144,6 +148,10 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
   const handleChange = (e) => {
     setimessage({ content: e.target.value, messageType: "TEXT" });
   };
+
+  useEffect(() => {
+    bottom();
+  }, [setMessagesdB]);
 
   useEffect(() => {
     const color = usersData?.filter(
@@ -271,6 +279,7 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
                   </div>
                 ) : null
               )}
+              <div id="bottom" />
             </div>
           </div>
         </Drawer>
