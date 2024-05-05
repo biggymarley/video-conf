@@ -4,7 +4,7 @@ import EmojiPicker from "emoji-picker-react";
 import { motion } from "framer-motion";
 import GifPicker from "gif-picker-react";
 import moment from "moment";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BsEmojiDizzyFill, BsYoutube } from "react-icons/bs";
 import { FiX } from "react-icons/fi";
 import { IoChatbubbleSharp } from "react-icons/io5";
@@ -15,10 +15,7 @@ import {
   UserContext,
 } from "../Context/UserContext";
 import logo from "../assets/chillGray.png";
-function bottom() {
-  document.getElementById("bottom")?.scrollIntoView();
-  // window.setTimeout( function () { top(); }, 2000 );
-}
+
 const pattern =
   /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
 export default function Menu({ isOpen, setIsOpen, setActive, active }) {
@@ -42,7 +39,7 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
   const [selectedGif, setiselectedGif] = useState(null);
   const [message, setimessage] = useState({});
   const [color, setColor] = useState("red");
-
+  const ref = useRef();
   const checkforbotCmd = (type, content) => {
     if (type === "TEXT") {
       const splited = content.split(" ");
@@ -148,10 +145,24 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
   const handleChange = (e) => {
     setimessage({ content: e.target.value, messageType: "TEXT" });
   };
+  function bottom() {
+    console.log("bottom", document.getElementById("bottom"));
+    setTimeout(() => {
+      document.getElementById("bottom")?.scrollIntoView();
+    }, [100]);
+    // window.setTimeout( function () { top(); }, 2000 );
+  }
+  useEffect(
+    () => {
+      if (isOpen === true) bottom();
+    },
+    [setMessagesdB, isOpen],
+    
+  );
 
   useEffect(() => {
-    bottom();
-  }, [setMessagesdB]);
+    if (isOpen === true) bottom();
+  }, [isOpen]);
 
   useEffect(() => {
     const color = usersData?.filter(
@@ -279,7 +290,7 @@ export default function Menu({ isOpen, setIsOpen, setActive, active }) {
                   </div>
                 ) : null
               )}
-              <div id="bottom" />
+              <div id="bottom" ref={ref} />
             </div>
           </div>
         </Drawer>
