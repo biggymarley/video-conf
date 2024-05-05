@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 const managementToken =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTQyODkyNDQsImV4cCI6MTcxNDg5NDA0NCwianRpIjoiZDU1YTZmZTYtOWZiNS00YjVmLWJmNTUtZmNlZWNhMWIzNDMxIiwidHlwZSI6Im1hbmFnZW1lbnQiLCJ2ZXJzaW9uIjoyLCJuYmYiOjE3MTQyODkyNDQsImFjY2Vzc19rZXkiOiI2NjJhZWIyYWEzZjFjNGM2MGY0NjNiNjYifQ.KHKSHBQC6BXvRtRJdVmMygZQQsIhAmTbK02_7gNowPk";
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTQ5MjI5MzAsImV4cCI6MTcxNjA0NjEzMCwianRpIjoiMzQxZjcwMjItZjk3MC00ZmYxLTk5MGMtY2RiMGQ3Y2NjOGQyIiwidHlwZSI6Im1hbmFnZW1lbnQiLCJ2ZXJzaW9uIjoyLCJuYmYiOjE3MTQ5MjI5MzAsImFjY2Vzc19rZXkiOiI2NjA1YWZjNmJhYmMzM2YwMGU0YWI4NjMifQ.CGc_jPauF7ICrBHRwXQt5Uc73qDSNLvt6DznaV7E338";
 
 const useRoomsHook = () => {
   const [rooms, setRooms] = useState([]);
