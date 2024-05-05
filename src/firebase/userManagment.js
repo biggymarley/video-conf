@@ -207,6 +207,7 @@ export const getRooms = async () => {
     users.forEach((docs) => {
       usersArray = [...usersArray, docs.data()];
     });
+    console.log(usersArray);
     return usersArray;
   } catch (error) {
     console.log(error);

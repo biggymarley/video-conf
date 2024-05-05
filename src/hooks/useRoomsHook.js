@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 const managementToken =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTQ5MjI5MzAsImV4cCI6MTcxNjA0NjEzMCwianRpIjoiMzQxZjcwMjItZjk3MC00ZmYxLTk5MGMtY2RiMGQ3Y2NjOGQyIiwidHlwZSI6Im1hbmFnZW1lbnQiLCJ2ZXJzaW9uIjoyLCJuYmYiOjE3MTQ5MjI5MzAsImFjY2Vzc19rZXkiOiI2NjA1YWZjNmJhYmMzM2YwMGU0YWI4NjMifQ.CGc_jPauF7ICrBHRwXQt5Uc73qDSNLvt6DznaV7E338";
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTQ5MjM3NDMsImV4cCI6MTcxNTUyODU0MywianRpIjoiZDNiZWU3YmItOWY4ZS00NTc3LThhZWUtOThmZmQwZDVjNjA0IiwidHlwZSI6Im1hbmFnZW1lbnQiLCJ2ZXJzaW9uIjoyLCJuYmYiOjE3MTQ5MjM3NDMsImFjY2Vzc19rZXkiOiI2NjA1YWZjNmJhYmMzM2YwMGU0YWI4NjMifQ.f90YwBI-cjW2kHHpApwKSPXc_wprC8Mtx2jAEsvxCDw";
 
 const useRoomsHook = () => {
   const [rooms, setRooms] = useState([]);
@@ -22,10 +22,22 @@ const useRoomsHook = () => {
         body: JSON.stringify({
           name: roomName,
           description: "This is a test room",
-          template_id: "662dfc6ab644c98edca37b91",
+          // template_id: "662dfc6ab644c98edca37b91",
         }),
       });
       const res = await response.json();   
+      const roomcodes = await fetch(
+        `https://api.100ms.live/v2/room-codes/room/${res.id}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${managementToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("res", res);
+      console.log("res", await roomcodes.json());
       const logoUrl = await UploadRoomLogo(res.id, roomLogo.file);
       const room = {
         id: res.id,

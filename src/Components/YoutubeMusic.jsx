@@ -99,10 +99,10 @@ function YoutubeMusic() {
           <img
             src={dj}
             alt="dj"
-            className="w-[120px] h-[120px] rounded-full shadow-md shadow-bg"
+            className="md:w-[120px] md:h-[120px] w-[80px] h-[80px] rounded-full shadow-md shadow-bg"
           />
         </div>
-        <p className="font-sans text-sm  font-light p-2 rounded-md text-center bg-bg/30 m-2 ">
+        <p className="font-sans text-xs md:text-sm  font-light p-2 rounded-md text-center bg-bg/30 m-2 ">
           Type "m!p your song name or youtube url" (without the "") in the chat
           to play your favorite music with your friends.
         </p>

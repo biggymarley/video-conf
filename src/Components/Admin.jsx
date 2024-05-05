@@ -1,15 +1,14 @@
-import { Avatar, Chip } from "@mui/material";
+import { Avatar, Chip, Typography } from "@mui/material";
 import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { RoomsContext, UserContext } from "../Context/UserContext";
-import logo from "../assets/chillGray.png";
-import { GrAddCircle } from "react-icons/gr";
-import useRoomsHook from "../hooks/useRoomsHook";
 import { BiMinusCircle } from "react-icons/bi";
-import { updateProfileRollesRooms } from "../firebase/userManagment";
+import { GrAddCircle } from "react-icons/gr";
 import { LoadingContext } from "../Context/LoadingContext";
+import { UserContext } from "../Context/UserContext";
+import logo from "../assets/chillGray.png";
+import { updateProfileRollesRooms } from "../firebase/userManagment";
+import useRoomsHook from "../hooks/useRoomsHook";
 
 const ShuffleSortTable = () => {
   return (
@@ -133,15 +132,15 @@ const ProfileBox = ({ user, setselectedUser, roomsData }) => {
   const theme = useTheme();
   const defaultContrastThresholdTheme = createTheme({
     palette: {
-      contrastThreshold: 5,
+      contrastThreshold: 100,
     },
   });
 
   const UpdateUserRolesRooms = (room) => {
-    console.log("Updating", [...user.roles, room], user);
+    console.log("Updating", [room], user);
     updateProfileRollesRooms(
       user.uid,
-      [...user.roles, room],
+      [room],
       setAppLoading,
       saveTokenUser,
       saveTokenUsers
@@ -164,8 +163,9 @@ const ProfileBox = ({ user, setselectedUser, roomsData }) => {
               animate={{ scale: 1, rotate: "0deg" }}
               exit={{ scale: 0, rotate: "0deg" }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-gradient-to-br z-[1000] text-white rounded-lg w-full max-w-lg shadow-xl cursor-default relative overflow-hidden h-[500px]"
+              className="bg-gradient-to-br z-[1000]  rounded-lg w-full max-w-lg shadow-xl cursor-default relative overflow-hidden h-[500px]"
             >
+             
               <div className="h-[35%] bg-blue-500">
                 <div>
                   <img
@@ -183,7 +183,7 @@ const ProfileBox = ({ user, setselectedUser, roomsData }) => {
                     src={user?.logoUrl ?? logo}
                     alt="Selected"
                     style={{ maxWidth: "100%" }}
-                    className="absolute top-0 left-0 bottom-0 right-0 rounded-full h-full"
+                    className="absolute w-full top-0 left-0 bottom-0 right-0 rounded-full h-full"
                   />
                 </div>
               </div>
@@ -192,23 +192,25 @@ const ProfileBox = ({ user, setselectedUser, roomsData }) => {
                   style={{ backgroundColor: user.color }}
                   className={`p-2 pb-10  bg-bg w-full rounded-md  flex flex-col gap-1 relative`}
                 >
-                  <span className="hidden">
+                    <span className="hidden">
                     {theme.palette.contrastThreshold}
                   </span>
-                  <p className="font-sans font-bold text-xl  text-end">
+                 
+                  <p style={{color: theme.palette.getContrastText(user.color)}} className="font-sans font-bold text-xl  text-end ">
                     {user?.userName}
                   </p>
 
-                  <p className="font-sans font-light text-md   pb-2 text-end">
+                  <p style={{color: theme.palette.getContrastText(user.color)}} className="font-sans font-light text-md   pb-2 text-end" >
+                    
                     {user?.userName}
                   </p>
-                  <p className="font-sans font-bold text-sm ">ABOUT ME :</p>
-                  <p className="font-sans font-light text-md  border-b-red-50/20 pb-2 border-b-[.5px]">
+                  <p style={{color: theme.palette.getContrastText(user.color)}} className="font-sans font-bold text-sm ">ABOUT ME :</p>
+                  <p style={{color: theme.palette.getContrastText(user.color)}} className="font-sans font-light text-md  border-b-red-50/20 pb-2 border-b-[.5px]">
                     {user?.bio}
                   </p>
                   <div className="flex gap-2 flex-col">
                     <div className="flex gap-2 mt-2 items-center">
-                      <p className=" font-sans text-sm">Rooms & Roles: </p>
+                      <p style={{color: theme.palette.getContrastText(user.color)}} className=" font-sans text-sm">Rooms & Roles: </p>
                       {user?.roles?.map((role, index) => (
                         <Chip
                           key={index}

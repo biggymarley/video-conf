@@ -218,22 +218,38 @@ const ProfileBox = ({ userData, formik }) => {
                 />
               </div>
             </button>
-            <span className="hidden">{theme.palette.contrastThreshold}</span>
 
-            <p className="font-sans font-bold text-xl text-gray-300 text-end">
+            <p
+              style={{ color: theme.palette.getContrastText(userData.color) }}
+              className="font-sans font-bold text-xl text-gray-300 text-end"
+            >
               {userData?.userName}
             </p>
-            <p className="font-sans font-light text-md text-gray-400  pb-2 text-end">
+            <p
+              style={{ color: theme.palette.getContrastText(userData.color) }}
+              className="font-sans font-light text-md text-gray-400  pb-2 text-end"
+            >
               {userData?.userName}
             </p>
-            <p className="font-sans font-bold text-sm text-gray-300">
+            <p
+              style={{ color: theme.palette.getContrastText(userData.color) }}
+              className="font-sans font-bold text-sm text-gray-300"
+            >
               ABOUT ME :
             </p>
-            <p className="font-sans font-light text-md text-gray-400 border-b-red-50/20 pb-2 border-b-[.5px]">
+            <p
+              style={{ color: theme.palette.getContrastText(userData.color) }}
+              className="font-sans font-light text-md text-gray-400 border-b-red-50/20 pb-2 border-b-[.5px]"
+            >
               {userData?.bio}
             </p>
             <div className="flex gap-2 mt-2 items-center flex-wrap">
-              <p className="text-gray-300 font-sans text-sm">Rooms: </p>
+              <p
+                style={{ color: theme.palette.getContrastText(userData.color) }}
+                className="text-gray-300 font-sans text-sm"
+              >
+                Rooms:{" "}
+              </p>
               {userData?.roles?.map((role, index) => (
                 <Chip
                   key={index}
@@ -288,7 +304,7 @@ const ImageUploader = () => {
             src={selectedImageLogo?.preview ?? userData?.logoUrl}
             alt="Selected"
             style={{ maxWidth: "100%" }}
-            className="absolute top-0 left-0 bottom-0 right-0 rounded-full h-full"
+            className="absolute w-full top-0 left-0 bottom-0 right-0 rounded-full h-full"
           />
         </div>
       )}
